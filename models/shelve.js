@@ -18,7 +18,7 @@ const shelveSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    to :{
+    to: {
         type: String,
         default: "me",
     },
