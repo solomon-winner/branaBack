@@ -93,5 +93,7 @@ const bookSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    
+
 });
+
+export const Book = mongoose.model('Book', bookSchema);
