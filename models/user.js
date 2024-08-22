@@ -27,10 +27,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    wishlist: {
-        type: Array,
-        default: []
-    },
     phoneNo: {
         type: String,
         default: ''
