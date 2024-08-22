@@ -57,6 +57,22 @@ const userSchema = new mongoose.Schema({
         type: [String],
         default: []
     },
-});
+    recommendedBooks: {
+        type: [String],
+        default: []
+    },
+    Categories: {
+        type: [String],
+        default: []
+    },
+    authors: {
+        type: [String],
+        default: []
+    },
+    createdAt: {
+        type: Date,
+        default: new Date()
+    },
+    });
 
 export const User = mongoose.model('User', userSchema);
