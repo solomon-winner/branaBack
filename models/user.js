@@ -41,6 +41,18 @@ const userSchema = new mongoose.Schema({
         type: [BankAccountSchema],
         default: []
     },
+    address: {
+        type: [AddressSchema],
+        default: []
+    },
+    orders: {
+        type: Array,
+        default: []
+    },
+    shelve: {
+        type: Array,
+        default: []
+    }
 });
 
 export const User = mongoose.model('User', userSchema);
