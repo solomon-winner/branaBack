@@ -16,7 +16,27 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    role: {
+        type: String,
+        default: 'user'
+    },
+    profilePicture: {
+        type: String,
+        default: ''
+    },
+    wishlist: {
+        type: Array,
+        default: []
+    },
+    phoneNo: {
+        type: String,
+        default: ''
+    },
+    altPhoneNo: {
+        type: String,
+        default: ''
+    },
 });
 
 export const User = mongoose.model('User', userSchema);
