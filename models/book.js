@@ -25,4 +25,20 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    category: {
+        type: String,
+        required: true,
+    },
+    availableBooks: {
+        type: Number,
+        required: true,
+    },
+    language: {
+        type: String,
+        required: true,
+    },
+    pages: {
+        type: Number,
+        required: true,
+    },
 });
