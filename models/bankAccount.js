@@ -11,4 +11,4 @@ const BankAccountSchema = new mongoose.Schema({
     },
     });
 
-export const BankAccount = mongoose.model('User', BankAccountSchema);
+export const BankAccount = mongoose.model('BankAccount', BankAccountSchema);
