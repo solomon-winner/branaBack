@@ -61,4 +61,33 @@ const bookSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
     },
+    isDiscounted: {
+        type: Boolean,
+        default: false,
+    },
+    discount: {
+        type: Number,
+        default: 0,
+    },
+    discountedPrice: {
+        type: Number,
+        default: 0,
+    },
+    isComingSoon: {
+        type: Boolean,
+        default: false,
+    },
+    isPreOrder: {
+        type: Boolean,
+        default: false,
+    },
+    isSoldOut: {
+        type: Boolean,
+        default: false,
+    },
+    isApproaved: {
+        type: Boolean,
+        default: true,
+    },
+    
 });
