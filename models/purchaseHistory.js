@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { BankAccountSchema } from "./bankAccount";
-import { AddressSchema } from "./address"; // Assuming AddressSchema is defined in address.js
+import { AddressSchema } from "./address"; 
 
 const purchaseHistorySchema = new mongoose.Schema({
     book: {
@@ -11,6 +11,7 @@ const purchaseHistorySchema = new mongoose.Schema({
     quantity: {
         type: Number,
         required: true,
+        min: 1,
     },
     customer: {
         type: mongoose.Schema.Types.ObjectId,
@@ -20,14 +21,17 @@ const purchaseHistorySchema = new mongoose.Schema({
     date: {
         type: Date,
         required: true,
+        default: Date.now,
     },
     totalAmount: {
         type: Number,
         required: true,
+        min: 0,
     },
     paymentMethod: {
         type: String,
         required: true,
+        enum: ["cash", "card", "mobile", "bank"],
     },
     deliveryAddress: {
         type: mongoose.Schema.Types.ObjectId,
@@ -42,6 +46,7 @@ const purchaseHistorySchema = new mongoose.Schema({
     status: {
         type: String,
         required: true,
+        enum: ["onTheWay", "completed", "cancelled"],
     },
 });
 

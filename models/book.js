@@ -68,10 +68,12 @@ const bookSchema = new mongoose.Schema({
     discount: {
         type: Number,
         default: 0,
+        min: 0,
     },
     discountedPrice: {
         type: Number,
         default: 0,
+        min: 0,
     },
     isComingSoon: {
         type: Boolean,
