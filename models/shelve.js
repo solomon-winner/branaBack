@@ -14,10 +14,12 @@ const shelveSchema = new mongoose.Schema({
     bookCount: {
         type: Number,
         default: 1,
+        min: 1,
     },
     price: {
         type: Number,
         required: true,
+        min: 0,
     },
     to: {
         type: String,
