@@ -52,7 +52,11 @@ const userSchema = new mongoose.Schema({
     shelve: {
         type: Array,
         default: []
-    }
+    },
+    savedBooks: {
+        type: [String],
+        default: []
+    },
 });
 
 export const User = mongoose.model('User', userSchema);
