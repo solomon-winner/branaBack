@@ -48,11 +48,11 @@ const userSchema = new mongoose.Schema({
         default: []
     },
     orders: {
-        type: Array,
+        type: [String],
         default: []
     },
     shelve: {
-        type: Array,
+        type: [String],
         default: []
     },
     savedBooks: {
