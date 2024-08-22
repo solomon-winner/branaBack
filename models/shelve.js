@@ -22,6 +22,10 @@ const shelveSchema = new mongoose.Schema({
         type: String,
         default: "me",
     },
+    isPaied: {
+        type: Boolean,
+        default: false,
+    },
 
 });
 export const Shelve = mongoose.model("Shelve", shelveSchema);

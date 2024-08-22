@@ -27,6 +27,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    wishList: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "WishList",
+        default: []
+    },
     phoneNo: {
         type: String,
         default: ''
@@ -36,19 +41,18 @@ const userSchema = new mongoose.Schema({
         default: ''
     },
     BankAccount: {
-        type: [BankAccountSchema],
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "BankAccount",
         default: []
     },
     address: {
-        type: [AddressSchema],
-        default: []
-    },
-    orders: {
-        type: [String],
-        default: []
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address",
+        default: null
     },
     shelve: {
-        type: [String],
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Shelve",
         default: []
     },
     savedBooks: {
