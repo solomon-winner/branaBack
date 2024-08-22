@@ -41,4 +41,24 @@ const bookSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    publisher: {
+        type: String,
+        required: true,
+    },
+    year: {
+        type: Number,
+        required: true,
+    },
+    isBestSeller: {
+        type: Boolean,
+        default: false,
+    },
+    isTrending: {
+        type: Boolean,
+        default: false,
+    },
+    isOnSale: {
+        type: Boolean,
+        default: true,
+    },
 });
