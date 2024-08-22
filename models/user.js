@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    BankAccount: {
+        type: [BankAccountSchema],
+        default: []
+    },
 });
 
 export const User = mongoose.model('User', userSchema);
