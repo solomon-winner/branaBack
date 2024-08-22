@@ -89,5 +89,9 @@ const bookSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
     },
+    isBanned: {
+        type: Boolean,
+        default: false,
+    },
     
 });
