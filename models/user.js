@@ -63,19 +63,23 @@ const userSchema = new mongoose.Schema({
         default: []
     }],
     savedBooks: [{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Book",
         default: []
     }],
     recommendedBooks: [{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Book",
         default: []
     }],
     Categories: [{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
         default: []
     }],
     authors: [{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Author",
         default: []
     }],
 }, {timestamps: true,});

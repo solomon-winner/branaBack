@@ -7,12 +7,13 @@ const shelveSchema = new mongoose.Schema({
         required: true,
     },
     title: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Book",
         required: true,
     },
     bookCount: {
         type: Number,
-        required: true,
+        default: 1,
     },
     price: {
         type: Number,

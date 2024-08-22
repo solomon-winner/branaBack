@@ -12,7 +12,7 @@ const wishListSchema = new mongoose.Schema({
     },
     bookCount: {
         type: Number,
-        required: true,
+        default: 1,
     },
     price: {
         type: Number,
