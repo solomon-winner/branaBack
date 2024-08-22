@@ -13,9 +13,9 @@ const wishListSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    isGift: {
-        type: Boolean,
-        default: false,
+    to: {
+        type: String,
+        default: "me",
     },
 });
 

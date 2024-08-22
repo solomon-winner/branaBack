@@ -13,5 +13,10 @@ const shelveSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    to :{
+        type: String,
+        default: "me",
+    },
+
 });
 export const Shelve = mongoose.model("Shelve", shelveSchema);
