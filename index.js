@@ -11,3 +11,5 @@ const port  = 5000;
 
 app.use(bodyParser.json());
 app.use(cors());
+
+const mongoURI = process.env.MONGO_URI;
