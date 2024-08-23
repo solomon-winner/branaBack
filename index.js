@@ -7,9 +7,23 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const port  = 5000;
+const port  = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(cors());
 
 const mongoURI = process.env.MONGO_URI;
+
+mongoose.connect(mongoURI,{useNewURlParser:true,useUnifiedTopology:true})
+.then(()=>console.log('MongoDB connected'))
+.catch(err=>console.log('MongoDB connection error: ',err));
+
+app.get('/',(req,res) => {
+    res.send('Hello World');
+})
+
+app.listen(
+    port, () => {
+        console.log(`Server is running on port ${port}`);
+    }
+)
