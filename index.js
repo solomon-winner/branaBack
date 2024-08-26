@@ -30,8 +30,10 @@ app.get('/',(req,res) => {
     res.send('Hello World');
 })
 
+// app.use('/api/categories', require('./routes/categories'));
+
 app.listen(
     port, () => {
         console.log(`Server is running on port ${port}`);
     }
-)
+);
