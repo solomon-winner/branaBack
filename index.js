@@ -18,10 +18,12 @@ const connectDB = async () => {
     await mongoose.connect(mongoURI)
     console.log('MongoDB connected')
     } catch (error) {
-    console.log('MongoDB connection error: ',error);       
+    console.log('MongoDB connection error: ',error);
+    process.exit(1);    
     }
 };
 
+connectDB();
 
 app.get('/',(req,res) => {
     res.send('Hello World');
