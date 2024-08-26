@@ -7,7 +7,7 @@ const wishListSchema = new mongoose.Schema({
         required: true,
     },
     title: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     bookCount: {
