@@ -13,10 +13,16 @@ app.use(cors());
 
 const mongoURI = process.env.MONGO_URI;
 
-const connectDB = async () => {};
+const connectDB = async () => {
+    try {
 mongoose.connect(mongoURI)
 .then(()=>console.log('MongoDB connected'))
 .catch(err=>console.log('MongoDB connection error: ',err));
+    } catch (error) {
+        
+    }
+};
+
 
 app.get('/',(req,res) => {
     res.send('Hello World');
