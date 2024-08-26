@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import CategoryRoutes from './routes/category.js';
@@ -9,6 +8,7 @@ import BankRoutes from './routes/bankAccount.js';
 import AuthorRoutes from './routes/author.js';
 import AuthRoutes from './routes/authentication.js';
 import AddressRoutes from './routes/address.js';
+import { connectDB } from './connectDB.js';
 
 dotenv.config();
 
@@ -18,20 +18,7 @@ const port  = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
-const mongoURI = process.env.MONGO_URI;
-
-const connectDB = async () => {
-    try {
-    await mongoose.connect(mongoURI)
-    console.log('MongoDB connected')
-    } catch (error) {
-    console.log('MongoDB connection error: ',error.message);
-    console.log('Stack trace: ',error.stack);
-    process.exit(1); 
-    }
-};
-
-connectDB();
+connectDB(mongoURI);
 
 app.get('/',(req,res) => {
     res.send('Hello World');
