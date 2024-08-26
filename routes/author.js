@@ -3,8 +3,8 @@ import {getAuthors,  addAuthors, updateAuthors } from "../controllers/authorCont
 
 const router = express.Router();
 
-router.get("/author", getAuthors);
-router.post("/author", addAuthors);
-router.put("/author:id", updateAuthors);
+router.get("/", getAuthors);
+router.post("/", addAuthors);
+router.put("/:id", updateAuthors);
 
 export default router;
