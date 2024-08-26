@@ -3,8 +3,8 @@ import { addAddress, getAddress, updateAddress } from '../controllers/addressCon
 
 const router = express.Router();
 
-router.post('/create', addAddress);
-router.get('/get', getAddress);
-router.put('/update/:id', updateAddress);
+router.post('/', addAddress);
+router.get('/', getAddress);
+router.put('/:id', updateAddress);
 
 export default router;
