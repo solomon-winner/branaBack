@@ -63,5 +63,9 @@ export const getBooks = async (req, res) => {
     }
 };
 export const updateBook = (req, res) => {
-    
+    try {
+        
+    } catch (error) {
+        
+    }
 };
