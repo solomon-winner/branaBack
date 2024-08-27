@@ -55,6 +55,10 @@ export const addBook = async (req, res) => {
     }
 };
 export const getBooks = (req, res) => {
-
+    try {
+        
+    } catch (error) {
+        
+    }
 };
 export const updateBook = (req, res) => { };
