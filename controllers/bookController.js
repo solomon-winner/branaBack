@@ -54,11 +54,12 @@ export const addBook = async (req, res) => {
         res.status(500).send({ message: error.message })
     }
 };
-export const getBooks = (req, res) => {
+export const getBooks = async (req, res) => {
     try {
-        
+        const books = await Book.find({});
+        return res.status(200).json(books)
     } catch (error) {
-        
+        res.status(500).json({error: 'Internal Server Error!'})
     }
 };
 export const updateBook = (req, res) => { };
