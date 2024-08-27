@@ -62,10 +62,28 @@ export const getBooks = async (req, res) => {
         res.status(500).json({error: 'Internal Server Error!'})
     }
 };
-export const updateBook = (req, res) => {
+export const updateBook = async (req, res) => {
     try {
-        
+        const {id} = req.params;
+        const {
+            title,
+            author,
+            img,
+            category,
+            price,
+            availableBooks,
+            language,
+            pages,
+            publisher,
+            year,
+            description,
+            isPreOrder,
+            isComingSoon,
+        } = req.body;
+        const UpdatedBook = await Book.findByIdAndUpdate(id);
+        res.json(UpdatedBook);
+
     } catch (error) {
-        
+        res.status(500).send({error: 'Internal Server Error!'})
     }
 };
