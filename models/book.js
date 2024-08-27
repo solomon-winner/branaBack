@@ -11,11 +11,11 @@ const bookSchema = new mongoose.Schema({
     },
     img: {
         type: String,
-        required: true,
+        default: "assets\missing_book.PNG",
     },
     rating: {
         type: Number,
-        required: true,
+        default: 0,
     },
     price: {
         type: Number,
