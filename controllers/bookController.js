@@ -15,6 +15,21 @@ export const addBook = (req, res) => {
                 message: 'Enter all required fields!...'
             })
         }
+
+        const newBook = {
+            title: req.body.title,
+            author: req.body.author,
+            category: req.body.category,
+            price: req.body.price,
+            availableBooks: req.body.availableBooks,
+            language: req.body.language,
+            pages: req.body.pages,
+            publisher: req.body.publisher,
+            year: req.body.year,
+            description: req.body.description,
+            img: req.body.img,
+            isPreOrder: req.body.isPreOrder,
+        }
     } catch (error) {
         
     }
