@@ -62,4 +62,6 @@ export const getBooks = async (req, res) => {
         res.status(500).json({error: 'Internal Server Error!'})
     }
 };
-export const updateBook = (req, res) => { };
+export const updateBook = (req, res) => {
+    
+};
