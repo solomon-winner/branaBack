@@ -45,8 +45,11 @@ export const addBook = async (req, res) => {
             newBook.img = req.body.img;
         }
         const book = await Book.create(newBook);
+        return res.status(201).send(book);
+
     } catch (error) {
-        
+        console.log(error.message);
+        res.status(500).send({message: error.message})
     }
 };
 export const getBooks = (req, res) => {
