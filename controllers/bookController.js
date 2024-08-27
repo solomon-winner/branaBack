@@ -1,19 +1,19 @@
-import {Book} from '../models/book.js';
+import { Book } from '../models/book.js';
 
 export const addBook = async (req, res) => {
     try {
         if (!req.body.title ||
-            !req.body.author||
-            !req.body.category||
-            !req.body.price||
-            !req.body.availableBooks||
-            !req.body.language||
-            !req.body.pages||
-            !req.body.year||
+            !req.body.author ||
+            !req.body.category ||
+            !req.body.price ||
+            !req.body.availableBooks ||
+            !req.body.language ||
+            !req.body.pages ||
+            !req.body.year ||
             !req.body.description
-            ) {
+        ) {
             return res.status(400).send({
-                message: `Enter all required fields!... ${req.body.description}`
+                message: `Enter all required fields!...`
             })
         }
 
@@ -40,7 +40,7 @@ export const addBook = async (req, res) => {
             isPreOrder: req.body.isPreOrder,
             isComingSoon: req.body.isComingSoon,
         };
-        if(req.body.img) {
+        if (req.body.img) {
             newBook.img = req.body.img;
         }
         if (req.body.publisher) {
@@ -51,10 +51,10 @@ export const addBook = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
-        res.status(500).send({message: error.message})
+        res.status(500).send({ message: error.message })
     }
 };
 export const getBooks = (req, res) => {
 
 };
-export const updateBook = (req, res) => {};
+export const updateBook = (req, res) => { };
