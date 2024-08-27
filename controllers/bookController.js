@@ -116,6 +116,12 @@ export const updateBook = async (req, res) => {
             isApproaved,
             isBanned
         }
+
+        Object.keys(UpdatedData).forEach(key => {
+            if (!UpdatedData[key]) {
+                delete UpdatedData[key];
+            }
+        });
         const UpdatedBook = await Book.findByIdAndUpdate(id, UpdatedData, {new: true});
         res.json(UpdatedBook);
 
