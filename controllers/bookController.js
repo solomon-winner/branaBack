@@ -69,18 +69,54 @@ export const updateBook = async (req, res) => {
             title,
             author,
             img,
-            category,
+            rating,
             price,
+            description,
+            category,
             availableBooks,
             language,
             pages,
             publisher,
             year,
-            description,
-            isPreOrder,
+            isBestSeller,
+            isTrending,
+            isOnSale,
+            isDiscounted,
+            discount,
+            discountedPrice,
             isComingSoon,
+            isPreOrder,
+            isSoldOut,
+            isApproaved,
+            isBanned
+        
         } = req.body;
-        const UpdatedBook = await Book.findByIdAndUpdate(id);
+        const UpdatedData = {
+            title,
+            author,
+            img,
+            rating,
+            price,
+            description,
+            category,
+            availableBooks,
+            language,
+            pages,
+            publisher,
+            year,
+            isBestSeller,
+            isTrending,
+            isOnSale,
+            isDiscounted,
+            discount,
+            discountedPrice,
+            isComingSoon,
+            isPreOrder,
+            isSoldOut,
+            isApproaved,
+            isBanned
+        }
+        const UpdatedBook = await Book.findByIdAndUpdate(id, UpdatedData, {new: true});
         res.json(UpdatedBook);
 
     } catch (error) {
