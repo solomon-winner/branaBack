@@ -16,6 +16,15 @@ export const addBook = (req, res) => {
             })
         }
 
+        const wordCount = (str) => {
+            return str.split(/\s+/).length;
+        };
+
+        if (wordCount(req.body.description) > 200) {
+            return res.status(400).send({
+                message: 'Description should not exceed 200 words!'
+            })
+        }
         const newBook = {
             title: req.body.title,
             author: req.body.author,
