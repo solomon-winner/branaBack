@@ -36,9 +36,13 @@ export const addBook = (req, res) => {
             publisher: req.body.publisher,
             year: req.body.year,
             description: req.body.description,
-            img: req.body.img,
             isPreOrder: req.body.isPreOrder,
+            isComingSoon: req.body.isComingSoon,
+        };
+        if(req.body.img) {
+            newBook.img = req.body.img;
         }
+
     } catch (error) {
         
     }
