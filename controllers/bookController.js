@@ -2,19 +2,18 @@ import {Book} from '../models/book.js';
 
 export const addBook = async (req, res) => {
     try {
-        if (!req.body.title,
-            !req.body.author,
-            !req.body.category,
-            !req.body.price,
-            !req.body.availableBooks,
-            !req.body.language,
-            !req.body.pages,
-            !req.body.publisher,
-            !req.body.year,
+        if (!req.body.title ||
+            !req.body.author||
+            !req.body.category||
+            !req.body.price||
+            !req.body.availableBooks||
+            !req.body.language||
+            !req.body.pages||
+            !req.body.year||
             !req.body.description
             ) {
             return res.status(400).send({
-                message: 'Enter all required fields!...'
+                message: `Enter all required fields!... ${req.body.description}`
             })
         }
 
@@ -43,6 +42,9 @@ export const addBook = async (req, res) => {
         };
         if(req.body.img) {
             newBook.img = req.body.img;
+        }
+        if (req.body.publisher) {
+            newBook.publisher = req.body.publisher;
         }
         const book = await Book.create(newBook);
         return res.status(201).send(book);
