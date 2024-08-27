@@ -1,4 +1,6 @@
-export const addBook = (req, res) => {
+import {Book} from '../models/book.js';
+
+export const addBook = async (req, res) => {
     try {
         if (!req.body.title,
             !req.body.author,
@@ -42,7 +44,7 @@ export const addBook = (req, res) => {
         if(req.body.img) {
             newBook.img = req.body.img;
         }
-
+        const book = await Book.create(newBook);
     } catch (error) {
         
     }
