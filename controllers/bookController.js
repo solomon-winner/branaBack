@@ -123,6 +123,10 @@ export const updateBook = async (req, res) => {
             }
         });
         const UpdatedBook = await Book.findByIdAndUpdate(id, UpdatedData, {new: true});
+        if (!UpdatedBook) {
+            return res.status(404).send({error: 'Book not found!'})
+        }
+
         res.json(UpdatedBook);
 
     } catch (error) {
