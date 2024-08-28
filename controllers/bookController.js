@@ -92,18 +92,63 @@ export const getBooks = async (req, res) => {
 export const updateBook = async (req, res) => {
     try {
         const {id} = req.params;
-        const {error, value} = JoiBook.validate(req.body, {allowUnknown: false});
-
-        if (error) {
-            return res.status(400).send({error: error.details[0].message})
+        const {
+            title,
+            author,
+            img,
+            rating,
+            price,
+            description,
+            category,
+            availableBooks,
+            language,
+            pages,
+            publisher,
+            year,
+            isBestSeller,
+            isTrending,
+            isOnSale,
+            isDiscounted,
+            discount,
+            discountedPrice,
+            isComingSoon,
+            isPreOrder,
+            isSoldOut,
+            isApproaved,
+            isBanned
+        } = req.body;
+        const UpdatedData = {
+            title,
+            author,
+            img,
+            rating,
+            price,
+            description,
+            category,
+            availableBooks,
+            language,
+            pages,
+            publisher,
+            year,
+            isBestSeller,
+            isTrending,
+            isOnSale,
+            isDiscounted,
+            discount,
+            discountedPrice,
+            isComingSoon,
+            isPreOrder,
+            isSoldOut,
+            isApproaved,
+            isBanned
         }
 
-        Object.keys(value).forEach(key => {
-            if (!value[key]) {
-                delete value[key];
+        Object.keys(UpdatedData).forEach(key => {
+            if (!UpdatedData[key]) {
+                delete UpdatedData[key];
             }
         });
-        const UpdatedBook = await Book.findByIdAndUpdate(id, value, {new: true});
+        const UpdatedBook = await Book.findByIdAndUpdate(id, UpdatedData, {new: true});
         if (!UpdatedBook) {
             return res.status(404).send({error: 'Book not found!'})
         }
