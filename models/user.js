@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import { BankAccountSchema } from './bankAccount.js';
-import { AddressSchema } from './address.js';
 
 const userSchema = new mongoose.Schema({
     firstName: {
