@@ -8,4 +8,5 @@ export const getUsers = async (req, res) => {
     res.status(500).json({error: 'Internal Server Error!'})
 }
 }
+export const getUser = (req,res) => {}
 export const updateUser = (req,res) => {}
