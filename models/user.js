@@ -45,11 +45,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    BankAccounts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "BankAccount",
-        default: []
-    }],
     address: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Address",

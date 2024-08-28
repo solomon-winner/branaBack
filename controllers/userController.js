@@ -43,17 +43,10 @@ export const updateUser = async (req,res) => {
         password,
         role,
         profilePicture,
-        wishList,
         phoneNo,
-        altPhoneNo,
-        BankAccounts,
-        address,
-        shelve ,
-        savedBooks,
-        recommendedBooks,
-        Categories,
-        authors
+        altPhoneNo
     }
+    
     Object.keys(UpdatedData).forEach(key => {
         if (!UpdatedData[key]) {
             delete UpdatedData[key];
