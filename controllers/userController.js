@@ -67,12 +67,12 @@ export const updateUser = async (req,res) => {
 
      Object.assign(user, UpdatedData);
 
-    const updatedUser = await User.save();
+    const updatedUser = await user.save();
     if (!updatedUser) {
         return res.status(404).send({error: 'User not found!'})
     }
     res.json(updatedUser);
     } catch (error) {
-        
+        res.status(500).json({error: 'Internal Server Error!'})
     }
 }
