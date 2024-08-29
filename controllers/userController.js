@@ -64,7 +64,7 @@ export const updateUser = async (req,res) => {
     if (recommendedBooks) user.recommendedBooks.push(...recommendedBooks);
     if (Categories) user.Categories.push(...Categories);
     if (authors) user.authors.push(...authors);
-
+    
      Object.assign(user, UpdatedData);
 
     const updatedUser = await user.save();
