@@ -10,6 +10,7 @@ import AuthRoutes from './routes/authentication.js';
 import AddressRoutes from './routes/address.js';
 import FavouriteAuthorRoutes from './routes/favouriteAuthorRoute.js';
 import FavouriteCategoryRoutes from './routes/favouriteCategoryRoute.js';
+import RecommendedBooksRoutes from './routes/recommendedBooksroute.js';
 
 import { connectDB } from './connectDB.js';
 
@@ -36,6 +37,7 @@ app.use('/api/auth', AuthRoutes);
 app.use('/api/address', AddressRoutes);
 app.use('/api/favouriteauthors', FavouriteAuthorRoutes)
 app.use('/api/favouritecategory', FavouriteCategoryRoutes)
+app.use('/api/recommendedBooks', RecommendedBooksRoutes)
 
 app.listen(
     port, () => {
