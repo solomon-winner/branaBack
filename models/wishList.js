@@ -8,6 +8,7 @@ const wishListSchema = new mongoose.Schema({
     },
     title: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "Book",
         required: true,
     },
     bookCount: {
@@ -19,8 +20,9 @@ const wishListSchema = new mongoose.Schema({
         required: true,
     },
     to: {
-        type: String,
-        default: "me",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        default: "",
     },
 });
 
