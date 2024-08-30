@@ -12,6 +12,7 @@ import FavouriteAuthorRoutes from './routes/favouriteAuthorRoute.js';
 import FavouriteCategoryRoutes from './routes/favouriteCategoryRoute.js';
 import RecommendedBooksRoutes from './routes/recommendedBooksroute.js';
 import SavedBooksRoutes from './routes/savedBookRoute.js';
+import ShelveRoutes from './routes/shelveRoute.js'
 import { connectDB } from './connectDB.js';
 
 dotenv.config();
@@ -39,6 +40,7 @@ app.use('/api/favouriteauthors', FavouriteAuthorRoutes)
 app.use('/api/favouritecategory', FavouriteCategoryRoutes)
 app.use('/api/recommendedBooks', RecommendedBooksRoutes)
 app.use('/api/SavedBooks', SavedBooksRoutes)
+app.use('api/shelve',ShelveRoutes)
 
 app.listen(
     port, () => {
