@@ -9,6 +9,8 @@ import AuthorRoutes from './routes/author.js';
 import AuthRoutes from './routes/authentication.js';
 import AddressRoutes from './routes/address.js';
 import FavouriteAuthorRoutes from './routes/favouriteAuthorRoute.js';
+import FavouriteCategoryRoutes from './routes/favouriteCategoryRoute.js';
+
 import { connectDB } from './connectDB.js';
 
 dotenv.config();
@@ -33,6 +35,8 @@ app.use('/api/authors', AuthorRoutes);
 app.use('/api/auth', AuthRoutes);
 app.use('/api/address', AddressRoutes);
 app.use('/api/favouriteauthors', FavouriteAuthorRoutes)
+app.use('/api/favouritecategory', FavouriteCategoryRoutes)
+
 app.listen(
     port, () => {
         console.log(`Server is running on port ${port}`);
