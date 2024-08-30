@@ -14,7 +14,7 @@ import RecommendedBooksRoutes from './routes/recommendedBooksroute.js';
 import SavedBooksRoutes from './routes/savedBookRoute.js';
 import ShelveRoutes from './routes/shelveRoute.js';
 import WishListRoutes from './routes/wishListRoute.js'
-import { connectDB } from './connectDB.js';
+import { connectDB } from './DBConfig/connectDB.js';
 
 dotenv.config();
 
