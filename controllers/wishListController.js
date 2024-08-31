@@ -3,8 +3,7 @@ import { WishList } from '../models/wishList.js';
 
 export const addWishList = async (req, res) => {
     try {
-        const {id} = req.params;
-        const {bookId, price} = req.body;
+        const {id, bookId, price} = req.body;
 
         const user = await User.findById(id);
 
