@@ -6,7 +6,7 @@ const wishListSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    title: {
+    book: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Book",
         required: true,
