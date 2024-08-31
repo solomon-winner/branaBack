@@ -47,14 +47,45 @@ export const removeShelve = async (req, res) => {
         }
 
         const Deletedbook = await Shelve.findOneAndDelete({ user: id, book: bookId });
-       
+
         if (!book) {
-            res.status(400).send({ error: 'The book is not in shelve' });
+            res.status(404).send({ error: 'The book is not in shelve' });
         }
-        User.shelve.pull(Deletedbook._id);
+        user.shelve.pull(Deletedbook._id);
+        await user.save();
+        res.status(200).send({ message: 'Book removed from your shelve successfully!' })
     } catch (error) {
         res.status(500).send({ error: 'Internal Server Error' });
     }
 }
-export const updateShelve = async (req, res) => { }
-export const PayForShelve = async (req, res) => { }
+export const updateShelve = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { bookId, bookCount, price, to } = req.body;
+        !to ? to = id : to
+
+        const UpdatedData = { bookCount, price, to };
+
+        Object.keys(UpdatedData).forEach(key => {
+            if (!UpdatedData[key]) {
+                delete UpdatedData[key];
+            }
+        });
+
+        const user = User.findById(id)
+        if (!user) {
+            res.status(404).send({ error: 'user not found!' })
+        }
+
+        const updatedBook = await Shelve.findOneAndUpdate({ user: id, book: bookId }, { UpdatedData });
+        if (!updatedBook) {
+            return res.status(404).send({ error: 'Book not found!' })
+        }
+        res.json(updatedBook);
+    } catch (error) {
+        res.status(500).send({ error: 'Internal Server Error' });
+    }
+}
+export const PayForShelve = async (req, res) => {
+
+}
