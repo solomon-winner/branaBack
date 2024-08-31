@@ -87,5 +87,18 @@ export const updateShelve = async (req, res) => {
     }
 }
 export const PayForShelve = async (req, res) => {
+    try {
+        const {id, bookId} = req.body;
+        const user = User.findById(id);
+        const Deletedbook ={}
+        if (bookId) {
 
+            Deletedbook = await Shelve.findOneAndDelete({user: id, book: bookId});
+            user.shelve.pull(Deletedbook._id);
+        } else {
+            
+        }
+    } catch (error) {
+        res.status(500).send({ error: 'Internal Server Error' });
+    }
 }
