@@ -57,14 +57,7 @@ export const updateUser = async (req,res) => {
         return res.status(404).send({error: 'User not found!'})
     }
 
-    if (wishList) user.wishList.push(...wishList);
-    if (BankAccounts) user.BankAccounts.push(...BankAccounts);
-    if (shelve) user.shelve.push(...shelve);
-    if (savedBooks) user.savedBooks.push(...savedBooks);
-    if (recommendedBooks) user.recommendedBooks.push(...recommendedBooks);
-    if (Categories) user.Categories.push(...Categories);
-    if (authors) user.authors.push(...authors);
-    
+
      Object.assign(user, UpdatedData);
 
     const updatedUser = await user.save();
