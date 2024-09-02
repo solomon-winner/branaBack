@@ -1,5 +1,6 @@
 import { User } from "../models/user.js";
 import { Shelve } from "../models/shelve.js";
+import { Book } from "../models/book.js";
 
 export const addShelve = async (req, res) => {
 
@@ -41,16 +42,17 @@ export const removeShelve = async (req, res) => {
         const { bookId } = req.body;
 
         const user = await User.findById(id);
+        const book = await Book.findById(bookId);
 
         if (!user) {
-            res.status(400).send({ error: 'user not found' })
+           return res.status(400).send({ error: 'user not found' })
         }
-
-        const Deletedbook = await Shelve.findOneAndDelete({ user: id, book: bookId });
-
         if (!book) {
-            res.status(404).send({ error: 'The book is not in shelve' });
+           return res.status(404).send({ error: 'The book is not in shelve' });
         }
+        const Deletedbook = await Shelve.deleteMany({ user: id});
+
+
         user.shelve.pull(Deletedbook._id);
         await user.save();
         res.status(200).send({ message: 'Book removed from your shelve successfully!' })
