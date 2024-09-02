@@ -39,20 +39,13 @@ export const addShelve = async (req, res) => {
 export const removeShelve = async (req, res) => {
     try {
         const { id } = req.params;
-        const { bookId } = req.body;
-
         const user = await User.findById(id);
-        const book = await Book.findById(bookId);
 
         if (!user) {
            return res.status(400).send({ error: 'user not found' })
         }
-        if (!book) {
-           return res.status(404).send({ error: 'The book is not in shelve' });
-        }
+
         const Deletedbook = await Shelve.deleteMany({ user: id});
-
-
         user.shelve.pull(Deletedbook._id);
         await user.save();
         res.status(200).send({ message: 'Book removed from your shelve successfully!' })
@@ -60,6 +53,7 @@ export const removeShelve = async (req, res) => {
         res.status(500).send({ error: 'Internal Server Error' });
     }
 }
+
 export const updateShelve = async (req, res) => {
     try {
         const { id } = req.params;
