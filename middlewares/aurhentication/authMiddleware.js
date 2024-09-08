@@ -3,4 +3,9 @@ export const AuthMiddleware = async (req,res, next) => {
     if (!token) {
         return res.status(401).send({error: 'No token, Authorization denied!'});
     }
+    try {
+
+    } catch (error) {
+        
+    }
 }
