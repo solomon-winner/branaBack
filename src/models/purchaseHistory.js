@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import { BankAccountSchema } from "./bankAccount";
-import { AddressSchema } from "./address"; 
 
 const purchaseHistorySchema = new mongoose.Schema({
     book: {
