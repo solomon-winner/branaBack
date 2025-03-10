@@ -1,20 +1,20 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import CategoryRoutes from './routes/category.js';
-import UserRoutes from './routes/user.js';
-import BookRoutes from './routes/book.js';
-import BankRoutes from './routes/bankAccount.js';
-import AuthorRoutes from './routes/author.js';
-import AuthRoutes from './routes/authentication.js';
-import AddressRoutes from './routes/address.js';
-import FavouriteAuthorRoutes from './routes/favouriteAuthorRoute.js';
-import FavouriteCategoryRoutes from './routes/favouriteCategoryRoute.js';
-import RecommendedBooksRoutes from './routes/recommendedBooksroute.js';
-import SavedBooksRoutes from './routes/savedBookRoute.js';
-import ShelveRoutes from './routes/shelveRoute.js';
-import WishListRoutes from './routes/wishListRoute.js'
-import { connectDB } from './DBConfig/connectDB.js';
+import CategoryRoutes from './src/routes/category.js';
+import UserRoutes from './src/routes/user.js';
+import BookRoutes from './src/routes/book.js';
+import BankRoutes from './src/routes/bankAccount.js';
+import AuthorRoutes from './src/routes/author.js';
+import AuthRoutes from './src/routes/authentication.js';
+import AddressRoutes from './src/routes/address.js';
+import FavouriteAuthorRoutes from './src/routes/favouriteAuthorRoute.js';
+import FavouriteCategoryRoutes from './src/routes/favouriteCategoryRoute.js';
+import RecommendedBooksRoutes from './src/routes/recommendedBooksroute.js';
+import SavedBooksRoutes from './src/routes/savedBookRoute.js';
+import ShelveRoutes from './src/routes/shelveRoute.js';
+import WishListRoutes from './src/routes/wishListRoute.js'
+import { connectDB } from './src/DBConfig/connectDB.js';
 
 dotenv.config();
 
