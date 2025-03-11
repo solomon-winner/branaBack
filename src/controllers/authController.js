@@ -21,6 +21,8 @@ export const register = async (req, res) => {
         phoneNo,
         altPhoneNo
     });
+    
+    ResponseHelper.success(res, 'User Registered successfully', user, 201);
 
     } catch (error) {
         next(error);
