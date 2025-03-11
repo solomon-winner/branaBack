@@ -1,5 +1,4 @@
 import bcrypt from 'bcryptjs';
-import Config from '../config.js';
 
 export const Encryptor = {
     hashPassword: async (password, saltRounds = 10) => {

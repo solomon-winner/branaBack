@@ -1,4 +1,3 @@
-import bcrypt from 'bcryptjs';
 import { User } from '../models/user.model.js';
 import Config from '../config.js';
 import { Encryptor } from './Encryptor.service.js';
