@@ -1,5 +1,5 @@
 import { User } from '../models/user.model.js';
-import Config from '../config.js';
+import Config from '../../../config.js';
 import { Encryptor } from './Encryptor.service.js';
 
 export const AuthService = {

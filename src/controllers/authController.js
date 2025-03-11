@@ -1,5 +1,4 @@
 import { UserDTOForUser } from '../DTOS/userDTO/userdtoForUser.dto.js';
-import  { User } from '../models/user.js';
 import { AuthService } from '../services/authentication/auth.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
 
