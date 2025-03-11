@@ -22,6 +22,10 @@ export const register = async (req, res, next) => {
         altPhoneNo
     });
 
+    if (!user) {
+        return ResponseHelper.error(res, 'User creation failed', [], 500);
+    }
+    
     ResponseHelper.success(res, 'User Registered successfully', UserDTOForUser(user), 201);
 
     } catch (error) {
