@@ -1,4 +1,4 @@
-import ResponseHelper from './responseHelper.js';
+import ResponseHelper from '../utils/responseHelper.js';
 import { ValidationError } from 'express-validation';
 import createError from 'http-errors';
 import jwt from 'jsonwebtoken';

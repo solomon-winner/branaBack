@@ -16,7 +16,7 @@ import ShelveRoutes from './src/routes/shelveRoute.js';
 import WishListRoutes from './src/routes/wishListRoute.js'
 import { connectDB } from './src/DBConfig/connectDB.js';
 import { specs, swaggerUi } from './src/DBconfig/swaggerConfig.js';
-import { errorHandler } from './src/utils/errorHandler.js';
+import { errorHandler } from './src/middlewares/errorHandler.js';
 
 dotenv.config();
 
