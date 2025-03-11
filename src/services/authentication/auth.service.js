@@ -1,4 +1,4 @@
-import { User } from '../models/user.model.js';
+import { User } from '../../models/user.js';
 import Config from '../../../config.js';
 import { Encryptor } from './Encryptor.service.js';
 
