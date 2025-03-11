@@ -1,9 +1,10 @@
+import { UserDTOForUser } from '../DTOS/userDTO/userdtoForUser.dto.js';
 import  { User } from '../models/user.js';
 import { AuthService } from '../services/authentication/auth.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
 
 export const login = (req, res, next) => {}
-export const register = async (req, res) => {
+export const register = async (req, res, next) => {
     try {
         const { firstName, lastName, email, password, phoneNo, altPhoneNo } = req.body;
 
@@ -21,8 +22,8 @@ export const register = async (req, res) => {
         phoneNo,
         altPhoneNo
     });
-    
-    ResponseHelper.success(res, 'User Registered successfully', user, 201);
+
+    ResponseHelper.success(res, 'User Registered successfully', UserDTOForUser(user), 201);
 
     } catch (error) {
         next(error);
