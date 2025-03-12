@@ -17,6 +17,7 @@ import WishListRoutes from './src/routes/wishListRoute.js'
 import { connectDB } from './src/DBConfig/connectDB.js';
 import { specs, swaggerUi } from './src/DBconfig/swaggerConfig.js';
 import { errorHandler } from './src/middlewares/errorHandler.js';
+import { TokenService } from './src/services/TokenService/token.service.js';
 
 dotenv.config();
 
@@ -48,7 +49,7 @@ app.use('/api/savedBooks', SavedBooksRoutes)
 app.use('api/shelve',ShelveRoutes)
 app.use('api/wishlist', WishListRoutes)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-
+TokenService.validateSecrets();
 app.use(errorHandler);
 
 app.listen(

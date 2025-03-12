@@ -1,10 +1,12 @@
 import { UserDTOForUser } from '../DTOS/userDTO/userdtoForUser.dto.js';
 import { AuthService } from '../services/authentication/auth.service.js';
-import { generateRefreshToken, generateToken } from '../services/TokenService/tokenGenerater.service.js';
+import { Encryptor } from '../services/authentication/Encryptor.service.js';
+import { TokenService } from '../services/TokenService/token.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
 
 export const login = async (req, res, next) => {
     try {
+        
         const { email, password } = req.body;
         
         if (!email || !password) {
@@ -16,23 +18,20 @@ export const login = async (req, res, next) => {
         if (!user) {
             return ResponseHelper.error(res, 'Invalid Credentials!', [], 404);
         }
-
-        const isPasswordMatch = await AuthService.comparePassword(password, user.password);
+        
+        const isPasswordMatch = await Encryptor.comparePassword(password, user.password);
         
         if (!isPasswordMatch) {
-            return ResponseHelper.error(res, 'Invalid password', [], 400);
+            return ResponseHelper.error(res, 'Invalid Credentials', [], 400);
         }
 
-        const accessToken = generateToken(user);
-        const refreshToken = generateRefreshToken();
-        
-        await TokenService.storeRefreshToken({
-            userId: user.id,
-            tokenHash: hashToken(refreshToken), 
-            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-            userAgent: req.get('User-Agent'),
-            ipAddress: req.ip
-          });
+        const accessToken = TokenService.generateAccessToken(user);
+        const refreshToken = await TokenService.generateAndStoreRefreshToken(
+            user,
+            req.ip,
+            req.get('User-Agent')
+          );
+
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
             secure: true,
@@ -47,7 +46,7 @@ export const login = async (req, res, next) => {
             maxAge: 7 * 24 * 60 * 60 * 1000 
           });
 
-        ResponseHelper.success(res, 'Login successful', { token, user: new UserDTOForUser(user) }, 200);
+        ResponseHelper.success(res, 'Login successful', new UserDTOForUser(user) , 200);
     } catch (error) {
         next(error);
     }
