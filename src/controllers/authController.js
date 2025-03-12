@@ -1,6 +1,6 @@
 import { UserDTOForUser } from '../DTOS/userDTO/userdtoForUser.dto.js';
 import { AuthService } from '../services/authentication/auth.service.js';
-import { generateToken } from '../services/authentication/tokenGenerater.service.js';
+import { generateRefreshToken, generateToken } from '../services/TokenService/tokenGenerater.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
 
 export const login = async (req, res, next) => {
@@ -23,7 +23,30 @@ export const login = async (req, res, next) => {
             return ResponseHelper.error(res, 'Invalid password', [], 400);
         }
 
-        const token = generateToken(user);
+        const accessToken = generateToken(user);
+        const refreshToken = generateRefreshToken();
+        
+        await TokenService.storeRefreshToken({
+            userId: user.id,
+            tokenHash: hashToken(refreshToken), 
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            userAgent: req.get('User-Agent'),
+            ipAddress: req.ip
+          });
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Lax', 
+            maxAge: 15 * 60 * 1000 
+          });
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000 
+          });
+
         ResponseHelper.success(res, 'Login successful', { token, user: new UserDTOForUser(user) }, 200);
     } catch (error) {
         next(error);
