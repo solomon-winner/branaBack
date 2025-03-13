@@ -20,7 +20,14 @@ import { errorHandler } from './src/middlewares/errorHandler.js';
 import { TokenService } from './src/services/TokenService/token.service.js';
 
 dotenv.config();
-
+try {
+    TokenService.validateSecrets(); 
+  } catch (error) {
+    logger.error('FATAL: Invalid JWT configuration');
+    logger.error(error);
+    process.exit(1); 
+  }
+  
 const app = express();
 const port  = process.env.PORT || 5000;
 
@@ -49,7 +56,6 @@ app.use('/api/savedBooks', SavedBooksRoutes)
 app.use('api/shelve',ShelveRoutes)
 app.use('api/wishlist', WishListRoutes)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-TokenService.validateSecrets();
 app.use(errorHandler);
 
 app.listen(
