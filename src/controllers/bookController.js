@@ -1,21 +1,7 @@
 import { Book } from '../models/book.js';
 
-export const addBook = async (req, res) => {
+export const addBook = async (req, res, next) => {
     try {
-        if (!req.body.title ||
-            !req.body.author ||
-            !req.body.category ||
-            !req.body.price ||
-            !req.body.availableBooks ||
-            !req.body.language ||
-            !req.body.pages ||
-            !req.body.year ||
-            !req.body.description
-        ) {
-            return res.status(400).send({
-                message: `Enter all required fields!...`
-            })
-        }
 
         const wordCount = (str) => {
             return str.split(/\s+/).length;
@@ -50,10 +36,10 @@ export const addBook = async (req, res) => {
         return res.status(201).send(book);
 
     } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message })
+        next(error);
     }
 };
+
 export const getBooks = async (req, res) => {
     try {
         const books = await Book.find({});

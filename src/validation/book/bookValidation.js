@@ -5,7 +5,9 @@ const JoiBook = Joi.object({
     title: Joi.string().required().messages({
         'any.required': 'Title is required',
     }),
-    author: Joi.string().required(),
+    author: Joi.string().required().messages({
+        'any.required': 'Title is required',
+    }),
     img: Joi.string().optional(),
     rating: Joi.number().required(),
     price: Joi.number().required(),
