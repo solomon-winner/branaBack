@@ -75,7 +75,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /books:
+ * /api/books:
  *   get:
  *     summary: Get all books
  *     tags: [Books]
@@ -109,7 +109,7 @@ router.get("/", getBooks);
 
 /**
  * @swagger
- * /books:
+ * /api/books:
  *   post:
  *     summary: Add a new book
  *     tags: [Books]
@@ -133,7 +133,7 @@ router.post("/", addBook);
 
 /**
  * @swagger
- * /books/{id}:
+ * /api/books/{id}:
  *   put:
  *     summary: Update a book by ID
  *     tags: [Books]
