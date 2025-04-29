@@ -8,8 +8,7 @@ import BankRoutes from './src/routes/bankAccount.js';
 import AuthorRoutes from './src/routes/author.js';
 import AuthRoutes from './src/routes/authentication.js';
 import AddressRoutes from './src/routes/address.js';
-import FavouriteAuthorRoutes from './src/routes/favouriteAuthorRoute.js';
-import FavouriteCategoryRoutes from './src/routes/favouriteCategoryRoute.js';
+import FavouriteRoutes from './src/routes/favouriteRoute.js';
 import RecommendedBooksRoutes from './src/routes/recommendedBooksroute.js';
 import SavedBooksRoutes from './src/routes/savedBookRoute.js';
 import ShelveRoutes from './src/routes/shelveRoute.js';
@@ -49,8 +48,7 @@ app.use('/api/bank', BankRoutes);
 app.use('/api/authors', AuthorRoutes);
 app.use('/api/auth', AuthRoutes);
 app.use('/api/address', AddressRoutes);
-app.use('/api/favouriteauthors', FavouriteAuthorRoutes)
-app.use('/api/favouritecategory', FavouriteCategoryRoutes)
+app.use('/api/favourite', FavouriteRoutes)
 app.use('/api/recommendedBooks', RecommendedBooksRoutes)
 app.use('/api/savedBooks', SavedBooksRoutes)
 app.use('api/shelve',ShelveRoutes)
