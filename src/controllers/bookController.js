@@ -1,4 +1,5 @@
 import { Book } from '../models/book.js';
+import ResponseHelper from '../utils/responseHelper.js';
 
 export const addBook = async (req, res, next) => {
     try {
@@ -40,12 +41,16 @@ export const addBook = async (req, res, next) => {
     }
 };
 
-export const getBooks = async (req, res) => {
+export const getBooks = async (req, res, next) => {
     try {
-        const books = await Book.find({});
-        return res.status(200).json(books)
+
+        const { page, limit, genre } = req.query;
+        const books = await getBooksService({ page, limit, genre });
+        
+        return ResponseHelper.success(res, 'Books retrieved successfully', books, 200);
+
     } catch (error) {
-        res.status(500).json({error: 'Internal Server Error!'})
+        next(error);
     }
 };
 
