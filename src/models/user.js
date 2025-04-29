@@ -32,11 +32,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    wishList: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "WishList",
-        default: []
-    }],
     phoneNo: {
         type: String,
         default: ''
@@ -50,31 +45,7 @@ const userSchema = new mongoose.Schema({
         ref: "Address",
         default: null
     },
-    shelve: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Shelve",
-        default: []
-    }],
-    savedBooks: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Book",
-        default: []
-    }],
-    recommendedBooks: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Book",
-        default: []
-    }],
-    Categories: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-        default: []
-    }],
-    authors: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Author",
-        default: []
-    }],
+
 }, {timestamps: true,});
 
 export const User = mongoose.model('User', userSchema);
