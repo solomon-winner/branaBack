@@ -32,21 +32,21 @@ export const login = async (req, res, next) => {
             req.get('User-Agent')
           );
 
-        res.cookie('accessToken', accessToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'Lax', 
-            maxAge: 15 * 60 * 1000 
-          });
+        // res.cookie('accessToken', accessToken, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     sameSite: 'Lax', 
+        //     maxAge: 15 * 60 * 1000 
+        //   });
 
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'Strict',
-            maxAge: 7 * 24 * 60 * 60 * 1000 
-          });
+        // res.cookie('refreshToken', refreshToken, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     sameSite: 'Strict',
+        //     maxAge: 7 * 24 * 60 * 60 * 1000 
+        //   });
 
-        ResponseHelper.success(res, 'Login successful', new UserDTOForUser(user) , 200);
+        ResponseHelper.success(res, 'Login successful', {user: new UserDTOForUser(user),accessToken, refreshToken,} , 200);
     } catch (error) {
         next(error);
     }
