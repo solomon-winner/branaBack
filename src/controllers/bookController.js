@@ -1,3 +1,4 @@
+import { BookDTOForUser } from '../DTOS/bookDTO/bookdtoForUser.dto.js';
 import { Book } from '../models/book.js';
 import ResponseHelper from '../utils/responseHelper.js';
 
@@ -46,8 +47,9 @@ export const getBooks = async (req, res, next) => {
 
         const { page, limit, genre } = req.query;
         const books = await getBooksService({ page, limit, genre });
-        
-        return ResponseHelper.success(res, 'Books retrieved successfully', books, 200);
+        const booksDtos = books.map((book) => new BookDTOForUser(book));
+
+        return ResponseHelper.success(res, 'Books retrieved successfully',booksDtos , 200);
 
     } catch (error) {
         next(error);
