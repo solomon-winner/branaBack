@@ -1,3 +1,4 @@
+import { authorFavouriteDto } from "../DTOS/favouriteDTO/author.dto";
 import { FavouriteService } from "../services/Favourites/favourites.service";
 import ResponseHelper from "../utils/responseHelper";
 
@@ -6,7 +7,8 @@ export const getFavouriteAuthor = async (req, res, next) => {
         const { userId } = req.params;
         const {authorId} = req.body;
         const favourite = await FavouriteService.getFavouriteAuthor(userId, authorId);
-        return ResponseHelper.success(res, 'Favourite author retrieved successfully', favourite, 200);
+        const favouriteDtos = favourite.map((favourite) => new authorFavouriteDto(favourite));
+        return ResponseHelper.success(res, 'Favourite author retrieved successfully', favouriteDtos, 200);
     } catch (error) {
         next(error);
     }

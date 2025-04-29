@@ -9,11 +9,12 @@ const favouriteSchema = new mongoose.Schema(
     },
     targetId: {
       type: mongoose.Schema.Types.ObjectId,
+      refPath: 'targetType',
       required: true,
     },
     targetType: {
       type: String,
-      enum: ['book', 'author', 'category'],
+      enum: ['Book', 'Author', 'Category'],
       required: true,
     },
   },
