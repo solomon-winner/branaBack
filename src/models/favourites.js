@@ -22,6 +22,4 @@ const favouriteSchema = new mongoose.Schema(
 
 favouriteSchema.index({ userId: 1, targetId: 1, targetType: 1 }, { unique: true });
 
-const Favourite = mongoose.model('Favourite', favouriteSchema);
-
-export default Favourite;
+export const Favourite = mongoose.model('Favourite', favouriteSchema);
