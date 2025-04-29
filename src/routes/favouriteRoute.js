@@ -1,6 +1,9 @@
 import express from "express";
 import { addFavouriteCategory, 
     removeFavouriteCategory, 
+    getFavouriteCategory,
+    getFavouriteBook,
+    getFavouriteAuthor,
     addFavouriteBook, 
     removeFavouriteBook, 
     addFavouriteAuthor, 
@@ -8,12 +11,15 @@ import { addFavouriteCategory,
 
 const router = express.Router();
 
-router.post("/", addFavouriteCategory);
-router.delete("/:id", removeFavouriteCategory);
-router.post("/", addFavouriteBook);
-router.delete("/:id", removeFavouriteBook);
-router.post("/", addFavouriteAuthor);
-router.delete("/:id", removeFavouriteAuthor);
+router.get("/category", getFavouriteCategory);
+router.get("/book", getFavouriteBook);
+router.get("/author", getFavouriteAuthor);
+router.post("/category", addFavouriteCategory);
+router.delete("/category/:id", removeFavouriteCategory);
+router.post("/book", addFavouriteBook);
+router.delete("/book/:id", removeFavouriteBook);
+router.post("/author", addFavouriteAuthor);
+router.delete("/author/:id", removeFavouriteAuthor);
 
 export default router;
 
