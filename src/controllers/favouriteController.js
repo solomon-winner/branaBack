@@ -1,6 +1,12 @@
+import { FavouriteService } from "../services/Favourites/favourites.service";
+import ResponseHelper from "../utils/responseHelper";
+
 export const getFavouriteAuthor = async (req, res, next) => {
     try {
-        
+        const { userId } = req.params;
+        const {authorId} = req.body;
+        const favourite = await FavouriteService.getFavouriteAuthor(userId, authorId);
+        return ResponseHelper.success(res, 'Favourite author retrieved successfully', favourite, 200);
     } catch (error) {
         next(error);
     }
