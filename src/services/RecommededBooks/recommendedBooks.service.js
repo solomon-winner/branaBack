@@ -1,7 +1,8 @@
+import { bookFavouriteDto } from "../../DTOS/favouriteDTO/book.dto";
 import { UserCollections } from "../../models/userCollections"
 
 export const RecomendedBooksService = {
-    getRecomendedBooks: async (userId) => {
+    getRecommendedBooks: async (userId) => {
         try{
         const result = await UserCollections.find({ userId, collectionType: 'recommended' }).populate('targetId', 'title author img');
         if (!result) {
@@ -13,15 +14,16 @@ export const RecomendedBooksService = {
         }
        
     },
-    addRecomendedBooks: async (userId, bookId, reason) => {
+    addRecommendedBooks: async (userId, bookId, reason) => {
         try {
-            const recommendedBook = await UserCollections.create({ userId, targetId: bookId, targetType: 'Book', collectionType: 'recommended', reason });
-            return recommendedBook;
+            const recommendedBook = (await UserCollections.create({ userId, targetId: bookId, targetType: 'Book', collectionType: 'recommended', reason })).toObject();
+
+            return new bookFavouriteDto(recommendedBook);
         } catch (error) {
             throw new Error('Error adding recommended book: ' + error.message);
         }
     },
-    removeRecomendedBooks: async (userId, bookId) => {
+    removeRecommendedBooks: async (userId, bookId) => {
         try {
             const removedBook = await UserCollections.deleteOne({ userId,
                 targetId: bookId,
@@ -31,7 +33,7 @@ export const RecomendedBooksService = {
             if (removedBook.deletedCount === 0) {
                 throw new Error('No recommended book found to remove.');
             }
-            return removedBook;
+            return new bookFavouriteDto(removedBook);
         } catch (error) {
             throw new Error('Error removing recommended book: ' + error.message);
         }
