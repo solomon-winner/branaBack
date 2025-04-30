@@ -1,5 +1,5 @@
 import express from "express";
-import { addRecommendedBooks, removeRecommendedBooks } from "../controllers/recommendedBooksController.js";
+import { addRecommendedBooks, removeRecommendedBooks, getRecommendedBooks } from "../controllers/recommendedBooksController.js";
 
 const router = express.Router();
 /**
@@ -43,7 +43,27 @@ const router = express.Router();
  */
  
  router.post("/", addRecommendedBooks);
+/**
+ * @swagger
+ * /api/recommendedBooks:
+ *    get:
+ *      summary: Get recommended books for a user
+ *      tags: [RecommendedBooks]
+ *      parameters:
+ *        - in: query
+ *          name: userId
+ *          schema:
+ *             type: string
+ *             required: true
+ *             description: ID of the user
+ *      responses:
+ *         200:
+ *           description: Recommended books retrieved successfully
+ *         400:
+ *           description: Bad request, invalid input data
+ */
 
+ router.get("/", getRecommendedBooks);
 /**
  * @swagger
  * /api/recommendedBooks/{id}:
