@@ -48,7 +48,7 @@ app.use('/api/bank', BankRoutes);
 app.use('/api/authors', AuthorRoutes);
 app.use('/api/auth', AuthRoutes);
 app.use('/api/address', AddressRoutes);
-app.use('/api/favourite', FavouriteRoutes)
+app.use('/api/favourites', FavouriteRoutes)
 app.use('/api/recommendedBooks', RecommendedBooksRoutes)
 app.use('/api/savedBooks', SavedBooksRoutes)
 app.use('api/shelve',ShelveRoutes)
