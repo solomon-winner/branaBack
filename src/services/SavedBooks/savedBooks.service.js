@@ -21,6 +21,7 @@ addSavedBooks: async (userId, bookId) => {
         throw new Error('Error adding saved book: ' + error.message);
     }
 },
+
 removeSavedBooks: async (userId, bookId) => {
     try {
         const removedBook = await UserCollections.deleteOne({ userId, targetId: bookId, targetType: 'Book', collectionType: 'saved' });
@@ -31,6 +32,6 @@ removeSavedBooks: async (userId, bookId) => {
     } catch (error) {
         throw new Error('Error removing saved book: ' + error.message);
     }   
-},
+ },
 
 };
