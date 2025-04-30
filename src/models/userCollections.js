@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const favouriteSchema = new mongoose.Schema(
+const UserCollectionsSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -31,6 +31,6 @@ const favouriteSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-favouriteSchema.index({ userId: 1, targetId: 1, targetType: 1 }, { unique: true });
+UserCollectionsSchema.index({ userId: 1, targetId: 1, targetType: 1 }, { unique: true });
 
-export const Favourite = mongoose.model('Favourite', favouriteSchema);
+export const UserCollections = mongoose.model('UserCollections', UserCollectionsSchema);
