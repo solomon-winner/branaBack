@@ -1,4 +1,3 @@
-import { getFavouriteAuthor } from "../../controllers/favouriteController.js";
 import { Favourite } from "../../models/favourites.js";
 
 export const FavouriteService = {
@@ -12,7 +11,7 @@ export const FavouriteService = {
     },
     getFavouriteAuthor: async (userId) => {
         try {
-            const favourites = await Favourite.find({userId , targetType: 'Author'}).populate('targetId', 'name img').select( '- __v' ).lean();
+            const favourites = await Favourite.find({userId , targetType: 'Author'}).populate('targetId', 'name img').select( '-__v' ).lean();
             return favourites;
         
         } catch (error) {
@@ -29,7 +28,7 @@ export const FavouriteService = {
     },
     getFavouriteBook: async (userId) => {
         try {
-            const favourites = await Favourite.find({userId , targetType: 'Book'}).populate('targetId', 'title img').select( '- __v' ).lean();
+            const favourites = await Favourite.find({userId , targetType: 'Book'}).populate('targetId', 'title img').select( '-__v' ).lean();
             return favourites;
         } catch (error) {
             throw new Error("Error fetching favourite books");
@@ -71,10 +70,11 @@ export const FavouriteService = {
 
     getFavouriteCategory: async (userId) => {
         try {
-            const favourites = await Favourite.find({userId , targetType: 'Category'}).select( '- __v' ).lean();
+            const favourites = await Favourite.find({userId , targetType: 'Category'}).select( '-__v' ).lean();
             return favourites;
         } catch (error) {
-            throw new Error("Error fetching favourite categories");
+            throw error;
+            ;
         }
     },
 };
