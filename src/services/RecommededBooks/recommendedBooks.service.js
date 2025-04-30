@@ -1,5 +1,5 @@
-import { bookFavouriteDto } from "../../DTOS/favouriteDTO/book.dto";
-import { UserCollections } from "../../models/userCollections"
+import { bookFavouriteDto } from "../../DTOS/favouriteDTO/book.dto.js";
+import { UserCollections } from "../../models/userCollections.js"
 
 export const RecomendedBooksService = {
     getRecommendedBooks: async (userId) => {

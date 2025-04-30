@@ -1,4 +1,4 @@
-import { RecomendedBooksService } from "../services/RecommededBooks/recommendedBooks.service";
+import { RecomendedBooksService } from "../services/RecommededBooks/recommendedBooks.service.js";
 
 export const getRecommendedBooks = async (req, res, next) => {
     try {
