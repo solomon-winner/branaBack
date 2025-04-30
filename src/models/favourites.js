@@ -14,8 +14,18 @@ const favouriteSchema = new mongoose.Schema(
     },
     targetType: {
       type: String,
-      enum: ['Book', 'Author', 'Category'],
+      enum: ['Book', 'Author', 'Category', 'savedBooks','recommendedBooks'],
       required: true,
+    },
+    reason:{
+      type: String,
+      required: function () {
+        return this.targetType === 'recommendedBooks';
+      },
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true }
