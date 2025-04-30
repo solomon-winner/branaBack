@@ -14,23 +14,33 @@ const UserCollectionsSchema = new mongoose.Schema(
     },
     targetType: {
       type: String,
-      enum: ['Book', 'Author', 'Category', 'savedBooks','recommendedBooks'],
+      enum: ['Book', 'Author', 'Category'],
       required: true,
     },
-    reason:{
+    collectionType: {
       type: String,
+      enum: ['favourite', 'saved', 'recommended', 'wishlist'],
+      required: true,
+    },
+    price: {
+      type: Number,
       required: function () {
-        return this.targetType === 'recommendedBooks';
+        return this.collectionType === 'wishlist';
       },
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
+    reason: {
+      type: String,
+      required: function () {
+        return this.collectionType === 'recommended';
+      },
     },
   },
   { timestamps: true }
 );
 
-UserCollectionsSchema.index({ userId: 1, targetId: 1, targetType: 1 }, { unique: true });
+UserCollectionsSchema.index(
+  { userId: 1, targetId: 1, targetType: 1, collectionType: 1 },
+  { unique: true }
+);
 
 export const UserCollections = mongoose.model('UserCollections', UserCollectionsSchema);
