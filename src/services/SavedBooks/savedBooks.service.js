@@ -1,7 +1,8 @@
-import { UserCollections } from "../../models/userCollections";
+import { UserCollections } from "../../models/userCollections.js";
+import { bookFavouriteDto } from "../../DTOS/favouriteDTO/book.dto.js";
 
 export const SavedBooksService = {
-
+    
 getSavedBooks: async (userId) => {
     try{
         const savedBooks = await UserCollections.find({ userId, collectionType: 'saved' }).populate('targetId', 'title author img');
@@ -16,7 +17,7 @@ getSavedBooks: async (userId) => {
 addSavedBooks: async (userId, bookId) => {
     try {
         const savedBook = await UserCollections.create({ userId, targetId: bookId, targetType: 'Book', collectionType: 'saved' });
-        return savedBook;
+        return new bookFavouriteDto(savedBook);
     } catch (error) {
         throw new Error('Error adding saved book: ' + error.message);
     }
@@ -28,7 +29,7 @@ removeSavedBooks: async (userId, bookId) => {
         if (removedBook.deletedCount === 0) {
             throw new Error('No saved book found to remove.');
         }
-        return removedBook;
+        return;
     } catch (error) {
         throw new Error('Error removing saved book: ' + error.message);
     }   
