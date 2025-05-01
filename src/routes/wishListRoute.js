@@ -93,7 +93,34 @@ router.get("/:userId", getWishList);
  *             $ref: '#/components/schemas/WishList'
  */
 router.post("/:userId", addWishList);
-router.delete("/:id", removeWishList);
+/**
+ * @swagger
+ * /api/wishList/{userId}:
+ *  delete:
+ *   summary: Remove a book from the wish list
+ *   tags: [WishList]
+ *   parameters:
+ *    - in: path
+ *      name: userId
+ *      required: true
+ *      description: ID of the user
+ *      schema:
+ *       type: string
+ *   requestBody:
+ *     required: true
+ *     content:
+ *       application/json:
+ *         schema:
+ *           type: object
+ *           properties:
+ *             bookId:
+ *               type: string
+ *               description: The ID of the book to be removed
+ *   responses:
+ *     200:
+ *       description: The book was successfully removed from the wish list
+ */
+router.delete("/:userId", removeWishList);
 
 export default router;
 
