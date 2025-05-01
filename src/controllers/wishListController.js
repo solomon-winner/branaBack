@@ -1,7 +1,7 @@
 import { RecomendedBooksService } from "../services/RecommededBooks/recommendedBooks.service.js";
 import ResponseHelper from "../utils/responseHelper.js";
 
-export const gtWishList = async (req, res, next) => {
+export const getWishList = async (req, res, next) => {
     try {
         const { userId } = req.params;
         const wishList = await RecomendedBooksService.getWishList(userId);
