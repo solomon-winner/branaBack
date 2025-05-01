@@ -13,7 +13,8 @@ export const getWishList = async (req, res, next) => {
 
 export const addWishList = async (req, res, next) => {
     try {
-        const { userId, bookId, price } = req.body;
+        const { userId } = req.params;
+        const { bookId, price } = req.body;
         const wishList = await RecomendedBooksService.addWishList(userId, bookId, price);
         return ResponseHelper.success(res, 'Book added to wish list successfully', wishList, 201);
     } catch (error) {

@@ -65,8 +65,34 @@ const router = express.Router();
  
 router.get("/:userId", getWishList);
 
-
-router.post("/", addWishList);
+/**
+ * @swagger
+ * /api/wishList/{userId}:
+ *  post:
+ *   summary: Add a new book to the wish list
+ *   tags: [WishList]
+ *   parameters:
+ *   - in: path
+ *     name: userId
+ *     required: true
+ *     description: ID of the user
+ *     schema:
+ *       type: string
+ *   requestBody:
+ *     required: true
+ *     content:
+ *       application/json:
+ *         schema:
+ *           $ref: '#/components/schemas/WishList'
+ *   responses:
+ *     201:
+ *       description: The book was successfully added to the wish list
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/WishList'
+ */
+router.post("/:userId", addWishList);
 router.delete("/:id", removeWishList);
 
 export default router;
