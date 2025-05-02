@@ -22,9 +22,11 @@ export const UserService = {
             throw new Error(error.message || 'Failed to fetch user');
           }
     },
-    getUsers: async () => {
+    getUsers: async (page = 1, limit = 10, role) => {
         try {
-            const users = await User.find({}).select("-__v -password").lean();
+          const skip = (page - 1) * limit;
+          const filter = role ? {role}: {};
+            const users = await User.find(filter).skip(skip).limit(limit).select("-__v -password").lean();
             return users;
         } catch (error) {
             console.error(`Failed to fetch users:`, error.message);
