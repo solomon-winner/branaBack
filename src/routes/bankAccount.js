@@ -105,13 +105,13 @@ router.get("/:userId", getAccounts);
 
 /**
  * @swagger
- * /api/bank/{id}:
+ * /api/bank/{accountId}:
  *  put:
  *   summary: Update a bank account by ID
  *   tags: [BankAccount]
  *   parameters:
  *    - in: path
- *      name: id
+ *      name: accountId
  *      required: true
  *      description: ID of the bank account
  *      schema:
@@ -141,7 +141,45 @@ router.get("/:userId", getAccounts);
  *                description: Error message
  *                example: "Account not found"
  */
-router.put("/:id", updateAccount);
-router.delete("/:id", removeAccount);
+router.put("/:accountId", updateAccount);
+
+/**
+ * @swagger
+ * /api/bank/{accountId}:
+ *  delete:
+ *   summary: Delete a bank account by ID
+ *   tags: [BankAccount]
+ *   parameters:
+ *    - in: path
+ *      name: accountId
+ *      required: true
+ *      description: ID of the bank account
+ *      schema:
+ *       type: string
+ *   responses:
+ *    200:
+ *     description: The bank account was successfully deleted
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        properties:
+ *         message:
+ *          type: string
+ *          description: Success message
+ *          example: Bank account deleted successfully
+ *    404:
+ *     description: Bank account not found
+ *     content:
+ *      application/json:
+ *       schema:
+ *         type: object
+ *         properties:
+ *          error:
+ *           type: string
+ *           description: Error message
+ *           example: "Account not found"
+ */ 
+router.delete("/:accountId", removeAccount);
 
 export default router;
