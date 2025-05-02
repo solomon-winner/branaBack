@@ -1,11 +1,12 @@
+import { UserDTOForAdmin } from "../../DTOS/userDTO/userdtoForAdmin.dto";
+import { UserDTOForUser } from "../../DTOS/userDTO/userdtoForUser.dto";
 import { User } from "../../models/user";
 
 export const UserService = {
     addUser: async (userData) => {
-        try {
-            const newUser = new User(userData);
-            const savedUser = await newUser.save();
-            return savedUser;
+        try { 
+            const newUser = await User(userData).save();
+            return new UserDTOForUser(newUser);
         } catch (error) {
             console.error("Failed to add user:", error.message);
             throw new Error('Failed to add user');
@@ -16,7 +17,7 @@ export const UserService = {
             
             const response = await User.findById(id).select("-__v -password");
             if (!response) throw new Error('User not found');
-            return response;
+            return new UserDTOForUser(response);
           } catch (error) {
             console.error(`Failed to fetch user ${id}:`, error);
             throw new Error(error.message || 'Failed to fetch user');
@@ -33,7 +34,7 @@ export const UserService = {
           .select("-__v -password")
           .lean();
           
-            return {metaData, users};
+            return {metaData, users: users.map(user => new UserDTOForAdmin(user))};
         } catch (error) {
             console.error(`Failed to fetch users:`, error.message);
             throw new Error('Failed to fetch users');
@@ -60,7 +61,7 @@ export const UserService = {
                   if (!updatedUser) {
                     throw new Error("User not found");
                 }
-            return updatedUser;
+            return new UserDTOForUser(updatedUser);
           } catch (error) {
             console.error(`Failed to update user ${id}:`, error.message);
             throw new Error('Failed to update user');
