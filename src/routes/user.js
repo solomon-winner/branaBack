@@ -47,7 +47,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/user:
+ * /api/users:
  *  post:
  *   summary: Add a new user
  *   tags: [User]
@@ -71,7 +71,7 @@ router.post("/", addUser);
 
 /**
  * @swagger
- * /api/user/{userId}:
+ * /api/users/{userId}:
  *  get:
  *   summary: Get a user by ID
  *   tags: [User]
@@ -104,6 +104,70 @@ router.post("/", addUser);
  * 
  */ 
 router.get("/:userId", getAUserById);
+/**
+ * @swagger
+ * /api/users:
+ *  get:
+ *   summary: Get all users
+ *   tags: [User]
+ *   parameters:
+ *    - in: query
+ *      name: page
+ *      required: false
+ *      description: Page number for pagination
+ *      schema:
+ *       type: integer
+ *       default: 1
+ *    - in: query
+ *      name: limit
+ *      required: false
+ *      description: Number of users per page
+ *      schema:
+ *       type: integer
+ *       default: 10
+ *    - in: query
+ *      name: role
+ *      required: false
+ *      description: Role of the users to filter by
+ *      schema:
+ *       type: string
+ *       enum: [admin, user]
+ *       default: user
+ *   responses:
+ *    200:
+ *     description: Users retrieved successfully
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        properties:
+ *         metaData:
+ *          type: object
+ *          properties:
+ *           totalPages:
+ *            type: integer
+ *            description: Total number of pages
+ *           totalUsers:
+ *            type: integer
+ *            description: Total number of users
+ *           currentPage:
+ *            type: integer
+ *            description: Current page number
+ *         users:
+ *          type: array
+ *          items:
+ *           $ref: '#/components/schemas/User'
+ *    400:
+ *     description: Bad request
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        properties:
+ *         message:
+ *          type: string
+ *          description: Error message
+ */
 router.get("/", getUsers);
 router.put("/:userId", updateUser);
 router.delete("/:userId", deleteUser);

@@ -1,6 +1,7 @@
 import { UserDTOForAdmin } from "../../DTOS/userDTO/userdtoForAdmin.dto.js";
 import { UserDTOForUser } from "../../DTOS/userDTO/userdtoForUser.dto.js";
 import { User } from "../../models/user.js";
+import getPagination from "../../utils/getPagination.js";
 
 export const UserService = {
     addUser: async (userData) => {

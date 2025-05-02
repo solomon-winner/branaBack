@@ -1,4 +1,5 @@
 import { UserService } from "../services/User/user.service.js";
+import ResponseHelper from "../utils/responseHelper.js";
 
 export const getUsers = async( req, res, next) => {
     try {
