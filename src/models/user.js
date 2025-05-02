@@ -40,6 +40,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    status: {
+        type: String,
+        default: 'active',
+        enum: ['active', 'inactive', 'suspended'],
+    },
     address: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Address",
