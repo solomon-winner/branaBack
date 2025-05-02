@@ -3,11 +3,10 @@ import ResponseHelper from "../utils/responseHelper.js";
 
 export const addAccount = async (req, res, next) => {
    try {
-        const { userId, accountNumber, accountType, bankName } = req.body;
+        const { userId, accountNumber, bankName } = req.body;
         const accountData = {
             userId,
             accountNumber,
-            accountType,
             bankName
         };
         const newAccount = await bankAccountService.addAccount(accountData);

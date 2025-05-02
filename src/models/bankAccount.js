@@ -6,11 +6,11 @@ const BankAccountSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  bankAccountName: {
+  bankName: {
     type: String,
     required: true
   },
-  bankAccountNo: {
+  accountNo: {
     type: String,
     required: true
   },
