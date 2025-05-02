@@ -68,6 +68,41 @@ const router = express.Router();
  *       description: Bad request
  */
 router.post("/", addUser);
+
+/**
+ * @swagger
+ * /api/user/{userId}:
+ *  get:
+ *   summary: Get a user by ID
+ *   tags: [User]
+ *   parameters:
+ *    - in: path
+ *      name: userId
+ *      required: true
+ *      description: ID of the user
+ *      schema:
+ *        type: string
+ *   responses:
+ *    200:
+ *     description: User retrieved successfully
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/components/schemas/User'
+ *    404:
+ *     description: User not found
+ *     content:
+ *      application/json:
+ *       schema:
+ *         type: object
+ *         properties:
+ *          message:
+ *           type: string
+ *           description: Error message
+ *           example: User not found
+ *  
+ * 
+ */ 
 router.get("/:userId", getAUserById);
 router.get("/", getUsers);
 router.put("/:userId", updateUser);
