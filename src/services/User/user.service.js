@@ -26,8 +26,14 @@ export const UserService = {
         try {
           const skip = (page - 1) * limit;
           const filter = role ? {role}: {};
-            const users = await User.find(filter).skip(skip).limit(limit).select("-__v -password").lean();
-            return users;
+          const metaData = await getPagination(page, limit, User, filter);
+          const users = await User.find(filter)
+          .skip(skip)
+          .limit(limit)
+          .select("-__v -password")
+          .lean();
+          
+            return {metaData, users};
         } catch (error) {
             console.error(`Failed to fetch users:`, error.message);
             throw new Error('Failed to fetch users');
