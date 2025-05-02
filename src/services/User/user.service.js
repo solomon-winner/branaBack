@@ -1,6 +1,16 @@
 import { User } from "../../models/user";
 
 export const UserService = {
+    addUser: async (userData) => {
+        try {
+            const newUser = new User(userData);
+            const savedUser = await newUser.save();
+            return savedUser;
+        } catch (error) {
+            console.error("Failed to add user:", error.message);
+            throw new Error('Failed to add user');
+        }
+    },
     getUser: async (id) => {
         try {
             
@@ -17,15 +27,12 @@ export const UserService = {
             const users = await User.find({}).select("-__v -password").lean();
             return users;
         } catch (error) {
-            console.error(`Failed to fetch users:`, error);
-            throw new Error(error.message || 'Failed to fetch users');
+            console.error(`Failed to fetch users:`, error.message);
+            throw new Error('Failed to fetch users');
         }
     },
     updateUser: async (id, updatedData) => {
         try {
-            if (!mongoose.Types.ObjectId.isValid(id)) {
-                throw new Error("Invalid user ID format");
-              }
         
               if (!updatedData || Object.keys(updatedData).length === 0) {
                 throw new Error("No update data provided");
@@ -41,11 +48,25 @@ export const UserService = {
                     runValidators: true, 
                     context: "query"
                   }).select("-__v -password");
+
+                  if (!updatedUser) {
+                    throw new Error("User not found");
+                }
             return updatedUser;
           } catch (error) {
-            console.error(`Failed to update user ${id}:`, error);
-            throw new Error(error.message || 'Failed to update user');
+            console.error(`Failed to update user ${id}:`, error.message);
+            throw new Error('Failed to update user');
           }
+    },
+    deleteUser: async (id) => {
+        try {
+            const deletedUser = await User.findByIdAndDelete(id).select("-__v -password");
+            if (!deletedUser) throw new Error('User not found');
+            return deletedUser;
+        } catch (error) {
+            console.error(`Failed to delete user ${id}:`, error.message);
+            throw new Error('Failed to delete user');
+        }
     }
     
 }

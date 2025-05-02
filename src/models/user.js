@@ -45,6 +45,13 @@ const userSchema = new mongoose.Schema({
         ref: "Address",
         default: null
     },
+    bankAccount: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'BankAccount',
+            default: null
+        }
+    ]
 
 }, {timestamps: true,});
 
