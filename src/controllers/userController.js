@@ -41,7 +41,7 @@ export const updateUser = async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
     try {
         const { userId } = req.params;
-        const deletedUser = await UserService.deleteUser(userId);
+         await UserService.deleteUser(userId);
         return ResponseHelper.success(res, 'User deleted successfully', null, 200);
     } catch (error) {
         next(error);

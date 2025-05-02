@@ -1,6 +1,6 @@
-import { UserDTOForAdmin } from "../../DTOS/userDTO/userdtoForAdmin.dto";
-import { UserDTOForUser } from "../../DTOS/userDTO/userdtoForUser.dto";
-import { User } from "../../models/user";
+import { UserDTOForAdmin } from "../../DTOS/userDTO/userdtoForAdmin.dto.js";
+import { UserDTOForUser } from "../../DTOS/userDTO/userdtoForUser.dto.js";
+import { User } from "../../models/user.js";
 
 export const UserService = {
     addUser: async (userData) => {
