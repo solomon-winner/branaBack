@@ -169,7 +169,72 @@ router.get("/:userId", getAUserById);
  *          description: Error message
  */
 router.get("/", getUsers);
+/**
+ * @swagger
+ * /api/users/{userId}:
+ *  put:
+ *   summary: Update a user by ID
+ *   tags: [User]
+ *   parameters:
+ *    - in: path
+ *      name: userId
+ *      required: true
+ *      description: ID of the user
+ *      schema:
+ *       type: string
+ *   requestBody:
+ *    required: true
+ *    content:
+ *     application/json:
+ *      schema:
+ *       $ref: '#/components/schemas/User'
+ *   responses:
+ *    200:
+ *     description: User updated successfully
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/components/schemas/User'
+ */
+
 router.put("/:userId", updateUser);
+/**
+ * @swagger
+ * /api/users/{userId}:
+ *  delete:
+ *   summary: Delete a user by ID
+ *   tags: [User]
+ *   parameters:
+ *    - in: path
+ *      name: userId
+ *      required: true
+ *      description: ID of the user
+ *      schema:
+ *       type: string
+ *   responses:
+ *    200:
+ *     description: User deleted successfully
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        properties:
+ *         message:
+ *          type: string
+ *          description: Success message
+ *          example: User deleted successfully
+ *    404:
+ *     description: User not found
+ *     content:
+ *      application/json:
+ *       schema:
+ *         type: object
+ *         properties:
+ *          message:
+ *           type: string
+ *           description: Error message
+ *           example: User not found
+ */
 router.delete("/:userId", deleteUser);
 
 export default router;
