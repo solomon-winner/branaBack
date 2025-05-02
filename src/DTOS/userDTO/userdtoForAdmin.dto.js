@@ -1,5 +1,5 @@
 export class UserDTOForAdmin {
-    constructor({ user_id, firstName, lastName, email, profilePicture, phoneNo, altPhoneNo, role, status, createdAt, updatedAt }, roleDetails) {
+    constructor({ user_id, firstName, lastName, email, profilePicture, phoneNo, altPhoneNo, role, status, createdAt, updatedAt }) {
         this.id = user_id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -9,7 +9,6 @@ export class UserDTOForAdmin {
         this.phoneNo = phoneNo;
         this.altPhoneNo = altPhoneNo;
         this.role = role;
-        this.roleDetails = roleDetails;
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
