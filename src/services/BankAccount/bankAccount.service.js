@@ -1,28 +1,36 @@
-import { getAccounts } from "../../controllers/bankAccountController";
+import { BankAccount } from "../../models/bankAccount.js";
 
 export const bankAccountService = {
-    getAccountsService: async ({ page = 1, limit = 10, userId }) => {
-        const skip = (page - 1) * limit;
-        const filter = userId ? { userId } : {};
+    getAccountsService: async () => {
+        try {
+            const accounts = await BankAccount.find({}).lean();
+            return accounts;
+        } catch (error) {
+            console.error("Failed to get accounts:", error.message);
+            throw new Error('Failed to get accounts');
+        }
 
-        const accounts = await getAccounts(filter).skip(skip).limit(limit);
-        return accounts;
     },  
     addAccountService: async (accountData) => {
-        try {
-            const newAccount = await BankAccount(accountData).save();
-            return newAccount;
+        try{
+            const count = await BankAccount.countDocuments(accountData.userId);
+            if (count >= 10) {
+                throw new Error('You cannot have more than 10 bank accounts');
+                }
+
+              const newAccount = new BankAccount(accountData);
+              const savedAccount = await newAccount.save();
+
+              return savedAccount;
+
         } catch (error) {
-            console.error("Failed to add account:", error.message);
-            throw new Error('Failed to add account');
+            console.error("Failed to get accounts:", error.message);
+            throw new Error('Failed to get accounts');
         }
     },
     updateAccountService: async (id, updatedData) => {
         try {
-            if (!updatedData || Object.keys(updatedData).length === 0) {
-                throw new Error("No update data provided");
-            }
-
+            
             const updatedAccount = await BankAccount.findByIdAndUpdate(
                 id,
                 updatedData,
@@ -36,7 +44,7 @@ export const bankAccountService = {
             return updatedAccount;
         } catch (error) {
             console.error(`Failed to update account ${id}:`, error);
-            throw new Error(error.message || 'Failed to update account');
+            throw new Error('Failed to update account');
         }
     },
     deleteAccountService: async (id) => {

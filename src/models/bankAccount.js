@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const BankAccountSchema = new mongoose.Schema({
-  user: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
@@ -16,10 +16,10 @@ const BankAccountSchema = new mongoose.Schema({
   },
 });
 
-BankAccountSchema.index({ user: 1, bankAccountNo: 1 }, { unique: true });
+BankAccountSchema.index({ userId: 1, bankAccountNo: 1 }, { unique: true });
 
 BankAccountSchema.pre('save', async function (next) {
-  const count = await mongoose.model('BankAccount').countDocuments({ user: this.user });
+  const count = await mongoose.model('BankAccount').countDocuments({ userId: this.userId });
   if (count >= 10) {
     return next(new Error('User cannot have more than 10 bank accounts'));
   }
