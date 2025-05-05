@@ -3,9 +3,12 @@ import { AuthService } from '../services/authentication/auth.service.js';
 import { Encryptor } from '../services/authentication/Encryptor.service.js';
 import { TokenService } from '../services/TokenService/token.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
+import { validateLogin } from '../validation/aurhentication/login.validation.js';
 import { validateRegister } from '../validation/aurhentication/register.validation.js';
 
-export const login = async (req, res, next) => {
+export const login =[
+    validateLogin,
+    async (req, res, next) => {
     try {
         
         const { email, password } = req.body;
@@ -51,7 +54,7 @@ export const login = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+}]
 
 export const register = [
     validateRegister,
