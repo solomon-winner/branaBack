@@ -5,51 +5,49 @@ import ResponseHelper from '../utils/responseHelper.js';
 
 export const addBook = async (req, res, next) => {
     try {
-
-        const wordCount = (str) => {
-            return str.split(/\s+/).length;
-        };
-
-        if (wordCount(req.body.description) > 200) {
-            return res.status(400).send({
-                message: 'Description should not exceed 200 words!'
-            })
-        }
-        const newBook = {
-            title: req.body.title,
-            author: req.body.author,
-            category: req.body.category,
-            price: req.body.price,
-            availableBooks: req.body.availableBooks,
-            language: req.body.language,
-            pages: req.body.pages,
-            publisher: req.body.publisher,
-            year: req.body.year,
-            description: req.body.description,
-            isPreOrder: req.body.isPreOrder,
-            isComingSoon: req.body.isComingSoon,
-        };
-        if (req.body.img) {
-            newBook.img = req.body.img;
-        }
-        if (req.body.publisher) {
-            newBook.publisher = req.body.publisher;
-        }
-        const book = await Book.create(newBook);
-        return res.status(201).send(book);
-
+      const {
+        title,
+        author,
+        category,
+        price,
+        availableBooks,
+        language,
+        pages,
+        publisher,
+        year,
+        description,
+        img,
+        isPreOrder,
+        isComingSoon
+      } = req.body;
+  
+      const book = await BookService.addBookService({
+        title,
+        author,
+        category,
+        price,
+        availableBooks,
+        language,
+        pages,
+        publisher,
+        year,
+        description,
+        img,
+        isPreOrder,
+        isComingSoon
+      });
+      
+      return ResponseHelper.success(res, 'Book created successfully', book, 201);
     } catch (error) {
-        next(error);
+      next(error);
     }
-};
+  };
+  
 
 export const getBookById = async (req, res, next) => {
     try {
         const { id } = req.params;
         const book = await BookService.getBookByIdService(id);
-        if (!book) {
-            return ResponseHelper.error(res, 'Book not found', [], 404);
-        }
         return ResponseHelper.success(res, 'Book retrieved successfully', book, 200);
     } catch (error) {
         next(error);

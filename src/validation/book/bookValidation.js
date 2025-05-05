@@ -67,4 +67,4 @@ const bookSchema = {
   }),
 };
 
-export const validateAddBook = validate(bookSchema, {}, {});
+export const validateBook = validate(bookSchema, {}, {});
