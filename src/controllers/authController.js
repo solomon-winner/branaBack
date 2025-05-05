@@ -84,5 +84,4 @@ export const register = [
         next(error);
     }
 
-    
 }]
