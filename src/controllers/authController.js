@@ -3,7 +3,7 @@ import { AuthService } from '../services/authentication/auth.service.js';
 import { Encryptor } from '../services/authentication/Encryptor.service.js';
 import { TokenService } from '../services/TokenService/token.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
-import { validateRegister } from '../validation/aurhentication/auth.validation.js';
+import { validateRegister } from '../validation/aurhentication/register.validation.js';
 
 export const login = async (req, res, next) => {
     try {
