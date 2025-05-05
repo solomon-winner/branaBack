@@ -3,6 +3,7 @@ import { AuthService } from '../services/authentication/auth.service.js';
 import { Encryptor } from '../services/authentication/Encryptor.service.js';
 import { TokenService } from '../services/TokenService/token.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
+import { validateRegister } from '../validation/aurhentication/auth.validation.js';
 
 export const login = async (req, res, next) => {
     try {
@@ -52,9 +53,11 @@ export const login = async (req, res, next) => {
     }
 }
 
-export const register = async (req, res, next) => {
+export const register = [
+    validateRegister,
+    async (req, res, next) => {
     try {
-        const { firstName, lastName, email, password, phoneNo, altPhoneNo } = req.body;
+    const { firstName, lastName, email, password, phoneNo, altPhoneNo } = req.body;
 
     const isUserExists = await AuthService.checkExistingUser(email);  
     
@@ -82,4 +85,4 @@ export const register = async (req, res, next) => {
     }
 
     
-}
+}]
