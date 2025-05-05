@@ -1,3 +1,3 @@
-export const addAuthors = (req, res) => {};
-export const getAuthors = (req, res) => {}
-export const updateAuthors = (req, res) => {}
+export const addAuthors = (req, res, next) => {};
+export const getAuthors = (req, res, next) => {}
+export const updateAuthors = (req, res, next) => {}
