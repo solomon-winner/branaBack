@@ -47,5 +47,16 @@ updateBookService: async (id, bookData) => {
     throw new Error('Failed to update book');
   }
 },
-deleteBookService: async (id) => {},
+deleteBookService: async (id) => {
+  try {
+    const deletedBook = await Book.findByIdAndDelete(id).select('-__v -createdAt -updatedAt');
+    if (!deletedBook) {
+      throw new Error('Book not found');
+    }
+    return new BookDTOForUser(deletedBook);
+  } catch (error) {
+    console.error('Failed to delete book:', error.message);
+    throw new Error('Failed to delete book');
+  }
+},
 }
