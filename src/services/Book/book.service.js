@@ -31,6 +31,21 @@ addBookService: async (bookData) => {
     
   }
 },
-updateBookService: async (id, bookData) => {},
+updateBookService: async (id, bookData) => {
+  try {
+    const updatedBook = await Book.findByIdAndUpdate(
+      id,
+      bookData,
+      { new: true, runValidators: true, context: 'query' }
+    ).select('-__v -createdAt -updatedAt');
+    if (!updatedBook) {
+      throw new Error('Book not found');
+    }
+    return new BookDTOForUser(updatedBook);
+  } catch (error) {
+    console.error('Failed to update book:', error.message);
+    throw new Error('Failed to update book');
+  }
+},
 deleteBookService: async (id) => {},
 }
