@@ -66,7 +66,7 @@ export const getBooks = async (req, res, next) => {
     }
 };
 
-export const updateBook = async (req, res) => {
+export const updateBook = async (req, res, next) => {
     try {
         const {id} = req.params;
         const {
@@ -122,18 +122,15 @@ export const updateBook = async (req, res) => {
         }
 
         Object.keys(UpdatedData).forEach(key => {
-            if (!UpdatedData[key]) {
+            if (UpdatedData[key] === undefined || UpdatedData[key] === null) {
                 delete UpdatedData[key];
             }
         });
-        const UpdatedBook = await Book.findByIdAndUpdate(id, UpdatedData, {new: true});
-        if (!UpdatedBook) {
-            return res.status(404).send({error: 'Book not found!'})
-        }
+        const UpdatedBook = await BookService.updateBookService(id, UpdatedData);
 
-        res.json(UpdatedBook);
+        return ResponseHelper.success(res, 'Book updated successfully', UpdatedBook, 200);
 
     } catch (error) {
-        res.status(500).send({error: 'Internal Server Error!'})
+        next(error);
     }
 };

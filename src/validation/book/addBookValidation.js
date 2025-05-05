@@ -1,7 +1,7 @@
 import { validate } from 'express-validation';
 import Joi from 'joi';
 
-const bookSchema = {
+const AddBookSchema = {
   body: Joi.object({
     title: Joi.string().required().messages({
       'string.base': 'Title must be a string',
@@ -67,4 +67,4 @@ const bookSchema = {
   }),
 };
 
-export const validateBook = validate(bookSchema, {}, {});
+export const validateAddBook = validate(AddBookSchema, {}, {});
