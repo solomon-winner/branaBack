@@ -20,7 +20,17 @@ getBookByIdService: async (id) => {
     
   }
 },
-addBookService: async (bookData) => {},
+addBookService: async (bookData) => {
+  try {
+    const newBook = new Book(bookData);
+    const savedBook = await newBook.save();
+    return new BookDTOForUser(savedBook);
+  } catch (error) {
+    console.error('Failed to add book:', error.message);
+    throw new Error('Failed to add book');
+    
+  }
+},
 updateBookService: async (id, bookData) => {},
 deleteBookService: async (id) => {},
 }
