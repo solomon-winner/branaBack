@@ -6,6 +6,7 @@ import { validateUpdateBook } from '../validation/book/updateBookValidation.js';
 import { validateParams } from '../validation/authentication/validateParams.js';
 import { validateQuery } from '../validation/authentication/validateQuery.js';
 
+
 export const addBook = [
     validateAddBook,
     async (req, res, next) => {
@@ -18,7 +19,6 @@ export const addBook = [
     }
   }];
   
-
 export const getBookById = [
     validateParams,
     async (req, res, next) => {
@@ -46,6 +46,7 @@ export const getBooks = [
 }];
 
 export const updateBook = [
+    validateParams,
     validateUpdateBook,
     async (req, res, next) => {
     try {

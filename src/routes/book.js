@@ -1,5 +1,5 @@
 import express from "express";
-import { addBook, getBooks, updateBook } from "../controllers/bookController.js";
+import { addBook, deleteBook, getBookById, getBooks, updateBook } from "../controllers/bookController.js";
 
 const router = express.Router();
 
@@ -109,6 +109,30 @@ router.get("/", getBooks);
 
 /**
  * @swagger
+ * /api/books/{id}:
+ *   get:
+ *    summary: Get a book by ID
+ *    tags: [Books]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          description: The ID of the book to retrieve
+ *    responses:
+ *      200:
+ *        description: A book object
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Book'
+ *      404:
+ *        description: Book not found
+ */
+router.get("/:id", getBookById);
+/**
+ * @swagger
  * /api/books:
  *   post:
  *     summary: Add a new book
@@ -162,4 +186,24 @@ router.post("/", addBook);
  */
 router.put("/:id", updateBook);
 
+/**
+ * @swagger
+ * /api/books/{id}:
+ *   delete:
+ *     summary: Delete a book by ID
+ *     tags: [Books]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          description: The ID of the book to delete
+ *     responses:
+ *       200:
+ *         description: The book was successfully deleted
+ *       404:
+ *         description: Book not found
+ */
+router.delete("/:id", deleteBook);
 export default router;
