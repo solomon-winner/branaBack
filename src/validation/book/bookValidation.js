@@ -9,7 +9,6 @@ const JoiBook = Joi.object({
         'any.required': 'Title is required',
     }),
     img: Joi.string().optional(),
-    rating: Joi.number().required(),
     price: Joi.number().required(),
     description: Joi.string().max(200).required(),
     category: Joi.string().required(),

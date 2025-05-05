@@ -1,6 +1,6 @@
 import { BookDTOForUser } from '../DTOS/bookDTO/bookdtoForUser.dto.js';
 import { Book } from '../models/book.js';
-import { getBooksService } from '../services/Book/book.service.js';
+import { BookService } from '../services/Book/book.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
 
 export const addBook = async (req, res, next) => {
@@ -43,14 +43,25 @@ export const addBook = async (req, res, next) => {
     }
 };
 
+export const getBookById = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const book = await BookService.getBookByIdService(id);
+        if (!book) {
+            return ResponseHelper.error(res, 'Book not found', [], 404);
+        }
+        return ResponseHelper.success(res, 'Book retrieved successfully', book, 200);
+    } catch (error) {
+        next(error);
+    }
+}
+
 export const getBooks = async (req, res, next) => {
     try {
 
         const { page, limit, genre } = req.query;
-        const books = await getBooksService({ page, limit, genre });
-        const booksDtos = books.map((book) => new BookDTOForUser(book));
-
-        return ResponseHelper.success(res, 'Books retrieved successfully',booksDtos , 200);
+        const books = await BookService.getBooksService({ page, limit, genre });
+        return ResponseHelper.success(res, 'Books retrieved successfully',books , 200);
 
     } catch (error) {
         next(error);
@@ -85,6 +96,7 @@ export const updateBook = async (req, res) => {
             isApproaved,
             isBanned
         } = req.body;
+
         const UpdatedData = {
             title,
             author,
