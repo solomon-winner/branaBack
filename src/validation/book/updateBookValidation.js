@@ -135,4 +135,4 @@ const updateBookSchema = Joi.object({
   'object.min': 'At least one field must be provided for update',
 });
 
-export const validateUpdateBook = validate(updateBookSchema, {}, {});
+export const validateUpdateBook = validate({ body: updateBookSchema }, {}, {});

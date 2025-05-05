@@ -11,7 +11,7 @@ export const errorHandler = (err, req, res, next) => {
     }
 
     if (err instanceof ValidationError) {
-        return ResponseHelper.error(res, 'Validation error', err.details.body, 422);
+        return ResponseHelper.error(res, 'Validation error', err.details, 422);
     }
 
     if (err instanceof createError.Unauthorized || err instanceof createError.Forbidden) {
