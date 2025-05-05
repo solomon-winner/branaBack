@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import JoiObjectId from 'joi-objectid';
+import { validate } from 'express-validation';
 
-// Add ObjectId extension to Joi
 Joi.object = JoiObjectId(Joi);
 
 const ParamsSchema = Joi.object({
@@ -12,4 +12,4 @@ const ParamsSchema = Joi.object({
     }),
 });
 
-export const validateParams = validate(ParamsSchema, {}, {});
+export const validateParams = validate({params:ParamsSchema}, {}, {});

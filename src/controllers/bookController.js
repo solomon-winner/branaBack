@@ -1,19 +1,27 @@
+import { validate } from 'express-validation';
 import { BookService } from '../services/Book/book.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
+import { validateAddBook } from '../validation/book/addBookValidation.js';
+import { validateUpdateBook } from '../validation/book/updateBookValidation.js';
+import { validateParams } from '../validation/authentication/validateParams.js';
+import { validateQuery } from '../validation/authentication/validateQuery.js';
 
-export const addBook = async (req, res, next) => {
+export const addBook = [
+    validateAddBook,
+    async (req, res, next) => {
     try {
 
       const book = await BookService.addBookService(req.body);
-      
       return ResponseHelper.success(res, 'Book created successfully', book, 201);
     } catch (error) {
       next(error);
     }
-  };
+  }];
   
 
-export const getBookById = async (req, res, next) => {
+export const getBookById = [
+    validateParams,
+    async (req, res, next) => {
     try {
         const { id } = req.params;
         const book = await BookService.getBookByIdService(id);
@@ -21,9 +29,11 @@ export const getBookById = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+}]
 
-export const getBooks = async (req, res, next) => {
+export const getBooks = [
+    validateQuery,
+    async (req, res, next) => {
     try {
 
         const { page, limit, genre } = req.query;
@@ -33,22 +43,25 @@ export const getBooks = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-};
+}];
 
-export const updateBook = async (req, res, next) => {
+export const updateBook = [
+    validateUpdateBook,
+    async (req, res, next) => {
     try {
         const {id} = req.params;
     
         const UpdatedBook = await BookService.updateBookService(id, req.body);
-
         return ResponseHelper.success(res, 'Book updated successfully', UpdatedBook, 200);
 
     } catch (error) {
         next(error);
     }
-};
+}];
 
-export const deleteBook = async (req, res, next) => {
+export const deleteBook =[
+    validateParams,
+    async (req, res, next) => {
     try {
         const { id } = req.params;
         const deletedBook = await BookService.deleteBookService(id);
@@ -56,4 +69,4 @@ export const deleteBook = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+}]
