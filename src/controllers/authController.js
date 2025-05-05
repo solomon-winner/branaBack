@@ -3,8 +3,8 @@ import { AuthService } from '../services/authentication/auth.service.js';
 import { Encryptor } from '../services/authentication/Encryptor.service.js';
 import { TokenService } from '../services/TokenService/token.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
-import { validateLogin } from '../validation/aurhentication/login.validation.js';
-import { validateRegister } from '../validation/aurhentication/register.validation.js';
+import { validateLogin } from '../validation/authentication/login.validation.js';
+import { validateRegister } from '../validation/authentication/register.validation.js';
 
 export const login =[
     validateLogin,
