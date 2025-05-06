@@ -1,7 +1,11 @@
 import { UserService } from "../services/User/user.service.js";
 import ResponseHelper from "../utils/responseHelper.js";
+import { validateRegister } from "../validation/authentication/register.validation.js";
+import { validateQuery } from '../validation/authentication/validateQuery.js';
 
-export const getUsers = async( req, res, next) => {
+export const getUsers = [
+    validateQuery,
+    async( req, res, next) => {
     try {
         const {page, limit, role} = req.query;
         const users = await UserService.getUsers(page, limit, role);
@@ -9,7 +13,7 @@ export const getUsers = async( req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+}]
 export const getAUserById  = async (req, res, next) => {
     try {
         const { userId } = req.params;
@@ -20,7 +24,9 @@ export const getAUserById  = async (req, res, next) => {
     }
 }
 
-export const addUser = async (req, res, next) => {
+export const addUser = [
+    validateRegister,
+    async (req, res, next) => {
     try {
         const userData = req.body;
         const newUser = await UserService.addUser(userData);
@@ -28,7 +34,7 @@ export const addUser = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+}]
 export const updateUser = async (req, res, next) => {
     try {
         const { userId } = req.params;
