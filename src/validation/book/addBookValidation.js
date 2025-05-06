@@ -50,7 +50,7 @@ const AddBookSchema = {
     }),
     description: Joi.string().custom((value, helpers) => {
       const wordCount = value.trim().split(/\s+/).length;
-      if (wordCount > 200) {
+      if (wordCount > 2000) {
         return helpers.error('any.custom');
       }
       return value;
