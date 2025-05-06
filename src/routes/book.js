@@ -1,5 +1,6 @@
 import express from "express";
 import { addBook, deleteBook, getBookById, getBooks, updateBook } from "../controllers/bookController.js";
+import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
 
@@ -130,7 +131,7 @@ router.get("/", getBooks);
  *      404:
  *        description: Book not found
  */
-router.get("/:id", getBookById);
+router.get("/:id", validateObjectIds(['params']), getBookById);
 /**
  * @swagger
  * /api/books:
@@ -184,7 +185,7 @@ router.post("/", addBook);
  *       404:
  *         description: Book not found
  */
-router.put("/:id", updateBook);
+router.put("/:id", validateObjectIds(['params']), updateBook);
 
 /**
  * @swagger
@@ -205,5 +206,5 @@ router.put("/:id", updateBook);
  *       404:
  *         description: Book not found
  */
-router.delete("/:id", deleteBook);
+router.delete("/:id", validateObjectIds(['params']), deleteBook);
 export default router;

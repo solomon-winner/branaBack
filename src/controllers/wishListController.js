@@ -1,10 +1,8 @@
-import { validate } from "express-validation";
 import { wishListService } from "../services/WishList/wishList.service.js";
 import ResponseHelper from "../utils/responseHelper.js";
-import { validateId } from "../validation/authentication/validateId.js";
 
 export const getWishList =[
-    validateId,
+    
     async (req, res, next) => {
     try {
         const { userId } = req.params;
@@ -16,7 +14,7 @@ export const getWishList =[
 }]
 
 export const addWishList = [
-    validateId,
+    
     async (req, res, next) => {
     try {
         const { userId } = req.params;

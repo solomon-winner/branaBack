@@ -1,5 +1,6 @@
 import express from "express";
 import { getUsers, getAUserById, addUser,updateUser, deleteUser } from "../controllers/userController.js";
+import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
 /**
@@ -103,7 +104,7 @@ router.post("/", addUser);
  *  
  * 
  */ 
-router.get("/:userId", getAUserById);
+router.get("/:userId", validateObjectIds(['params']), getAUserById);
 /**
  * @swagger
  * /api/users:
@@ -197,7 +198,7 @@ router.get("/", getUsers);
  *        $ref: '#/components/schemas/User'
  */
 
-router.put("/:userId", updateUser);
+router.put("/:userId", validateObjectIds(['params']), updateUser);
 /**
  * @swagger
  * /api/users/{userId}:
@@ -235,7 +236,7 @@ router.put("/:userId", updateUser);
  *           description: Error message
  *           example: User not found
  */
-router.delete("/:userId", deleteUser);
+router.delete("/:userId", validateObjectIds(['params']), deleteUser);
 
 export default router;
 

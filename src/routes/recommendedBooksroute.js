@@ -1,5 +1,6 @@
 import express from "express";
 import { addRecommendedBooks, removeRecommendedBooks, getRecommendedBooks } from "../controllers/recommendedBooksController.js";
+import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
 /**
@@ -42,7 +43,7 @@ const router = express.Router();
  * 
  */
  
- router.post("/", addRecommendedBooks);
+ router.post("/", validateObjectIds(['body']), addRecommendedBooks);
 /**
  * @swagger
  * /api/recommendedBooks:
@@ -63,7 +64,7 @@ const router = express.Router();
  *           description: Bad request, invalid input data
  */
 
- router.get("/", getRecommendedBooks);
+ router.get("/", validateObjectIds(['params']),  getRecommendedBooks);
 /**
  * @swagger
  * /api/recommendedBooks/{id}:
@@ -94,7 +95,7 @@ const router = express.Router();
  *      400:
  *        description: Bad request, invalid input data
  */
-router.delete("/:id", removeRecommendedBooks);
+router.delete("/:id", validateObjectIds(['params', 'body']), removeRecommendedBooks);
 
 export default router;
 

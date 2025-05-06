@@ -1,5 +1,6 @@
 import express from "express";
 import { addAccount, getAccounts, removeAccount, updateAccount } from "../controllers/bankAccountController.js";
+import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
 
@@ -101,7 +102,7 @@ router.post("/", addAccount);
 *           description: Error message
 *           example: User not found
  */
-router.get("/:userId", getAccounts);
+router.get("/:userId", validateObjectIds(['params']), getAccounts);
 
 /**
  * @swagger
@@ -141,7 +142,7 @@ router.get("/:userId", getAccounts);
  *                description: Error message
  *                example: "Account not found"
  */
-router.put("/:accountId", updateAccount);
+router.put("/:accountId", validateObjectIds(['params', 'body']),updateAccount);
 
 /**
  * @swagger
@@ -180,6 +181,6 @@ router.put("/:accountId", updateAccount);
  *           description: Error message
  *           example: "Account not found"
  */ 
-router.delete("/:accountId", removeAccount);
+router.delete("/:accountId", validateObjectIds(['params']), removeAccount);
 
 export default router;

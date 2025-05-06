@@ -1,5 +1,6 @@
 import express from "express";
 import { getSavedBooks,addSavedBooks, removeSavedBooks } from "../controllers/savedBooksController.js";
+import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
 /**
@@ -56,7 +57,7 @@ const router = express.Router();
  *            $ref: '#/components/schemas/SavedBook'
  * 
  */ 
-router.get("/:userId", getSavedBooks);
+router.get("/:userId", validateObjectIds(['params']), getSavedBooks);
 /**
  * @swagger
  * /api/savedBooks:
@@ -88,7 +89,7 @@ router.get("/:userId", getSavedBooks);
  *             $ref: '#/components/schemas/SavedBook'
  * 
  */
-router.post("/", addSavedBooks);
+router.post("/", validateObjectIds(['body']), addSavedBooks);
 /**
  * @swagger
  * /api/savedBooks/{userId}:
@@ -117,7 +118,7 @@ router.post("/", addSavedBooks);
  *         description: Successfully removed saved book
  */
 
-router.delete("/:id", removeSavedBooks);
+router.delete("/:id", validateObjectIds(['params', 'body']), removeSavedBooks);
 
 export default router;
 

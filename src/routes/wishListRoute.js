@@ -1,5 +1,6 @@
 import express from "express";
 import {getWishList, addWishList, removeWishList} from "../controllers/wishListController.js";
+import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
 
@@ -60,7 +61,7 @@ const router = express.Router();
  * 
  */
  
-router.get("/:userId", getWishList);
+router.get("/:userId", validateObjectIds(['params']), getWishList);
 
 /**
  * @swagger
@@ -89,7 +90,7 @@ router.get("/:userId", getWishList);
  *           schema:
  *             $ref: '#/components/schemas/WishList'
  */
-router.post("/:userId", addWishList);
+router.post("/:userId", validateObjectIds(['params', 'body']),addWishList);
 /**
  * @swagger
  * /api/wishList/{userId}:
@@ -117,7 +118,7 @@ router.post("/:userId", addWishList);
  *     200:
  *       description: The book was successfully removed from the wish list
  */
-router.delete("/:userId", removeWishList);
+router.delete("/:userId", validateObjectIds(['params', 'body']), removeWishList);
 
 export default router;
 

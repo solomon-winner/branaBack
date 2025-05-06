@@ -10,6 +10,7 @@ import {
   addFavouriteAuthor,
   removeFavouriteAuthor,
 } from "../controllers/favouriteController.js";
+import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
 
@@ -58,7 +59,7 @@ router.get("/category", getFavouriteCategory);
  *       200:
  *         description: Favourite books retrieved successfully
  */
-router.get("/book", getFavouriteBook);
+router.get("/book", validateObjectIds(['query']), getFavouriteBook);
 
 /**
  * @swagger
@@ -77,7 +78,7 @@ router.get("/book", getFavouriteBook);
  *       200:
  *         description: Favourite authors retrieved successfully
  */
-router.get("/author", getFavouriteAuthor);
+router.get("/author", validateObjectIds(['query']), getFavouriteAuthor);
 
 /**
  * @swagger
@@ -109,7 +110,7 @@ router.get("/author", getFavouriteAuthor);
  *       201:
  *         description: Favourite category added successfully
  */
-router.post("/category", addFavouriteCategory);
+router.post("/category", validateObjectIds(['query']), addFavouriteCategory);
 
 /**
  * @swagger
@@ -134,7 +135,7 @@ router.post("/category", addFavouriteCategory);
  *       200:
  *         description: Favourite category removed successfully
  */
-router.delete("/category/:id", removeFavouriteCategory);
+router.delete("/category/:id", validateObjectIds(['query']), removeFavouriteCategory);
 
 /**
  * @swagger
@@ -160,7 +161,7 @@ router.delete("/category/:id", removeFavouriteCategory);
  *       201:
  *         description: Favourite book added successfully
  */
-router.post("/book", addFavouriteBook);
+router.post("/book", validateObjectIds(['body']), addFavouriteBook);
 
 /**
  * @swagger
@@ -185,7 +186,7 @@ router.post("/book", addFavouriteBook);
  *       200:
  *         description: Favourite book removed successfully
  */
-router.delete("/book/:id", removeFavouriteBook);
+router.delete("/book/:id", validateObjectIds(['query']), removeFavouriteBook);
 
 /**
  * @swagger
@@ -211,7 +212,7 @@ router.delete("/book/:id", removeFavouriteBook);
  *       201:
  *         description: Favourite author added successfully
  */
-router.post("/author", addFavouriteAuthor);
+router.post("/author", validateObjectIds(['body']), addFavouriteAuthor);
 
 /**
  * @swagger
@@ -236,6 +237,6 @@ router.post("/author", addFavouriteAuthor);
  *       200:
  *         description: Favourite author removed successfully
  */
-router.delete("/author/:id", removeFavouriteAuthor);
+router.delete("/author/:id", validateObjectIds(['query']), removeFavouriteAuthor);
 
 export default router;
