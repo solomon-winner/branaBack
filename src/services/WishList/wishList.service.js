@@ -1,4 +1,5 @@
 import { bookFavouriteDto } from "../../DTOS/favouriteDTO/book.dto.js";
+import { Book } from "../../models/book.js";
 import { UserCollections } from "../../models/userCollections.js";
 
 export const wishListService = {
@@ -12,16 +13,23 @@ export const wishListService = {
         }
     },
 
-    addWishList: async (userId, bookId, price) => {
+    addWishList: async (userId, bookId) => {
         try {
             const existingWish = await UserCollections.findOne({ userId, targetId: bookId, collectionType: "wishlist" });
             if (existingWish) {
                 throw new Error("Book already in wish list");
             }
-            const newWish = new WishList({ userId, bookId, targetId: bookId,targetType: "Book", collectionType: "wishlist", price });
+
+            const book = await Book.findById(bookId).select("price").lean();
+            if (!book) {
+                throw new Error("Book not found");
+            }
+
+            const newWish = new WishList({ userId, bookId, targetId: bookId, targetType: "Book", collectionType: "wishlist", price: book.price });
             await newWish.save();
             return new bookFavouriteDto(newWish);
         } catch (error) {
+            console.error(error);
             throw new Error("Error adding to wish list");
         }
     },

@@ -3,7 +3,7 @@ import { BookService } from '../services/Book/book.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
 import { validateAddBook } from '../validation/book/addBookValidation.js';
 import { validateUpdateBook } from '../validation/book/updateBookValidation.js';
-import { validateParams } from '../validation/authentication/validateParams.js';
+import { validateId } from '../validation/authentication/validateId.js';
 import { validateQuery } from '../validation/authentication/validateQuery.js';
 
 
@@ -20,7 +20,7 @@ export const addBook = [
   }];
   
 export const getBookById = [
-    validateParams,
+    validateId,
     async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -46,7 +46,7 @@ export const getBooks = [
 }];
 
 export const updateBook = [
-    validateParams,
+    validateId,
     validateUpdateBook,
     async (req, res, next) => {
     try {
@@ -61,7 +61,7 @@ export const updateBook = [
 }];
 
 export const deleteBook =[
-    validateParams,
+    validateId,
     async (req, res, next) => {
     try {
         const { id } = req.params;

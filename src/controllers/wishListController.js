@@ -1,32 +1,38 @@
-import { RecomendedBooksService } from "../services/RecommededBooks/recommendedBooks.service.js";
+import { validate } from "express-validation";
+import { wishListService } from "../services/WishList/wishList.service.js";
 import ResponseHelper from "../utils/responseHelper.js";
+import { validateId } from "../validation/authentication/validateId.js";
 
-export const getWishList = async (req, res, next) => {
+export const getWishList =[
+    validateId,
+    async (req, res, next) => {
     try {
         const { userId } = req.params;
-        const wishList = await RecomendedBooksService.getWishList(userId);
+        const wishList = await wishListService.getWishList(userId);
         return ResponseHelper.success(res, 'Wish list retrieved successfully', wishList, 200);
     } catch (error) {
         next(error);
     }
-}
+}]
 
-export const addWishList = async (req, res, next) => {
+export const addWishList = [
+    validateId,
+    async (req, res, next) => {
     try {
         const { userId } = req.params;
-        const { bookId, price } = req.body;
-        const wishList = await RecomendedBooksService.addWishList(userId, bookId, price);
+        const { bookId } = req.body;
+        const wishList = await wishListService.addWishList(userId, bookId);
         return ResponseHelper.success(res, 'Book added to wish list successfully', wishList, 201);
     } catch (error) {
         next(error);
     }
-}
+}]
 
 export const removeWishList = async (req, res, next) => {
     try {
         const { userId } = req.params;
         const { bookId } = req.body;
-        const removedBook = await RecomendedBooksService.removeWishList(userId, bookId);
+        const removedBook = await wishListService.removeWishList(userId, bookId);
         return ResponseHelper.success(res, 'Book removed from wish list successfully', removedBook, 200);
     } catch (error) {
         next(error);

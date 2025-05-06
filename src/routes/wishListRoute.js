@@ -32,9 +32,6 @@ const router = express.Router();
  *        author:
  *          type: string
  *          description: The author of the book
- *        price:
- *          type: number
- *          description: The price of the book
  * 
  */
 
