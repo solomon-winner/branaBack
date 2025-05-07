@@ -8,20 +8,26 @@ const isValidObjectId = (value) => mongoose.Types.ObjectId.isValid(value);
  * @returns middleware
  */
 export const validateObjectIds = (sources = ['params']) => {
+
   return (req, res, next) => {
     try {
       for (const source of sources) {
         if (!req[source]) continue;
         for (const key in req[source]) {
           const value = req[source][key];
+
+          if (typeof value !== 'string') {
+            return res.status(400).json({
+              message: `Expected a string for ObjectId in ${source}.${key}, but got ${typeof value}`,
+            });
+          }
           // Only check strings with 24-character hex format
-          if (typeof value === 'string' && /^[a-f\d]{24}$/i.test(value)) {
             if (!isValidObjectId(value)) {
               return res.status(400).json({
-                message: `Invalid MongoDB ObjectId in ${source}.${key}`,
+                message: `Invalid MongoDB ObjectId in ${key}`,
               });
             }
-          }
+          
         }
       }
       next();

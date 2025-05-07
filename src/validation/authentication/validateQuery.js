@@ -16,6 +16,9 @@ const querySchema = Joi.object({
   genre: Joi.string().optional().messages({
     'string.base': 'Genre must be a string',
   }),
+  role: Joi.string().optional().messages({
+    'string.base': 'Role must be a string',
+  }),
 });
 
 export const validateQuery = validate({ query: querySchema }, {}, {});

@@ -2,6 +2,7 @@ import { UserService } from "../services/User/user.service.js";
 import ResponseHelper from "../utils/responseHelper.js";
 import { validateRegister } from "../validation/authentication/register.validation.js";
 import { validateQuery } from '../validation/authentication/validateQuery.js';
+import { validateUpdateUser } from "../validation/user/userValidation.js";
 
 export const getUsers = [
     validateQuery,
@@ -35,7 +36,9 @@ export const addUser = [
         next(error);
     }
 }]
-export const updateUser = async (req, res, next) => {
+export const updateUser = [
+    validateUpdateUser,
+    async (req, res, next) => {
     try {
         const { userId } = req.params;
         const updatedData = req.body;
@@ -44,7 +47,7 @@ export const updateUser = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+}]
 export const deleteUser = async (req, res, next) => {
     try {
         const { userId } = req.params;

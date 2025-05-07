@@ -135,7 +135,7 @@ router.post("/category", validateObjectIds(['query']), addFavouriteCategory);
  *       200:
  *         description: Favourite category removed successfully
  */
-router.delete("/category/:id", validateObjectIds(['query']), removeFavouriteCategory);
+router.delete("/category/:id", validateObjectIds(['params','query']), removeFavouriteCategory);
 
 /**
  * @swagger
@@ -186,7 +186,7 @@ router.post("/book", validateObjectIds(['body']), addFavouriteBook);
  *       200:
  *         description: Favourite book removed successfully
  */
-router.delete("/book/:id", validateObjectIds(['query']), removeFavouriteBook);
+router.delete("/book/:id", validateObjectIds(['params','query']), removeFavouriteBook);
 
 /**
  * @swagger
@@ -237,6 +237,6 @@ router.post("/author", validateObjectIds(['body']), addFavouriteAuthor);
  *       200:
  *         description: Favourite author removed successfully
  */
-router.delete("/author/:id", validateObjectIds(['query']), removeFavouriteAuthor);
+router.delete("/author/:id", validateObjectIds(['params','query']), removeFavouriteAuthor);
 
 export default router;
