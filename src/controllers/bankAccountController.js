@@ -1,9 +1,13 @@
 import { bankAccountService } from "../services/BankAccount/bankAccount.service.js";
 import ResponseHelper from "../utils/responseHelper.js";
+import { validateBankAccount } from "../validation/bankAccount/bankAccount.js";
 
-export const addAccount = async (req, res, next) => {
+export const addAccount = [
+    validateBankAccount,
+    async (req, res, next) => {
    try {
-        const { userId, accountNumber, bankName } = req.body;
+        const { userId } = req.params;
+        const { accountNumber, bankName } = req.body;
         const accountData = {
             userId,
             accountNumber,
@@ -15,17 +19,18 @@ export const addAccount = async (req, res, next) => {
         next(error);
     }
     
-};
-export const updateAccount = async (req, res, next) => {
-    try {
-        const { accountId } = req.params;
-        const updatedData = req.body;
-        const updatedAccount = await bankAccountService.updateAccount(accountId, updatedData);
-        return ResponseHelper.success(res, 'Account updated successfully', updatedAccount, 200);
-    } catch (error) {
-        next(error);
-    }
-};
+}];
+
+// export const updateAccount = async (req, res, next) => {
+//     try {
+//         const { accountId } = req.params;
+//         const updatedData = req.body;
+//         const updatedAccount = await bankAccountService.updateAccount(accountId, updatedData);
+//         return ResponseHelper.success(res, 'Account updated successfully', updatedAccount, 200);
+//     } catch (error) {
+//         next(error);
+//     }
+// };
 
 export const getAccounts = async (req, res, next) => {
     try {

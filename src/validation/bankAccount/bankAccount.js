@@ -3,11 +3,6 @@ import Joi from 'joi';
 
 const bankAccountSchema = {
   body: Joi.object({
-    userId: Joi.string().hex().length(24).required().messages({
-      'string.length': 'User ID must be 24 characters long',
-      'string.hex': 'User ID must be a valid ObjectId',
-      'any.required': 'User ID is required',
-    }),
     bankName: Joi.string().trim().min(2).max(50).required().messages({
       'string.min': 'Bank name must be at least 2 characters',
       'string.max': 'Bank name must be at most 50 characters',

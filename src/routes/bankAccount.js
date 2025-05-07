@@ -19,13 +19,9 @@ const router = express.Router();
  *   BankAccount:
  *      type: object
  *      required:
- *        - userId
  *        - bankName
  *        - accountNo
  *      properties:
- *        userId:
- *          type: string
- *          description: The ID of the user
  *        bankName:
  *          type: string
  *          description: The name of the bank
@@ -40,6 +36,13 @@ const router = express.Router();
  *  post:
  *   summary: Add a new bank account
  *   tags: [BankAccount]
+ *   parameters:
+ *   - in: params
+ *     name: userId
+ *     required: true
+ *     description: ID of the user
+ *     schema:
+ *      type: string
  *   requestBody:
  *    required: true
  *    content:
@@ -66,7 +69,7 @@ const router = express.Router();
  *                 example: "User cannot have more than 10 bank accounts"
  *   
  */
-router.post("/", addAccount);
+router.post("/", validateObjectIds(['params']),addAccount);
 
 /**
  * @swagger
@@ -104,45 +107,45 @@ router.post("/", addAccount);
  */
 router.get("/:userId", validateObjectIds(['params']), getAccounts);
 
-/**
- * @swagger
- * /api/bank/{accountId}:
- *  put:
- *   summary: Update a bank account by ID
- *   tags: [BankAccount]
- *   parameters:
- *    - in: path
- *      name: accountId
- *      required: true
- *      description: ID of the bank account
- *      schema:
- *       type: string
- *   requestBody:
- *     required: true
- *     content:
- *       application/json:
- *         schema:
- *           $ref: '#/components/schemas/BankAccount'
- *   responses:
- *    200:
- *      description: The bank account was successfully updated
- *      content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/BankAccount'
- *    404:
- *      description: Bank account not found
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            properties:
- *              error:
- *                type: string
- *                description: Error message
- *                example: "Account not found"
- */
-router.put("/:accountId", validateObjectIds(['params', 'body']),updateAccount);
+// /**
+//  * @swagger
+//  * /api/bank/{accountId}:
+//  *  put:
+//  *   summary: Update a bank account by ID
+//  *   tags: [BankAccount]
+//  *   parameters:
+//  *    - in: path
+//  *      name: accountId
+//  *      required: true
+//  *      description: ID of the bank account
+//  *      schema:
+//  *       type: string
+//  *   requestBody:
+//  *     required: true
+//  *     content:
+//  *       application/json:
+//  *         schema:
+//  *           $ref: '#/components/schemas/BankAccount'
+//  *   responses:
+//  *    200:
+//  *      description: The bank account was successfully updated
+//  *      content:
+//  *        application/json:
+//  *          schema:
+//  *            $ref: '#/components/schemas/BankAccount'
+//  *    404:
+//  *      description: Bank account not found
+//  *      content:
+//  *        application/json:
+//  *          schema:
+//  *            type: object
+//  *            properties:
+//  *              error:
+//  *                type: string
+//  *                description: Error message
+//  *                example: "Account not found"
+//  */
+// router.put("/:accountId", validateObjectIds(['params', 'body']),updateAccount);
 
 /**
  * @swagger
