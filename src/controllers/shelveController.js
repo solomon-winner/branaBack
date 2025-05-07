@@ -1,6 +1,3 @@
-import { User } from "../models/user.js";
-import { Shelve } from "../models/shelve.js";
-import { Book } from "../models/book.js";
 import { ShelveService } from "../services/Shelve/shelve .service.js";
 import ResponseHelper from "../utils/responseHelper.js";
 

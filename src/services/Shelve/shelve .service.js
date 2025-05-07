@@ -1,4 +1,4 @@
-import { Shelve } from "../../models/shelve";
+import { Shelve } from "../../models/shelve.js";
 
 export const ShelveService = {
     addShelve: async (shelveData) => {
