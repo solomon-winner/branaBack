@@ -16,6 +16,12 @@ export const validateObjectIds = (sources = ['params']) => {
         for (const key in req[source]) {
           const value = req[source][key];
 
+          if (value === null || value === undefined) {
+            return res.status(400).json({
+              message: `Missing value for ${source}.${key}`,
+            });
+          }
+          
           if (typeof value !== 'string') {
             return res.status(400).json({
               message: `Expected a string for ObjectId in ${source}.${key}, but got ${typeof value}`,

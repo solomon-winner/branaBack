@@ -61,6 +61,7 @@ export const FavouriteService = {
 
     removeFavouriteCategory: async (userId, categoryId) => {
         try {
+            console.log("from favourite category service",userId, categoryId);
             const favourite = await UserCollections.deleteOne({ userId, targetId: categoryId, targetType: "Category", collectionType: "favourite"} );
             return favourite;
         } catch (error) {

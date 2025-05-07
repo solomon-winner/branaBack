@@ -114,28 +114,28 @@ router.post("/category", validateObjectIds(['query']), addFavouriteCategory);
 
 /**
  * @swagger
- * /api/favourites/category/{id}:
+ * /api/favourites/category/{userId}:
  *   delete:
  *     summary: Remove a category from user's favourites
  *     tags: [Favourites]
  *     parameters:
  *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: Category ID
- *       - in: query
  *         name: userId
  *         schema:
  *           type: string
  *         required: true
- *         description: ID of the user
+ *         description: User ID
+ *       - in: query
+ *         name: categoryId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the Category
  *     responses:
  *       200:
  *         description: Favourite category removed successfully
  */
-router.delete("/category/:id", validateObjectIds(['params','query']), removeFavouriteCategory);
+router.delete("/category/:userId", validateObjectIds(['params','query']), removeFavouriteCategory);
 
 /**
  * @swagger

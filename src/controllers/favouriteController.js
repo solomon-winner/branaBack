@@ -93,7 +93,8 @@ try {
 export const removeFavouriteCategory = async (req, res, next) => {
     try {
         const { userId } = req.params;
-        const { categoryId } = req.body;
+        const { categoryId } = req.query;
+        console.log("from controler",userId, categoryId);
         const favourite = await FavouriteService.removeFavouriteCategory(userId, categoryId);
         return ResponseHelper.success(res, 'Favourite category removed successfully', favourite, 200);
     } catch (error) {
