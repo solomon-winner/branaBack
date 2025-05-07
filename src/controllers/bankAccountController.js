@@ -26,6 +26,7 @@ export const updateAccount = async (req, res, next) => {
         next(error);
     }
 };
+
 export const getAccounts = async (req, res, next) => {
     try {
         const { userId } = req.params;
