@@ -1,7 +1,7 @@
 import { AuthorService } from '../services/Author/author.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
 import { validateQuery } from '../validation/authentication/validateQuery.js';
-import { AuthorValidation } from '../validation/author/authorValidation.js';
+import { AuthorValidation, UpdateAuthorValidation } from '../validation/author/authorValidation.js';
 
 export const addAuthors = [
     AuthorValidation,
@@ -51,7 +51,7 @@ export const deleteAuthor = async (req, res, next) => {
     }
 };
 export const updateAuthors = [
-    AuthorValidation,
+    UpdateAuthorValidation,
     async (req, res, next) => {
     try {
         const { id } = req.params;
