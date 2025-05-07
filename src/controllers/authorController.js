@@ -1,7 +1,11 @@
 import { AuthorService } from '../services/Author/author.service.js';
 import ResponseHelper from '../utils/responseHelper.js';
+import { validateQuery } from '../validation/authentication/validateQuery.js';
+import { AuthorValidation } from '../validation/author/authorValidation.js';
 
-export const addAuthors = async (req, res, next) => {
+export const addAuthors = [
+    AuthorValidation,
+    async (req, res, next) => {
     try {
         const { name, img, bio, birthDate, deathDate } = req.body;
         const authorData = {
@@ -16,8 +20,10 @@ export const addAuthors = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-};
-export const getAuthors = async (req, res, next) => {
+}];
+export const getAuthors = [
+    validateQuery,
+    async (req, res, next) => {
     try {
         const {page, limit} = req.query;
         const authors = await AuthorService.getAuthors(page, limit);
@@ -25,7 +31,7 @@ export const getAuthors = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-};
+}];
 export const getAuthorById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -44,7 +50,9 @@ export const deleteAuthor = async (req, res, next) => {
         next(error);
     }
 };
-export const updateAuthors = async (req, res, next) => {
+export const updateAuthors = [
+    AuthorValidation,
+    async (req, res, next) => {
     try {
         const { id } = req.params;
         const updatedData = req.body;
@@ -53,4 +61,4 @@ export const updateAuthors = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+}]
