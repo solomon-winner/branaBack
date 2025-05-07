@@ -26,6 +26,17 @@ export const getAuthors = async (req, res, next) => {
         next(error);
     }
 };
-export const getAuthorById = async (req, res, next) => {};
+export const getAuthorById = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const author = await AuthorService.getAuthorById(id);
+        if (!author) {
+            return ResponseHelper.error(res, 'Author not found', 404);
+        }
+        return ResponseHelper.success(res, 'Author fetched successfully!', author, 200);
+    } catch (error) {
+        next(error);
+    }
+};
 export const deleteAuthor = async (req, res, next) => {};
 export const updateAuthors = async (req, res, next) => {}
