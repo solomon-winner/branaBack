@@ -1,4 +1,4 @@
-import { authorFavouriteDto } from "../../DTOS/favouriteDTO/author.dto.js";
+import { AuthorDTOForUser } from "../../DTOS/Author/authorForUser.dto.js";
 import { Author } from "../../models/authors.js";
 
 export const AuthorService = {
@@ -6,17 +6,22 @@ export const AuthorService = {
         try {
             const author = new Author(AuthorData);
             await author.save();
-            return author;
+            return new AuthorDTOForUser(author);
         } catch (error) {
             console.error('Error adding author:', error);
             throw new Error('Error adding author: ' + error.message);
         }
     },
 
-    getAuthors: async () => {
+    getAuthors: async (page = 1, limit = 10) => {
         try {
-            const authors = await Author.find();
-            return ResponseHelper.success(res, 'Authors fetched successfully!', authors);
+            const skip = (page - 1) * limit;
+            const authors = await Author.find().skip(skip).limit(limit);
+            if (!authors) {
+                throw new Error('Authors not found');
+            }
+            return authors.map((author) => new AuthorDTOForUser(author));
+            
         } catch (error) {
             console.error('Error adding author:', error);
             throw new Error('Error adding author: ' + error.message);
@@ -24,26 +29,25 @@ export const AuthorService = {
     },
     getAuthorById: async (id) => {
         try {
-            const author = await Author.findById(id);
+            const author = await Author.findById(id).select('-__v -createdAt -updatedAt');
             if (!author) {
                  throw new Error('Author not found');
             }
-            return authorFavouriteDto(author);
+            return AuthorDTOForUser(author);
         } catch (error) {
             console.error('Error adding author:', error);
             throw new Error('Error adding author: ' + error.message);
         }
     },
 
-    updateAuthors: async () => {
+    updateAuthors: async (id,updatedData) => {
         try {
-            const { id } = req.params;
-            const { name, email } = req.body;
-            const author = await Author.findByIdAndUpdate(id, { name, email }, { new: true });
+
+            const author = await Author.findByIdAndUpdate(id, updatedData, { new: true });
             if (!author) {
-                return ResponseHelper.error(res, 'Author not found', 404);
+                throw new Error('Author not found');
             }
-            return ResponseHelper.success(res, 'Author updated successfully!', author);
+            return AuthorDTOForUser(author);
         } catch (error) {
             console.error('Error adding author:', error);
             throw new Error('Error adding author: ' + error.message);

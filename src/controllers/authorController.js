@@ -20,7 +20,7 @@ export const addAuthors = async (req, res, next) => {
 export const getAuthors = async (req, res, next) => {
     try {
         const {page, limit} = req.query;
-        const authors = await AuthorService.getAuthors({page, limit});
+        const authors = await AuthorService.getAuthors(page, limit);
         return ResponseHelper.success(res, 'Authors fetched successfully!', authors, 200);
     } catch (error) {
         next(error);
