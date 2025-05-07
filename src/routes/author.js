@@ -1,5 +1,6 @@
 import express from "express";
 import { getAuthors, addAuthors, getAuthorById,updateAuthors,  deleteAuthor} from "../controllers/authorController.js";
+import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
 
@@ -140,7 +141,7 @@ router.post("/", addAuthors);
  *                  example: "Author not found"
  * 
  */
-router.get("/:id", getAuthorById);
+router.get("/:id", validateObjectIds(['params']),getAuthorById);
 /**
  * @swagger
  * /authors/{id}:
@@ -168,7 +169,7 @@ router.get("/:id", getAuthorById);
  *             schema:
  *               $ref: '#/components/schemas/Author'
  */
-router.put("/:id", updateAuthors);
+router.put("/:id", validateObjectIds(['params']),updateAuthors);
 /**
  * @swagger
  * /authors/{id}:
@@ -195,5 +196,6 @@ router.put("/:id", updateAuthors);
  *                 message:
  *                   type: string
  */
-router.delete("/:id", deleteAuthor);
+router.delete("/:id", validateObjectIds(['params']),deleteAuthor);
+
 export default router;
