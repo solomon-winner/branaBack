@@ -30,7 +30,7 @@ export const ShelveService = {
             if (!shelve) {
                 throw new Error('Shelve not found');
             }
-            return shelve;
+            return new ShelveDTOForUser(shelve);
         } catch (error) {
             console.error('Error removing from shelve:', error);
             throw new Error('Error removing from shelve: ' + error.message);
@@ -38,14 +38,27 @@ export const ShelveService = {
     },
     removeWholeShelve: async (userId) => {
         try {
-            const shelve = await Shelve.deleteMany({ user: userId });
-            if (!shelve) {
+            const shelves = await Shelve.deleteMany({ user: userId });
+            if (!shelves) {
                 throw new Error('Shelve not found');
             }
-            return shelve;
+            return shelves.map((shelve) => new ShelveDTOForUser(shelve));
         } catch (error) {
             console.error('Error removing from shelve:', error);
             throw new Error('Error removing from shelve: ' + error.message);
+        }
+    },
+    PayForShelve: async (shelveId) => {
+        try {
+            const shelve = await Shelve.findByIdAndUpdate(shelveId, { isPaied: true }, { new: true });
+            if (!shelve) {
+                throw new Error('Shelve not found');
+            }
+            return new ShelveDTOForUser(shelve);
+        }
+        catch (error) {
+            console.error('Error paying for shelve:', error);
+            throw new Error('Error paying for shelve: ' + error.message);
         }
     }
 }

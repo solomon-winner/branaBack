@@ -1,100 +1,46 @@
 import { User } from "../models/user.js";
 import { Shelve } from "../models/shelve.js";
 import { Book } from "../models/book.js";
+import { ShelveService } from "../services/Shelve/shelve .service.js";
+import ResponseHelper from "../utils/responseHelper.js";
 
 export const addShelve = async (req, res) => {
-
     try {
-        const { id, bookId, bookCount, price, to } = req.body;
-        if (!to) {
-            to = id;
-        }
-        const user = await User.findById(id);
-
-        if (!user) {
-            return res.status(404).send({ error: 'User not found!' })
-        }
-
-        if (!bookId) {
-            return res.status(400).send({ error: 'Book ID is required!' })
-        }
-        const existingShelve = Shelve.findOne({ user: id, book: bookId });
-        if (existingShelve) {
-            return res.status(400).send({ error: 'Book already in Shelve!' })
-        }
-        const ShelveEntry = new Shelve({
-            user: id,
-            book: bookId,
-            bookCount: bookCount,
-            to: to,
-            price,
-        });
-        await ShelveEntry.save();
-        user.shelve.push(ShelveEntry._id);
-        res.status(200).send(ShelveEntry);
+        const { id } = req.params;
+        const { bookId, bookCount, price, to } = req.body;
+        !to ? to = 'me' : to
+        const shelve = await ShelveService.addShelve({ user: id, book: bookId, bookCount, price, to });
+        return ResponseHelper.success(res, 'Book added to your shelve successfully!', shelve, 201);
     } catch (error) {
-        res.status(500).send({ error: error.message })
+        next(error);
     }
 }
 export const removeShelve = async (req, res) => {
     try {
         const { id } = req.params;
-        const user = await User.findById(id);
-
-        if (!user) {
-           return res.status(400).send({ error: 'user not found' })
-        }
-
-        const Deletedbook = await Shelve.deleteMany({ user: id});
-        user.shelve.pull(Deletedbook._id);
-        await user.save();
-        res.status(200).send({ message: 'Book removed from your shelve successfully!' })
+        const shelve = await ShelveService.removeFromShelve(id);
+        return ResponseHelper.success(res, 'Book removed from your shelve successfully!', shelve, 200);
     } catch (error) {
-        res.status(500).send({ error: 'Internal Server Error' });
+        next(error);
     }
 }
 
-export const updateShelve = async (req, res) => {
+export const removeWholeShelve = async (req, res) => {
     try {
-        const { id } = req.params;
-        const { bookId, bookCount, price, to } = req.body;
-        !to ? to = id : to
-
-        const UpdatedData = { bookCount, price, to };
-
-        Object.keys(UpdatedData).forEach(key => {
-            if (!UpdatedData[key]) {
-                delete UpdatedData[key];
-            }
-        });
-
-        const user = User.findById(id)
-        if (!user) {
-            res.status(404).send({ error: 'user not found!' })
-        }
-
-        const updatedBook = await Shelve.findOneAndUpdate({ user: id, book: bookId }, { UpdatedData });
-        if (!updatedBook) {
-            return res.status(404).send({ error: 'Book not found!' })
-        }
-        res.json(updatedBook);
+        const { userId } = req.params;
+        const shelve = await ShelveService.removeWholeShelve(userId);
+        return ResponseHelper.success(res, 'Shelve updated successfully!', shelve, 200);
     } catch (error) {
-        res.status(500).send({ error: 'Internal Server Error' });
+        next(error);
     }
+
 }
 export const PayForShelve = async (req, res) => {
-    try {
-        const {id, bookId} = req.body;
-        const user = User.findById(id);
-        const Deletedbook ={}
-        if (bookId) {
-
-            Deletedbook = await Shelve.findOneAndDelete({user: id, book: bookId});
-            user.shelve.pull(Deletedbook._id);
-        } else {
-            Shelve.findByIdAndDelete(id);
-        }
-    } catch (error) {
-        res.status(500).send({ error: 'Internal Server Error' });
+   try {
+        const { shelveId } = req.params;
+        const shelve = await ShelveService.PayForShelve(shelveId);
+        return ResponseHelper.success(res, 'Shelve updated successfully!', shelve, 200);
+   } catch (error) {
+        next(error);
     }
 }
