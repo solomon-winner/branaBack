@@ -40,7 +40,7 @@ const router = express.Router();
  *       400:
  *         description: Bad request
  */
-router.get("/category", getFavouriteCategory);
+router.get("/category", validateObjectIds(['query']),getFavouriteCategory);
 
 /**
  * @swagger
@@ -110,7 +110,7 @@ router.get("/author", validateObjectIds(['query']), getFavouriteAuthor);
  *       201:
  *         description: Favourite category added successfully
  */
-router.post("/category", validateObjectIds(['query']), addFavouriteCategory);
+router.post("/category", validateObjectIds(['query','body']), addFavouriteCategory);
 
 /**
  * @swagger
@@ -171,17 +171,17 @@ router.post("/book", validateObjectIds(['body']), addFavouriteBook);
  *     tags: [Favourites]
  *     parameters:
  *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: Book ID
- *       - in: query
  *         name: userId
  *         schema:
  *           type: string
  *         required: true
- *         description: ID of the user
+ *         description: user ID
+ *       - in: query
+ *         name: bookId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the book
  *     responses:
  *       200:
  *         description: Favourite book removed successfully
@@ -216,27 +216,27 @@ router.post("/author", validateObjectIds(['body']), addFavouriteAuthor);
 
 /**
  * @swagger
- * /api/favourites/author/{id}:
+ * /api/favourites/author/{userId}:
  *   delete:
  *     summary: Remove an author from user's favourites
  *     tags: [Favourites]
  *     parameters:
  *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: Author ID
- *       - in: query
  *         name: userId
  *         schema:
  *           type: string
  *         required: true
- *         description: ID of the user
+ *         description: user ID
+ *       - in: query
+ *         name: authorId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the Author
  *     responses:
  *       200:
  *         description: Favourite author removed successfully
  */
-router.delete("/author/:id", validateObjectIds(['params','query']), removeFavouriteAuthor);
+router.delete("/author/:userId", validateObjectIds(['params','query']), removeFavouriteAuthor);
 
 export default router;
