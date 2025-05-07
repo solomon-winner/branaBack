@@ -1,4 +1,5 @@
 import { RecomendedBooksService } from "../services/RecommededBooks/recommendedBooks.service.js";
+import { validateRecommendedBook } from "../validation/recommendedBooks/recommendedBookValidator.js";
 
 export const getRecommendedBooks = async (req, res, next) => {
     try {
@@ -9,7 +10,9 @@ export const getRecommendedBooks = async (req, res, next) => {
         next(error);
     }
 }
-export const addRecommendedBooks = async (req, res, next) => {
+export const addRecommendedBooks = [
+    validateRecommendedBook,
+    async (req, res, next) => {
     try {
         const { userId, bookId } = req.query;
         const { reason } = req.body;
@@ -18,7 +21,7 @@ export const addRecommendedBooks = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+}]
 export const removeRecommendedBooks = async (req, res, next) => {
     try {
         const { userId } = req.params;
