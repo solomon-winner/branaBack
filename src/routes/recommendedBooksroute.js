@@ -13,37 +13,39 @@ const router = express.Router();
 /**
  * @swagger
  * /api/recommendedBooks:
- *    post:
- *      summary: Add recommended books for a user
- *      tags: [RecommendedBooks]
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                userId:
- *                  type: string
- *                  description: ID of the user
- *                  required: true
- *                bookId:
- *                  type: string
- *                  description: ID of the book
- *                  required: true
- *                reason:
- *                  type: string
- *                  description: Reason for recommendation
- *                  required: true
- *      responses:
- *        200:
- *          description: Recommended books added successfully
- *        400:
- *          description: Bad request, invalid input data
- * 
+ *   post:
+ *     summary: Add recommended books for a user
+ *     tags: [RecommendedBooks]
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         required: true
+ *         description: ID of the user
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: bookId
+ *         required: true
+ *         description: ID of the book
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               reason:
+ *                 type: string
+ *                 description: Reason for recommendation
+ *     responses:
+ *       200:
+ *         description: Recommended books added successfully
+ *       400:
+ *         description: Bad request, invalid input data
  */
- 
- router.post("/", validateObjectIds(['body']), addRecommendedBooks);
+
+ router.post("/", validateObjectIds(['query']), addRecommendedBooks);
 /**
  * @swagger
  * /api/recommendedBooks:

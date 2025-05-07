@@ -11,7 +11,8 @@ export const getRecommendedBooks = async (req, res, next) => {
 }
 export const addRecommendedBooks = async (req, res, next) => {
     try {
-        const { userId, bookId, reason } = req.body;
+        const { userId, bookId } = req.query;
+        const { reason } = req.body;
         const recommendedBook = await RecomendedBooksService.addRecommendedBooks(userId, bookId, reason);
         return ResponseHelper.success(res, 'Recommended book added successfully', recommendedBook, 201);
     } catch (error) {

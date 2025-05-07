@@ -81,7 +81,11 @@ router.get("/:userId", validateObjectIds(['params']), getWishList);
  *     content:
  *       application/json:
  *         schema:
- *           $ref: '#/components/schemas/WishList'
+ *          type: object
+ *          properties:
+ *           bookId:
+ *            type: string
+ *            description: The ID of the book to be added
  *   responses:
  *     201:
  *       description: The book was successfully added to the wish list
