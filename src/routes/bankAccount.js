@@ -1,5 +1,5 @@
 import express from "express";
-import { addAccount, getAccounts, removeAccount, updateAccount } from "../controllers/bankAccountController.js";
+import { addAccount, getAccounts, removeAccount } from "../controllers/bankAccountController.js";
 import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
