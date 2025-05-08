@@ -42,17 +42,17 @@ export const FavouriteService = {
             throw new Error("Error adding favourite book");
         }
     },
-    removeFavouriteBook: async (userId, bookId) => {
+    removeFavouriteBook: async (userId, categoryId) => {
         try {
-            const favourite = await UserCollections.deleteOne({ userId, targetId: bookId, targetType: "Book", collectionType: "favourite"} );
+            const favourite = await UserCollections.deleteOne({ userId, targetId: categoryId, targetType: "Book", collectionType: "favourite"} );
             return favourite;
         } catch (error) {
             throw new Error("Error removing favourite book");
         }
     },
-    addFavouriteCategory: async (userId, bookId) => {
+    addFavouriteCategory: async (userId, categoryId) => {
         try {
-            const favourite = (await UserCollections.create({ userId, targetId: bookId, targetType: "Category", collectionType: "favourite" })).toObject();
+            const favourite = (await UserCollections.create({ userId, targetId: categoryId, targetType: "Category", collectionType: "favourite" })).toObject();
             return favourite;
         } catch (error) {
             throw new Error("Error adding favourite category");
