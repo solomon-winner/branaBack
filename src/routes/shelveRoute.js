@@ -1,5 +1,6 @@
 import express from "express";
 import { addShelve, removeABookFromShelve, removeWholeShelve, PayForShelve } from "../controllers/shelveController.js";
+import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
 
@@ -25,8 +26,6 @@ const router = express.Router();
  *           type: string
  *         bookCount:
  *           type: integer
- *         price:
- *           type: number
  *         to:
  *           type: string
  *           description: Indicates whether the book is for the user ("me") or someone else
@@ -54,18 +53,33 @@ const router = express.Router();
  *     summary: Add a book to the shelve
  *     tags: [Shelve]
  *     parameters:
- *       - in: query
+ *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
  *         description: ID of the user adding the book
+ *       - in: query
+ *         name: bookId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the book
+ *       - in: query
+ *         name: to
+ *         schema:
+ *           type: string
+ *         description: ID of the user gifted to
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ShelveInput'
+ *             type: object
+ *             properties:
+ *              bookCount:
+ *               type: integer
+ *               description: Number of books to add to the shelve
  *     responses:
  *       201:
  *         description: Book added to shelve
@@ -74,7 +88,7 @@ const router = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.post("/", addShelve);
+router.post("/", validateObjectIds(['params','query']),addShelve);
 
 /**
  * @swagger
@@ -97,7 +111,7 @@ router.post("/", addShelve);
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.post("/pay", PayForShelve);
+router.post("/pay", validateObjectIds(['query']),PayForShelve);
 
 /**
  * @swagger
@@ -120,7 +134,7 @@ router.post("/pay", PayForShelve);
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.delete("/remove/:userId", removeWholeShelve);
+router.delete("/remove/:userId", validateObjectIds(['params']),removeWholeShelve);
 
 /**
  * @swagger
@@ -143,6 +157,6 @@ router.delete("/remove/:userId", removeWholeShelve);
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.delete("/:id", removeABookFromShelve);
+router.delete("/:id", validateObjectIds(['params']), removeABookFromShelve);
 
 export default router;
