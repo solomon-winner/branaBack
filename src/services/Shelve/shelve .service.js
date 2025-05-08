@@ -4,19 +4,32 @@ import { Shelve } from "../../models/shelve.js";
 export const ShelveService = {
     addShelve: async (shelveData) => {
         try {
-            const book = await Book.findById(shelveData.bookId).select("price").lean();
+            const book = await Book.findById(shelveData.bookId).select("price availableBooks").lean();
+    
             if (!book) {
                 throw new Error('Book not found');
             }
+    
+            if (typeof shelveData.bookCount !== "number") {
+                throw new Error('Invalid book count: must be a number');
+            }
+    
+            if (book.availableBooks < shelveData.bookCount) {
+                throw new Error('Not enough books available');
+            }
+    
             shelveData.price = book.price;
-            const shelve = new Shelve(shelveData);        
+    
+            const shelve = new Shelve(shelveData);
             await shelve.save();
+    
             return new ShelveDTOForUser(shelve);
         } catch (error) {
             console.error('Error adding shelve:', error);
             throw new Error('Error adding shelve: ' + error.message);
         }
     },
+    
 
     getShelves: async (userId) => {
         try {

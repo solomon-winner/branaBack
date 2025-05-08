@@ -6,6 +6,7 @@ export const addShelve = async (req, res) => {
         const { id } = req.params;
         const { bookId, to } = req.query;
         const { bookCount } = req.body;
+        
         !to ? to = 'me' : to
         const shelve = await ShelveService.addShelve({ user: id, book: bookId, bookCount, price, to });
         return ResponseHelper.success(res, 'Book added to your shelve successfully!', shelve, 201);
