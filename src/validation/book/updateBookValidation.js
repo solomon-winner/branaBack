@@ -2,136 +2,95 @@ import { validate } from 'express-validation';
 import Joi from 'joi';
 
 const updateBookSchema = Joi.object({
-  title: Joi.string()
-    .messages({
+    title: Joi.string().messages({
       'string.base': 'Title must be a string',
+      'any.required': 'Title is required',
+      'string.empty': 'Title cannot be empty',
     }),
-
-  author: Joi.string()
-    .messages({
+    author: Joi.string().messages({
       'string.base': 'Author must be a string',
+      'any.required': 'Author is required',
+      'string.empty': 'Author cannot be empty',
     }),
-
-  img: Joi.string().uri()
-    .messages({
-      'string.base': 'Image must be a string',
-      'string.uri': 'Image must be a valid URI',
-    }),
-
-  rating: Joi.number().min(0).max(5)
-    .messages({
-      'number.base': 'Rating must be a number',
-      'number.min': 'Rating cannot be less than 0',
-      'number.max': 'Rating cannot be more than 5',
-    }),
-
-  price: Joi.number().min(0)
-    .messages({
-      'number.base': 'Price must be a number',
-      'number.min': 'Price must be greater than or equal to 0',
-    }),
-
-  description: Joi.string().max(2000)
-    .messages({
-      'string.base': 'Description must be a string',
-      'string.max': 'Description cannot exceed 2000 characters',
-    }),
-
-  category: Joi.string()
-    .messages({
+    category: Joi.string().messages({
       'string.base': 'Category must be a string',
+      'any.required': 'Category is required',
+      'string.empty': 'Category cannot be empty',
     }),
-
-  availableBooks: Joi.number().integer().min(0)
-    .messages({
+    price: Joi.number().messages({
+      'number.base': 'Price must be a number',
+      'any.required': 'Price is required',
+    }),
+    availableBooks: Joi.number().integer().min(0).messages({
       'number.base': 'Available books must be a number',
       'number.integer': 'Available books must be an integer',
-      'number.min': 'Available books must be 0 or more',
+      'number.min': 'Available books cannot be negative',
+      'any.required': 'Available books is required',
     }),
-
-  language: Joi.string()
-    .messages({
+    language: Joi.string().messages({
       'string.base': 'Language must be a string',
+      'any.required': 'Language is required',
+      'string.empty': 'Language cannot be empty',
     }),
-
-  pages: Joi.number().integer().min(1)
-    .messages({
+    pages: Joi.number().integer().min(1).messages({
       'number.base': 'Pages must be a number',
       'number.integer': 'Pages must be an integer',
       'number.min': 'Pages must be at least 1',
+      'any.required': 'Pages is required',
     }),
-
-  publisher: Joi.string()
-    .messages({
+    publisher: Joi.string().optional().messages({
       'string.base': 'Publisher must be a string',
     }),
-
-  year: Joi.number().integer().min(0).max(new Date().getFullYear())
-    .messages({
+    year: Joi.number().optional().messages({
       'number.base': 'Year must be a number',
-      'number.integer': 'Year must be an integer',
-      'number.min': 'Year must be 0 or greater',
-      'number.max': `Year cannot be later than ${new Date().getFullYear()}`,
     }),
-
-  isBestSeller: Joi.boolean()
-    .messages({
-      'boolean.base': 'isBestSeller must be a boolean',
+    img: Joi.string().uri().optional().messages({
+      'string.uri': 'Image must be a valid URL',
     }),
-
-  isTrending: Joi.boolean()
-    .messages({
-      'boolean.base': 'isTrending must be a boolean',
+    description: Joi.string().custom((value, helpers) => {
+      const wordCount = value.trim().split(/\s+/).length;
+      if (wordCount > 2000) {
+        return helpers.error('any.custom');
+      }
+      return value;
+    }).messages({
+      'string.base': 'Description must be a string',
+      'any.custom': 'Description should not exceed 200 words!',
     }),
-
-  isOnSale: Joi.boolean()
-    .messages({
-      'boolean.base': 'isOnSale must be a boolean',
+    isPreOrder: Joi.boolean().optional().messages({
+      'boolean.base': 'isPreOrder must be true or false',
     }),
-
-  isDiscounted: Joi.boolean()
-    .messages({
-      'boolean.base': 'isDiscounted must be a boolean',
+    isComingSoon: Joi.boolean().optional().messages({
+      'boolean.base': 'isComingSoon must be true or false',
     }),
-
-  discount: Joi.number().min(0).max(100)
-    .messages({
+    isBanned: Joi.boolean().optional().messages({
+      'boolean.base': 'isBanned must be true or false',
+    }),
+    isBestSeller: Joi.boolean().optional().messages({
+      'boolean.base': 'isBestSeller must be true or false',
+    }),
+    isTrending: Joi.boolean().optional().messages({
+      'boolean.base': 'isTrending must be true or false',
+    }),
+    isOnSale: Joi.boolean().optional().messages({
+      'boolean.base': 'isOnSale must be true or false',
+    }),
+    isDiscounted: Joi.boolean().optional().messages({
+      'boolean.base': 'isDiscounted must be true or false',
+    }),
+    discount: Joi.number().optional().messages({
       'number.base': 'Discount must be a number',
-      'number.min': 'Discount must be 0 or more',
-      'number.max': 'Discount cannot be more than 100',
     }),
-
-  discountedPrice: Joi.number().min(0)
-    .messages({
+    discountedPrice: Joi.number().optional().messages({
       'number.base': 'Discounted price must be a number',
-      'number.min': 'Discounted price must be at least 0',
     }),
-
-  isComingSoon: Joi.boolean()
-    .messages({
-      'boolean.base': 'isComingSoon must be a boolean',
+    isApproaved: Joi.boolean().optional().messages({
+      'boolean.base': 'isApproaved must be true or false',
     }),
-
-  isPreOrder: Joi.boolean()
-    .messages({
-      'boolean.base': 'isPreOrder must be a boolean',
+    isSoldOut: Joi.boolean().optional().messages({
+      'boolean.base': 'isSoldOut must be true or false',
     }),
-
-  isSoldOut: Joi.boolean()
-    .messages({
-      'boolean.base': 'isSoldOut must be a boolean',
-    }),
-
-  isApproaved: Joi.boolean()
-    .messages({
-      'boolean.base': 'isApproaved must be a boolean',
-    }),
-
-  isBanned: Joi.boolean()
-    .messages({
-      'boolean.base': 'isBanned must be a boolean',
-    }),
-}).min(1).messages({
+  }).min(1).messages({
   'object.min': 'At least one field must be provided for update',
 });
 
