@@ -64,6 +64,33 @@ const AddBookSchema = {
     isComingSoon: Joi.boolean().optional().messages({
       'boolean.base': 'isComingSoon must be true or false',
     }),
+    isBanned: Joi.boolean().optional().messages({
+      'boolean.base': 'isBanned must be true or false',
+    }),
+    isBestSeller: Joi.boolean().optional().messages({
+      'boolean.base': 'isBestSeller must be true or false',
+    }),
+    isTrending: Joi.boolean().optional().messages({
+      'boolean.base': 'isTrending must be true or false',
+    }),
+    isOnSale: Joi.boolean().optional().messages({
+      'boolean.base': 'isOnSale must be true or false',
+    }),
+    isDiscounted: Joi.boolean().optional().messages({
+      'boolean.base': 'isDiscounted must be true or false',
+    }),
+    discount: Joi.number().optional().messages({
+      'number.base': 'Discount must be a number',
+    }),
+    discountedPrice: Joi.number().optional().messages({
+      'number.base': 'Discounted price must be a number',
+    }),
+    isApproaved: Joi.boolean().optional().messages({
+      'boolean.base': 'isApproaved must be true or false',
+    }),
+    isSoldOut: Joi.boolean().optional().messages({
+      'boolean.base': 'isSoldOut must be true or false',
+    }),
   }),
 };
 

@@ -41,6 +41,7 @@ export const getAccounts = async (req, res, next) => {
         next(error);
     }
 };
+
 export const removeAccount = async (req, res, next) => {
     try {
         const { accountId } = req.params;
