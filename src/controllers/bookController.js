@@ -23,6 +23,7 @@ export const getBookById = [
     async (req, res, next) => {
     try {
         const { id } = req.params;
+        
         const book = await BookService.getBookByIdService(id);
         return ResponseHelper.success(res, 'Book retrieved successfully', book, 200);
     } catch (error) {

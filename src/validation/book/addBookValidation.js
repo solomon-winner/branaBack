@@ -28,6 +28,11 @@ const AddBookSchema = {
       'number.min': 'Available books cannot be negative',
       'any.required': 'Available books is required',
     }),
+    rating: Joi.number().optional().messages({
+          'number.base': 'Rating must be a number',
+          'number.min': 'Rating must be at least 0',
+          'number.max': 'Rating must be at most 5',
+    }),
     language: Joi.string().required().messages({
       'string.base': 'Language must be a string',
       'any.required': 'Language is required',

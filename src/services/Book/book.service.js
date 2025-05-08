@@ -1,15 +1,20 @@
 import { BookDTOForUser } from '../../DTOS/bookDTO/bookdtoForUser.dto.js';
+import { checkDocumentExist } from '../../middlewares/checkDocumentExist.js';
 import {Book} from '../../models/book.js';
+import getPagination from '../../utils/getPagination.js';
 
 export const BookService = {
-  getBooksService: async ({ page = 1, limit = 10, genre }) => {
+  getBooksService: async ({ page = 1, limit = 10, category }) => {
     const skip = (page - 1) * limit;
-    const filter = genre ? { genre } : {};
-    const books = await Book.find(filter).skip(skip).limit(limit);
-    return books.map((book) => new BookDTOForUser(book));
+    const filter = category ? { category } : {};
+    const books = await Book.find( filter).skip(skip).limit(limit);
+    const metaData =  await getPagination( page, limit, Book, filter);
+    return {metaData, books: books.map((book) => new BookDTOForUser(book))};
 },
-getBookByIdService: async (id) => {
+
+getBookByIdService: async (id,next) => {
   try {
+    
     const book = await Book.findById(id).select('-__v -createdAt -updatedAt');
     if (!book) {
       throw new Error('Book not found');

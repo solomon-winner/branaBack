@@ -78,6 +78,9 @@ const updateBookSchema = Joi.object({
     isDiscounted: Joi.boolean().optional().messages({
       'boolean.base': 'isDiscounted must be true or false',
     }),
+    rating: Joi.number().optional().messages({
+      'number.base': 'Rating must be a number',
+    }),
     discount: Joi.number().optional().messages({
       'number.base': 'Discount must be a number',
     }),
