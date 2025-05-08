@@ -9,6 +9,7 @@ export const addCategory = async (req, res, next) => {
         next(error);
     }
 };
+
 export const getAllCategory = async (req, res, next) => {
     try {
         const { page, limit } = req.query;
@@ -18,6 +19,7 @@ export const getAllCategory = async (req, res, next) => {
         next(error);
     }
 };
+
 export const getCategoryById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -27,6 +29,7 @@ export const getCategoryById = async (req, res, next) => {
         next(error);
     }
 }
+
 export const updateCategory = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -37,6 +40,7 @@ export const updateCategory = async (req, res, next) => {
         next(error);
     }
 };
+
 export const removeCategory =async (req, res, next) => {
     try {
         const { id } = req.params;
