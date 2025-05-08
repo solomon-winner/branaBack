@@ -1,5 +1,5 @@
-import { Category } from "../../models/categories";
-import getPagination from "../../utils/getPagination";
+import { Category } from "../../models/categories.js";
+import getPagination from "../../utils/getPagination.js";
 
 export const CategoryService = {
      getAllCategories: async(page, limit) => {
