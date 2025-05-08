@@ -4,7 +4,7 @@ import ResponseHelper from "../utils/responseHelper.js";
 export const addShelve = async (req, res) => {
     try {
         const { id } = req.params;
-        const { bookId, bookCount, price, to } = req.body;
+        const { bookId, bookCount, to } = req.body;
         !to ? to = 'me' : to
         const shelve = await ShelveService.addShelve({ user: id, book: bookId, bookCount, price, to });
         return ResponseHelper.success(res, 'Book added to your shelve successfully!', shelve, 201);
@@ -12,7 +12,7 @@ export const addShelve = async (req, res) => {
         next(error);
     }
 }
-export const removeShelve = async (req, res) => {
+export const removeABookFromShelve = async (req, res) => {
     try {
         const { id } = req.params;
         const shelve = await ShelveService.removeFromShelve(id);

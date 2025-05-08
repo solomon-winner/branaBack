@@ -1,5 +1,5 @@
 import express from "express";
-import { addShelve, removeShelve, removeWholeShelve, PayForShelve } from "../controllers/shelveController.js";
+import { addShelve, removeABookFromShelve, removeWholeShelve, PayForShelve } from "../controllers/shelveController.js";
 
 const router = express.Router();
 
@@ -143,6 +143,6 @@ router.delete("/remove/:userId", removeWholeShelve);
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.delete("/:id", removeShelve);
+router.delete("/:id", removeABookFromShelve);
 
 export default router;
