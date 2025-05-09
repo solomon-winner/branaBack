@@ -77,7 +77,7 @@ const router = express.Router();
  *        - in: path
  *          name: id
  *          required: true
- *          description: ID of the recommended book to remove
+ *          description: ID of the user
  *          schema:
  *           type: string
  *      requestBody:    
@@ -91,10 +91,10 @@ const router = express.Router();
  *                type: string
  *                description: ID of the book to remove from recommendations
  *                required: true
- *    responses:
- *      200:
+ *      responses:
+ *       200:
  *        description: Recommended book removed successfully
- *      400:
+ *       400:
  *        description: Bad request, invalid input data
  */
 router.delete("/:id", validateObjectIds(['params', 'body']), removeRecommendedBooks);
