@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const bookSchema = new mongoose.Schema({
     title: {
         type : String,
+        unique: true,
         required: true
     },
     author: {
@@ -23,6 +24,7 @@ const bookSchema = new mongoose.Schema({
     },
     description: {
         type: String,
+        unique: true,
         required: true,
     },
     category: {

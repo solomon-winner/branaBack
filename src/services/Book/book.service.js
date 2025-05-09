@@ -1,5 +1,4 @@
 import { BookDTOForUser } from '../../DTOS/bookDTO/bookdtoForUser.dto.js';
-import { checkDocumentExist } from '../../middlewares/checkDocumentExist.js';
 import {Book} from '../../models/book.js';
 import getPagination from '../../utils/getPagination.js';
 
@@ -12,9 +11,8 @@ export const BookService = {
     return {metaData, books: books.map((book) => new BookDTOForUser(book))};
 },
 
-getBookByIdService: async (id,next) => {
+getBookByIdService: async (id) => {
   try {
-    
     const book = await Book.findById(id).select('-__v -createdAt -updatedAt');
     if (!book) {
       throw new Error('Book not found');
