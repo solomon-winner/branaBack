@@ -15,14 +15,18 @@ export const wishListService = {
     addWishList: async (userId, bookId) => {
         try {
             
-            const book = await Book.findById(bookId).select("price").lean();
+            const book = await Book.findById(bookId).select("price title img author").lean();
+
             if (!book) {
                 throw new Error("Book not found");
             }
-            const newWish = new UserCollections({ userId, bookId, targetId: bookId, targetType: "Book", collectionType: "wishlist", price: book.price });
+            console.log("Book found:", book);
+            const newWish = new UserCollections({ userId, targetId: bookId, targetType: "Book", collectionType: "wishlist", price: book.price });
             await newWish.save();
-            console.log("Book found:", newWish);
-            return new bookFavouriteDto(newWish);
+            const plainWish = newWish.toObject();
+            plainWish.targetId = book;
+            console.log("New wish list item:", plainWish);
+            return new bookFavouriteDto(plainWish);
         } catch (error) {
             if (error.code === 11000) {
             throw new Error("Book already in wish list");
@@ -33,9 +37,9 @@ export const wishListService = {
         }
     },
 
-    removeWishList: async (userId, bookId) => {
+    removeWishList: async (userId, targetId) => {
         try {
-            await UserCollections.deleteOne({ userId, bookId, collectionType: "wishlist" });
+            await UserCollections.deleteOne({ userId, targetId, collectionType: "wishlist" });
             return { message: "Book removed from wish list" };
         } catch (error) {
             throw new Error("Error removing from wish list");
