@@ -51,3 +51,13 @@ export const PayForShelve = async (req, res, next) => {
         next(error);
     }
 }
+
+export const payForAllOnce = async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        const shelve = await ShelveService.payForAllOnce(userId);
+        return ResponseHelper.success(res, 'Shelve updated successfully!', shelve, 200);
+    } catch (error) {
+        next(error);
+    }
+}
