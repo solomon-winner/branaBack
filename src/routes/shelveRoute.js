@@ -48,7 +48,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /shelve:
+ * /api/shelve/{id}:
  *   post:
  *     summary: Add a book to the shelve
  *     tags: [Shelve]
@@ -88,11 +88,11 @@ const router = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.post("/", validateObjectIds(['params','query']),addShelve);
+router.post("/:id", validateObjectIds(['params','query']),addShelve);
 
 /**
  * @swagger
- * /shelve/pay:
+ * /api/shelve/pay:
  *   post:
  *     summary: Pay for the shelve
  *     tags: [Shelve]
@@ -115,7 +115,7 @@ router.post("/pay", validateObjectIds(['query']),PayForShelve);
 
 /**
  * @swagger
- * /shelve/remove/{userId}:
+ * /api/shelve/remove/{userId}:
  *   delete:
  *     summary: Remove all shelve items for a user
  *     tags: [Shelve]
@@ -138,7 +138,7 @@ router.delete("/remove/:userId", validateObjectIds(['params']),removeWholeShelve
 
 /**
  * @swagger
- * /shelve/{id}:
+ * /api/shelve/{id}:
  *   delete:
  *     summary: Remove a book from the shelve
  *     tags: [Shelve]

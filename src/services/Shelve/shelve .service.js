@@ -4,7 +4,8 @@ import { Shelve } from "../../models/shelve.js";
 export const ShelveService = {
     addShelve: async (shelveData) => {
         try {
-            const book = await Book.findById(shelveData.bookId).select("price availableBooks").lean();
+            console.log("Shelve data:", shelveData);
+            const book = await Book.findById(shelveData.book).select("price availableBooks").lean();
     
             if (!book) {
                 throw new Error('Book not found');
@@ -25,7 +26,7 @@ export const ShelveService = {
     
             return new ShelveDTOForUser(shelve);
         } catch (error) {
-            console.error('Error adding shelve:', error);
+            console.error('Error adding shelve:', error.message);
             throw new Error('Error adding shelve: ' + error.message);
         }
     },
