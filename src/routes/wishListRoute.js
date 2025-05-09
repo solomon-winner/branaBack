@@ -38,7 +38,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/wishList/{userId}:
+ * /api/wishlist/{userId}:
  *  get:
  *   summary: Get wish list for a user
  *   tags: [WishList]
@@ -65,7 +65,7 @@ router.get("/:userId", validateObjectIds(['params']), getWishList);
 
 /**
  * @swagger
- * /api/wishList/{userId}:
+ * /api/wishlist/{userId}:
  *  post:
  *   summary: Add a new book to the wish list
  *   tags: [WishList]
@@ -97,7 +97,7 @@ router.get("/:userId", validateObjectIds(['params']), getWishList);
 router.post("/:userId", validateObjectIds(['params', 'body']),addWishList);
 /**
  * @swagger
- * /api/wishList/{userId}:
+ * /api/wishlist/{userId}:
  *  delete:
  *   summary: Remove a book from the wish list
  *   tags: [WishList]

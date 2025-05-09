@@ -49,8 +49,8 @@ app.use('/api/auth', AuthRoutes);
 app.use('/api/favourites', FavouriteRoutes)
 app.use('/api/recommendedBooks', RecommendedBooksRoutes)
 app.use('/api/savedBooks', SavedBooksRoutes)
-app.use('api/shelve',ShelveRoutes)
-app.use('api/wishlist', WishListRoutes)
+app.use('/api/shelve',ShelveRoutes)
+app.use('/api/wishlist', WishListRoutes)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use(errorHandler);
 

@@ -15,20 +15,19 @@ export const wishListService = {
 
     addWishList: async (userId, bookId) => {
         try {
-            const existingWish = await UserCollections.findOne({ userId, targetId: bookId, collectionType: "wishlist" });
-            if (existingWish) {
-                throw new Error("Book already in wish list");
-            }
-
+            
             const book = await Book.findById(bookId).select("price").lean();
             if (!book) {
                 throw new Error("Book not found");
             }
 
-            const newWish = new WishList({ userId, bookId, targetId: bookId, targetType: "Book", collectionType: "wishlist", price: book.price });
+            const newWish = new UserCollections({ userId, bookId, targetId: bookId, targetType: "Book", collectionType: "wishlist", price: book.price });
             await newWish.save();
             return new bookFavouriteDto(newWish);
         } catch (error) {
+            if (error.code === 11000) {
+            throw new Error("Book already in wish list");
+        }
             console.error(error);
             throw new Error("Error adding to wish list");
         }
