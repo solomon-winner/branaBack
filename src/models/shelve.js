@@ -31,4 +31,5 @@ const shelveSchema = new mongoose.Schema({
     },
 
 });
+shelveSchema.index({ user: 1, book: 1 }, { unique: true });
 export const Shelve = mongoose.model("Shelve", shelveSchema);

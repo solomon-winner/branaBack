@@ -1,5 +1,5 @@
 import express from "express";
-import { addShelve, removeABookFromShelve, removeWholeShelve, PayForShelve, getShelves } from "../controllers/shelveController.js";
+import { addShelve, removeABookFromShelve, removeWholeShelve, PayForShelve, getShelves, payForAllOnce } from "../controllers/shelveController.js";
 import { validateObjectIds } from "../middlewares/validateObjectIds.js";
 
 const router = express.Router();
@@ -156,7 +156,28 @@ router.post("/:id", validateObjectIds(['params','query']),addShelve);
  *               $ref: '#/components/schemas/Shelve'
  */
 router.post("/pay/:shelveId", validateObjectIds(['params']),PayForShelve);
-
+/**
+ * @swagger
+ * /api/shelve/payAllOnce/{userId}:
+ *   post:
+ *     summary: Pay for all shelve items at once
+ *     tags: [Shelve]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the user
+ *     responses:
+ *       200:
+ *         description: All shelve items paid for successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Shelve'
+ */
+router.post("/payAllOnce/:userId", validateObjectIds(['params']),payForAllOnce);
 /**
  * @swagger
  * /api/shelve/remove/{userId}:

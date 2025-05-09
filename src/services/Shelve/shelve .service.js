@@ -24,7 +24,6 @@ export const ShelveService = {
             const shelve = new Shelve(shelveData);
             await shelve.save();
             await shelve.populate("book", "title img author price");
-            console.log("Shelve data:", shelve);
             return new ShelveForUserDto(shelve);
         } catch (error) {
             console.error('Error adding shelve:', error);
@@ -59,7 +58,6 @@ export const ShelveService = {
     },
     removeWholeShelve: async (userId) => {
     try {
-        console.log("Removing whole shelve for user:", userId);
         const result = await Shelve.deleteMany({ user: userId });
 
         if (result.deletedCount === 0) {
