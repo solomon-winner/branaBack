@@ -20,12 +20,10 @@ export const wishListService = {
             if (!book) {
                 throw new Error("Book not found");
             }
-            console.log("Book found:", book);
             const newWish = new UserCollections({ userId, targetId: bookId, targetType: "Book", collectionType: "wishlist", price: book.price });
             await newWish.save();
             const plainWish = newWish.toObject();
             plainWish.targetId = book;
-            console.log("New wish list item:", plainWish);
             return new bookFavouriteDto(plainWish);
         } catch (error) {
             if (error.code === 11000) {

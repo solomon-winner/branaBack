@@ -77,7 +77,7 @@ router.get("/:userId", validateObjectIds(['params']), getSavedBooks);
  *              bookId:
  *                type: string
  *                description: The ID of the book to be saved
- *              example:
+ *             example:
  *                userId: "1234567890"
  *                bookId: "0987654321"
  *    responses:
@@ -118,7 +118,7 @@ router.post("/", validateObjectIds(['body']), addSavedBooks);
  *         description: Successfully removed saved book
  */
 
-router.delete("/:id", validateObjectIds(['params', 'body']), removeSavedBooks);
+router.delete("/:userId", validateObjectIds(['params', 'body']), removeSavedBooks);
 
 export default router;
 
