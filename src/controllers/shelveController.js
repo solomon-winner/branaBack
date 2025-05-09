@@ -13,12 +13,19 @@ export const addShelve = async (req, res, next) => {
         next(error);
     }
 }
-//bookId: 681d1469d68d6845804cb13a
-//userId:67d14380611bbb2880cdded7
-export const removeABookFromShelve = async (req, res, next) => {
+export const getShelves = async (req, res, next) => {
     try {
         const { userId } = req.params;
-        const shelve = await ShelveService.removeFromShelve(userId);
+        const shelves = await ShelveService.getShelves(userId);
+        return ResponseHelper.success(res, 'Shelves retrieved successfully!', shelves, 200);
+    } catch (error) {
+        next(error);
+    }
+}
+export const removeABookFromShelve = async (req, res, next) => {
+    try {
+        const { shelveId } = req.params;
+        const shelve = await ShelveService.removeFromShelve(shelveId);
         return ResponseHelper.success(res, 'Book removed from your shelve successfully!', shelve, 200);
     } catch (error) {
         next(error);
@@ -37,7 +44,7 @@ export const removeWholeShelve = async (req, res, next) => {
 }
 export const PayForShelve = async (req, res, next) => {
    try {
-        const { shelveId } = req.query;
+        const { shelveId } = req.params;
         const shelve = await ShelveService.PayForShelve(shelveId);
         return ResponseHelper.success(res, 'Shelve updated successfully!', shelve, 200);
    } catch (error) {

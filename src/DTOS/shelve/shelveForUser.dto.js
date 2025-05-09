@@ -1,5 +1,5 @@
 export class ShelveForUserDto {
-    constructor(_id, book, bookCount, price, to, isPaied) {
+    constructor({_id, book, bookCount, price, to, isPaied}) {
         this.shelveId = _id;
         this.bookId = book._id;
         this.title = book.title;

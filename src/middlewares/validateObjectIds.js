@@ -21,7 +21,7 @@ export const validateObjectIds = (sources = ['params']) => {
               message: `Missing value for ${source}.${key}`,
             });
           }
-          
+         
           if (typeof value !== 'string') {
             return res.status(400).json({
               message: `Expected a string for ObjectId in ${source}.${key}, but got ${typeof value}`,
@@ -29,6 +29,7 @@ export const validateObjectIds = (sources = ['params']) => {
           }
           // Only check strings with 24-character hex format
             if (!isValidObjectId(value)) {
+              console.error(`Invalid ObjectId: ${value} ${key}`);
               return res.status(400).json({
                 message: `Invalid MongoDB ObjectId in ${key}`,
               });
@@ -42,3 +43,42 @@ export const validateObjectIds = (sources = ['params']) => {
     }
   };
 };
+
+
+//
+// export const validateObjectIds = (sources = ['params'], keysToValidate = []) => {
+//   return (req, res, next) => {
+//     try {
+//       for (const source of sources) {
+//         if (!req[source]) continue;
+//         for (const key in req[source]) {
+//           if (keysToValidate.length && !keysToValidate.includes(key)) continue;
+
+//           const value = req[source][key];
+
+//           if (value === null || value === undefined) {
+//             return res.status(400).json({
+//               message: `Missing value for ${source}.${key}`,
+//             });
+//           }
+
+//           if (typeof value !== 'string') {
+//             return res.status(400).json({
+//               message: `Expected a string for ObjectId in ${source}.${key}, but got ${typeof value}`,
+//             });
+//           }
+
+//           if (!isValidObjectId(value)) {
+//             console.error(`Invalid ObjectId: ${value} (${key})`);
+//             return res.status(400).json({
+//               message: `Invalid MongoDB ObjectId in ${key}`,
+//             });
+//           }
+//         }
+//       }
+//       next();
+//     } catch (err) {
+//       next(err);
+//     }
+//   };
+// };
