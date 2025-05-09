@@ -6,7 +6,6 @@ export const wishListService = {
     getWishList: async (userId) => {
         try {
             const wishList = await UserCollections.find({ userId, collectionType:'wishlist' }).populate("targetId", "title author img price").select("-__v").lean();
-            console.log("Wish list found:", wishList);
             return wishList.map((book) => new bookFavouriteDto(book));
         } catch (error) {
             throw new Error("Error fetching wish list:"+ error.message);
