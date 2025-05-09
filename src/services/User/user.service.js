@@ -1,13 +1,16 @@
+import config from "../../../config.js";
 import { UserDTOForAdmin } from "../../DTOS/userDTO/userdtoForAdmin.dto.js";
 import { UserDTOForUser } from "../../DTOS/userDTO/userdtoForUser.dto.js";
 import { User } from "../../models/user.js";
 import getPagination from "../../utils/getPagination.js";
+import { Encryptor } from "../authentication/Encryptor.service.js";
 
 export const UserService = {
     addUser: async (userData) => {
         try { 
-            const newUser = await User(userData).save();
-            return new UserDTOForUser(newUser);
+              const hashedPassword = await Encryptor.hashPassword(userData.password, config.bcryptSaltRounds);
+            const newUser = await User({...userData, password: hashedPassword}).save();
+            return new UserDTOForAdmin(newUser);
         } catch (error) {
             console.error("Failed to add user:", error.message);
             throw new Error('Failed to add user');

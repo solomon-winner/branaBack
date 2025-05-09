@@ -1,3 +1,4 @@
+import { AuthService } from "../services/authentication/auth.service.js";
 import { UserService } from "../services/User/user.service.js";
 import ResponseHelper from "../utils/responseHelper.js";
 import { validateRegister } from "../validation/authentication/register.validation.js";
@@ -30,6 +31,10 @@ export const addUser = [
     async (req, res, next) => {
     try {
         const userData = req.body;
+        const existingUser = await AuthService.checkExistingUser(userData.email);
+        if (existingUser) {
+            return ResponseHelper.error(res, 'User already exists', 409);
+        }
         const newUser = await UserService.addUser(userData);
         return ResponseHelper.success(res, 'User added successfully', newUser, 201);
     } catch (error) {
