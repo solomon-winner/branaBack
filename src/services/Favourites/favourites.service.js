@@ -1,3 +1,5 @@
+import { bookFavouriteDto } from "../../DTOS/favouriteDTO/book.dto.js";
+import { Book } from "../../models/book.js";
 import { UserCollections } from "../../models/userCollections.js";
 
 export const FavouriteService = {
@@ -35,9 +37,16 @@ export const FavouriteService = {
         }
     },
     addFavouriteBook: async (userId, bookId) => {
+        const book = await Book.findById(bookId).select("title img author").lean();
+        
+        if (!book) {
+        throw new Error("Book not found");
+    }
+
         try {
             const favourite = (await UserCollections.create({ userId, targetId: bookId, targetType: "Book", collectionType: "favourite"})).toObject();
-            return favourite;
+            favourite.targetId = book;
+            return new bookFavouriteDto(favourite);
         } catch (error) {
             throw new Error("Error adding favourite book");
         }

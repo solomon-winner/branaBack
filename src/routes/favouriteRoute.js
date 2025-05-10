@@ -165,7 +165,7 @@ router.post("/book", validateObjectIds(['body']), addFavouriteBook);
 
 /**
  * @swagger
- * /api/favourites/book/{id}:
+ * /api/favourites/book/{userId}:
  *   delete:
  *     summary: Remove a book from user's favourites
  *     tags: [Favourites]
@@ -186,7 +186,7 @@ router.post("/book", validateObjectIds(['body']), addFavouriteBook);
  *       200:
  *         description: Favourite book removed successfully
  */
-router.delete("/book/:id", validateObjectIds(['params','query']), removeFavouriteBook);
+router.delete("/book/:userId", validateObjectIds(['params','query']), removeFavouriteBook);
 
 /**
  * @swagger

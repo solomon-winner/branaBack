@@ -48,8 +48,7 @@ export const addFavouriteBook = async (req, res, next) => {
     try {
         const { userId, bookId } = req.body;
         const favourite = await FavouriteService.addFavouriteBook(userId, bookId);
-        const favouriteDtos = new authorFavouriteDto(favourite);
-        return ResponseHelper.success(res, 'Favourite book added successfully', favouriteDtos, 201);
+        return ResponseHelper.success(res, 'Favourite book added successfully', favourite, 201);
     } catch (error) {
         next(error);
     }
