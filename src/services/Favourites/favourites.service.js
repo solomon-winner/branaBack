@@ -1,6 +1,7 @@
 import { bookFavouriteDto } from "../../DTOS/favouriteDTO/book.dto.js";
 import { Book } from "../../models/book.js";
 import { UserCollections } from "../../models/userCollections.js";
+import { categoryFavouriteDTO } from "../../DTOS/favouriteDTO/category.dto.js";
 
 export const FavouriteService = {
     addFavouriteAuthor: async (userId, authorId) => {
@@ -59,14 +60,23 @@ export const FavouriteService = {
             throw new Error("Error removing favourite book");
         }
     },
-    addFavouriteCategory: async (userId, categoryId) => {
-        try {
-            const favourite = (await UserCollections.create({ userId, targetId: categoryId, targetType: "Category", collectionType: "favourite" })).toObject();
-            return favourite;
-        } catch (error) {
-            throw new Error("Error adding favourite category");
-        }
-    },
+addFavouriteCategory: async (userId, categoryId) => {
+    try {
+        const created = await UserCollections.create({
+            userId,
+            targetId: categoryId,
+            targetType: "Category",
+            collectionType: "favourite"
+        });
+
+        const populated = await UserCollections.findById(created._id).populate('targetId'); 
+
+        const favouriteDtos = new categoryFavouriteDTO(populated.toObject().targetId);
+        return favouriteDtos;
+    } catch (error) {
+        throw new Error("Error adding favourite category: " + error.message);
+    }
+},
 
     removeFavouriteCategory: async (userId, categoryId) => {
         try {

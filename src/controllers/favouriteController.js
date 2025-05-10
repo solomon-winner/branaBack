@@ -78,11 +78,9 @@ export const getFavouriteCategory = async (req, res, next) => {
 }
 export const addFavouriteCategory = async (req, res, next) => {
 try {
-    const { userId } = req.query;
-    const { categoryId } = req.body;
+    const { userId,categoryId } = req.body;
     const favourite = await FavouriteService.addFavouriteCategory(userId, categoryId);
-    const favouriteDtos = new authorFavouriteDto(favourite);
-    return ResponseHelper.success(res, 'Favourite category added successfully', favouriteDtos, 201);
+    return ResponseHelper.success(res, 'Favourite category added successfully', favourite, 201);
 } catch (error) {
     next(error);
 }

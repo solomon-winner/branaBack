@@ -86,13 +86,6 @@ router.get("/author", validateObjectIds(['query']), getFavouriteAuthor);
  *   post:
  *     summary: Add a category to user's favourites
  *     tags: [Favourites]
- *     parameters:
- *      - in: query
- *        name: userId
- *        schema:
- *          type: string
- *        required: true
- *        description: ID of the user
  *     requestBody:
  *       required: true
  *       content:
@@ -110,7 +103,7 @@ router.get("/author", validateObjectIds(['query']), getFavouriteAuthor);
  *       201:
  *         description: Favourite category added successfully
  */
-router.post("/category", validateObjectIds(['query','body']), addFavouriteCategory);
+router.post("/category", validateObjectIds(['body']), addFavouriteCategory);
 
 /**
  * @swagger
