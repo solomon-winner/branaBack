@@ -28,7 +28,8 @@ export const CategoryService = {
      createCategory: async(categoryData) =>{
         try {
             const newCategory = await Category.create(categoryData);
-            return newCategory;
+             const { __v, createdAt, updatedAt, ...cleaned } = newCategory.toObject();
+            return cleaned;
         } catch (error) {
             console.error('Error creating category:', error);
             throw new Error('Error creating category: ' + error.message);
@@ -46,6 +47,7 @@ export const CategoryService = {
             throw new Error('Error updating category: ' + error.message);
         }
      },
+     
      deleteCategory: async(id) =>{
         try {
             const deletedCategory = await Category.findByIdAndDelete(id).select('-__v -createdAt -updatedAt').lean();

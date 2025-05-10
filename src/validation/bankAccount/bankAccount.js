@@ -8,7 +8,7 @@ const bankAccountSchema = {
       'string.max': 'Bank name must be at most 50 characters',
       'any.required': 'Bank name is required',
     }),
-    accountNo: Joi.string().trim().min(10).max(20).required().messages({
+    accountNumber: Joi.string().trim().min(10).max(20).required().messages({
       'string.min': 'Account number must be at least 10 characters',
       'string.max': 'Account number must be at most 20 characters',
       'any.required': 'Account number is required',

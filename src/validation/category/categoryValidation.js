@@ -23,12 +23,12 @@ const CategorySchema = {
 
 const UpdateCategorySchema = {
     body: Joi.object({
-        name: Joi.string().required().messages({
+        name: Joi.string().messages({
             'string.base': 'Name must be a string',
             'any.required': 'Name is required',
             'string.empty': 'Name cannot be empty',
         }),
-        description: Joi.string().required().custom((value, helpers) => {
+        description: Joi.string().custom((value, helpers) => {
             const wordCount = value.trim().split(/\s+/).length;
             if (wordCount > 1000) {
               return helpers.error('any.custom');

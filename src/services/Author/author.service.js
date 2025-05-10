@@ -33,7 +33,7 @@ export const AuthorService = {
             if (!author) {
                  throw new Error('Author not found');
             }
-            return AuthorDTOForUser(author);
+            return new AuthorDTOForUser(author);
         } catch (error) {
             console.error('Error adding author:', error);
             throw new Error('Error adding author: ' + error.message);
@@ -47,7 +47,7 @@ export const AuthorService = {
             if (!author) {
                 throw new Error('Author not found');
             }
-            return AuthorDTOForUser(author);
+            return new AuthorDTOForUser(author);
         } catch (error) {
             console.error('Error adding author:', error);
             throw new Error('Error adding author: ' + error.message);
@@ -59,7 +59,7 @@ export const AuthorService = {
             if (!author) {
                 throw new Error('Author not found');
             }
-            return author;
+            return new AuthorDTOForUser(author);
         } catch (error) {
             console.error('Error adding author:', error);
             throw new Error('Error adding author: ' + error.message);

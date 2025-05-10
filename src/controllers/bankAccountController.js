@@ -13,7 +13,7 @@ export const addAccount = [
             accountNumber,
             bankName
         };
-        const newAccount = await bankAccountService.addAccount(accountData);
+        const newAccount = await bankAccountService.addAccountService(accountData);
         return ResponseHelper.success(res, 'Account added successfully', newAccount, 201);
    } catch (error) {
         next(error);
@@ -35,7 +35,7 @@ export const addAccount = [
 export const getAccounts = async (req, res, next) => {
     try {
         const { userId } = req.params;
-        const accounts = await bankAccountService.getAccounts(userId);
+        const accounts = await bankAccountService.getAccountsService(userId);
         return ResponseHelper.success(res, 'Accounts retrieved successfully', accounts, 200);
     } catch (error) {
         next(error);
@@ -45,7 +45,7 @@ export const getAccounts = async (req, res, next) => {
 export const removeAccount = async (req, res, next) => {
     try {
         const { accountId } = req.params;
-        const deletedAccount = await bankAccountService.deleteAccount(accountId);
+        const deletedAccount = await bankAccountService.deleteAccountService(accountId);
         return ResponseHelper.success(res, 'Account deleted successfully', deletedAccount, 200);
     } catch (error) {
         next(error);

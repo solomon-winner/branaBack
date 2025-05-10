@@ -25,19 +25,19 @@ const router = express.Router();
  *        bankName:
  *          type: string
  *          description: The name of the bank
- *        accountNo:
+ *        accountNumber:
  *          type: string
  *          description: The account number
  */
 
 /**
  * @swagger
- * /api/bank:
+ * /api/bank/{userId}:
  *  post:
  *   summary: Add a new bank account
  *   tags: [BankAccount]
  *   parameters:
- *   - in: params
+ *   - in: path
  *     name: userId
  *     required: true
  *     description: ID of the user
@@ -69,7 +69,7 @@ const router = express.Router();
  *                 example: "User cannot have more than 10 bank accounts"
  *   
  */
-router.post("/", validateObjectIds(['params']),addAccount);
+router.post("/:userId", validateObjectIds(['params']),addAccount);
 
 /**
  * @swagger
@@ -104,7 +104,7 @@ router.post("/", validateObjectIds(['params']),addAccount);
 *           type: string
 *           description: Error message
 *           example: User not found
- */
+*/
 router.get("/:userId", validateObjectIds(['params']), getAccounts);
 
 // /**

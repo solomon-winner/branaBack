@@ -10,13 +10,13 @@ const BankAccountSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  accountNo: {
+  accountNumber: {
     type: String,
     required: true
   },
 });
 
-BankAccountSchema.index({ userId: 1, bankAccountNo: 1 }, { unique: true });
+BankAccountSchema.index({ userId: 1, accountNumber: 1, bankName: 1 }, { unique: true });
 
 BankAccountSchema.pre('save', async function (next) {
   const count = await mongoose.model('BankAccount').countDocuments({ userId: this.userId });

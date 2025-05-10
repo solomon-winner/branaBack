@@ -53,7 +53,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /authors:
+ * /api/authors:
  *   get:
  *     summary: Get all authors
  *     tags: [Authors]
@@ -89,7 +89,7 @@ router.get("/", getAuthors);
 
 /**
  * @swagger
- * /authors:
+ * /api/authors:
  *   post:
  *     summary: Add a new author
  *     tags: [Authors]
@@ -144,7 +144,7 @@ router.post("/", addAuthors);
 router.get("/:id", validateObjectIds(['params']),getAuthorById);
 /**
  * @swagger
- * /authors/{id}:
+ * /api/authors/{id}:
  *   put:
  *     summary: Update an existing author
  *     tags: [Authors]
@@ -172,7 +172,7 @@ router.get("/:id", validateObjectIds(['params']),getAuthorById);
 router.put("/:id", validateObjectIds(['params']),updateAuthors);
 /**
  * @swagger
- * /authors/{id}:
+ * /api/authors/{id}:
  *   delete:
  *     summary: Delete an author by ID
  *     tags: [Authors]
