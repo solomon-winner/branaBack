@@ -1,5 +1,5 @@
 export class BookDTOForUser {
-    constructor({ _id, title, author, img, rating, price, description, category, availableBooks, language, pages, publisher, year, isBestSeller, isTrending, isOnSale, isDiscounted, discount, discountedPrice, isComingSoon, isPreOrder, isSoldOut }) {
+    constructor({ _id, title, author, img, rating, price, description, category, availableBooks, language, pages, publisher, year, isBestSeller, isTrending, isOnSale, isDiscounted, discount, discountedPrice, isComingSoon, isPreOrder, isSoldOut ,isInCollection = {}}) {
         this.id = _id;
         this.title = title;
         this.author = author;
@@ -22,5 +22,9 @@ export class BookDTOForUser {
         this.isComingSoon = isComingSoon;
         this.isPreOrder = isPreOrder;
         this.isSoldOut = isSoldOut;
+        this.isFavourite= !!isInCollection.isFavourite;
+        this.isWishlist= !!isInCollection.isWishlist;
+        this.isSaved= !!isInCollection.isSaved;
+        this.isRecommended= !!isInCollection.isRecommended;
     }
 }

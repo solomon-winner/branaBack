@@ -8,15 +8,37 @@ export const BookService = {
     const skip = (page - 1) * limit;
     const filter = category ? { category } : {};
     const books = await Book.find( filter).skip(skip).limit(limit);
+   const bookIds = books.map(book => book._id);
+
     const collections = await UserCollections.find({
       userId: userId,
-      targetId: { $in: books.map((book) => book._id) },
+      targetId: { $in: bookIds},
       targetType: 'Book',
     })
+    const collectionsByBookId = {};
 
-    console.log('collections:', collections);
+    collections.forEach(collection => {
+      const bookId = collection.targetId.toString();
+      if (!collectionsByBookId[bookId]) {
+        collectionsByBookId[bookId] = {};
+      }
+      collectionsByBookId[bookId][collection.collectionType] = true;
+    });
+
+    const enrichedBooks = books.map(book => {
+      const collectionInfo = collectionsByBookId[book._id.toString()] || {};
+      return {
+        ...book.toObject(),
+        isInCollection: {
+            isFavourite: !!collectionInfo.favourite,
+            isWishlist: !!collectionInfo.wishlist,
+            isSaved: !!collectionInfo.saved,
+            isRecommended: !!collectionInfo.recommended,
+        },
+      };
+    })
     const metaData =  await getPagination( page, limit, Book, filter);
-    return {metaData, books: books.map((book) => new BookDTOForUser(book))};
+    return {metaData, books: enrichedBooks.map((book) => new BookDTOForUser(book))};
 },
 
 getBookByIdService: async (id) => {

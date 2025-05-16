@@ -36,7 +36,7 @@ export const getBooks = [
     async (req, res, next) => {
     try {
         const { page, limit, genre } = req.query;
-        const books = await BookService.getBooksService({ page, limit, genre, userId: req.user._id });
+        const books = await BookService.getBooksService({ page, limit, genre, userId: req.user.id });
         return ResponseHelper.success(res, 'Books retrieved successfully',books , 200);
 
     } catch (error) {
