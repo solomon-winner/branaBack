@@ -31,25 +31,26 @@ export const FavouriteService = {
     },
     getFavouriteBook: async (userId) => {
         try {
-            const favourites = await UserCollections.find({userId , targetType: 'Book', collectionType: 'favourite'}).populate('targetId', 'title img').select( '-__v' ).lean();
-            return favourites;
+            const favourites = await UserCollections.find({userId , targetType: 'Book', collectionType: 'favourite'}).populate('targetId', 'title img author').select( '-__v' ).lean();
+            const favouriteDtos = favourites.map((favourite) => new bookFavouriteDto(favourite));
+        
+            return favouriteDtos;
         } catch (error) {
             throw new Error("Error fetching favourite books");
         }
     },
     addFavouriteBook: async (userId, bookId) => {
+        try {
         const book = await Book.findById(bookId).select("title img author").lean();
-        
         if (!book) {
         throw new Error("Book not found");
     }
 
-        try {
             const favourite = (await UserCollections.create({ userId, targetId: bookId, targetType: "Book", collectionType: "favourite"})).toObject();
             favourite.targetId = book;
             return new bookFavouriteDto(favourite);
         } catch (error) {
-            throw new Error("Error adding favourite book");
+            throw new Error(`Error adding favourite book: ${error}`);
         }
     },
     removeFavouriteBook: async (userId, categoryId) => {

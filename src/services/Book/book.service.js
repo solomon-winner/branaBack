@@ -1,12 +1,20 @@
 import { BookDTOForUser } from '../../DTOS/bookDTO/bookdtoForUser.dto.js';
 import {Book} from '../../models/book.js';
+import { UserCollections } from '../../models/userCollections.js';
 import getPagination from '../../utils/getPagination.js';
 
 export const BookService = {
-  getBooksService: async ({ page = 1, limit = 10, category }) => {
+  getBooksService: async ({ page = 1, limit = 10, category, userId }) => {
     const skip = (page - 1) * limit;
     const filter = category ? { category } : {};
     const books = await Book.find( filter).skip(skip).limit(limit);
+    const collections = await UserCollections.find({
+      userId: userId,
+      targetId: { $in: books.map((book) => book._id) },
+      targetType: 'Book',
+    })
+
+    console.log('collections:', collections);
     const metaData =  await getPagination( page, limit, Book, filter);
     return {metaData, books: books.map((book) => new BookDTOForUser(book))};
 },

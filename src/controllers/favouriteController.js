@@ -38,8 +38,7 @@ export const getFavouriteBook = async (req, res, next) => {
     try {
         const { userId } = req.query;
         const favourite = await FavouriteService.getFavouriteBook(userId);
-        const favouriteDtos = favourite.map((favourite) => new authorFavouriteDto(favourite));
-        return ResponseHelper.success(res, 'Favourite book retrieved successfully', favouriteDtos, 200);
+        return ResponseHelper.success(res, 'Favourite book retrieved successfully', favourite, 200);
     } catch (error) {
         next(error);
     }
