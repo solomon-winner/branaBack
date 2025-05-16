@@ -30,7 +30,6 @@ export const login =[
         }
 
         const accessToken = TokenService.generateAccessToken(user);
-        console.log('Access Token:', accessToken);
         const refreshToken = await TokenService.generateAndStoreRefreshToken(
             user,
             req.ip,

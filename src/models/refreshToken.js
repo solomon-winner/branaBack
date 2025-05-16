@@ -33,7 +33,7 @@ const refreshTokenSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-});
+},{timestamps: true});
 
 refreshTokenSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
