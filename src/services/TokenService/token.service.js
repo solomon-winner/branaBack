@@ -13,11 +13,11 @@ export const TokenService = {
   generateAccessToken: (user) => {
     try {
       if (!user?._id) throw new Error('Invalid user object');
-      
-      return jwt.sign(
+      const jti = crypto.randomUUID();
+      const token = jwt.sign(
         {
           sub: user._id,
-          jti: crypto.randomUUID(),
+          jti,
           aud: 'Brana Application',
           iss: 'Brana Server',
           iat: Math.floor(Date.now() / 1000),
@@ -29,13 +29,15 @@ export const TokenService = {
           header: { typ: 'JWT', kid: 'v1' }
         }
       );
+
+      return {token, jti}
     } catch (error) {
       console.error('Token generation failed:', error);
       throw new Error('Failed to generate access token');
     }
   },
 
-  generateAndStoreRefreshToken: async (user, ipAddress, userAgent) => {
+  generateAndStoreRefreshToken: async (user, ipAddress, userAgent, accessTokenJti) => {
     try {
       if (!user?._id) throw new Error('Invalid user object');
       
@@ -50,6 +52,7 @@ export const TokenService = {
       await RefreshToken.create({
         userId: user._id,
         tokenHash,
+        accessTokenJti,
         expiresAt,
         ipAddress,
         userAgent
@@ -69,7 +72,7 @@ export const TokenService = {
       const decoded = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ['HS256'] });
       
       const isRevoked = await RefreshToken.exists({ 
-        tokenHash: this.hashToken(decoded.jti), 
+        accessTokenJti: decoded.jti, 
         revoked: true 
       });
 

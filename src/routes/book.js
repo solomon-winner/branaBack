@@ -1,6 +1,7 @@
 import express from "express";
 import { addBook, deleteBook, getBookById, getBooks, updateBook } from "../controllers/bookController.js";
 import { validateObjectIds } from "../middlewares/validateObjectIds.js";
+import { AuthMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -106,7 +107,7 @@ const router = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Book'
  */
-router.get("/", getBooks);
+router.get("/", AuthMiddleware, getBooks);
 
 /**
  * @swagger

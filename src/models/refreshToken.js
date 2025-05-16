@@ -11,6 +11,10 @@ const refreshTokenSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  accessTokenJti: {
+    type: String,
+    index: true,
+  },
   expiresAt: {
     type: Date,
     required: true,

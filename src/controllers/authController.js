@@ -30,10 +30,12 @@ export const login =[
         }
 
         const accessToken = TokenService.generateAccessToken(user);
+        console.log('Access Token:', accessToken);
         const refreshToken = await TokenService.generateAndStoreRefreshToken(
             user,
             req.ip,
-            req.get('User-Agent')
+            req.get('User-Agent'),
+            accessToken.jti
           );
 
         // res.cookie('accessToken', accessToken, {
@@ -50,7 +52,7 @@ export const login =[
         //     maxAge: 7 * 24 * 60 * 60 * 1000 
         //   });
 
-        ResponseHelper.success(res, 'Login successful', {user: new UserDTOForUser(user),accessToken, refreshToken,} , 200);
+        ResponseHelper.success(res, 'Login successful', {user: new UserDTOForUser(user),accessToken: accessToken.token, refreshToken,} , 200);
     } catch (error) {
         next(error);
     }
