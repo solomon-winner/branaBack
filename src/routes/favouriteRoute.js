@@ -11,6 +11,7 @@ import {
   removeFavouriteAuthor,
 } from "../controllers/favouriteController.js";
 import { validateObjectIds } from "../middlewares/validateObjectIds.js";
+import { AuthMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -48,18 +49,11 @@ router.get("/category", validateObjectIds(['query']),getFavouriteCategory);
  *   get:
  *     summary: Get user's favourite books
  *     tags: [Favourites]
- *     parameters:
- *       - in: query
- *         name: userId
- *         schema:
- *           type: string
- *         required: true
- *         description: ID of the user
  *     responses:
  *       200:
  *         description: Favourite books retrieved successfully
  */
-router.get("/book", validateObjectIds(['query']), getFavouriteBook);
+router.get("/book", AuthMiddleware, getFavouriteBook);
 
 /**
  * @swagger
@@ -95,15 +89,13 @@ router.get("/author", validateObjectIds(['query']), getFavouriteAuthor);
  *             required:
  *               - categoryId
  *             properties:
- *               userId:
- *                 type: string
  *               categoryId:
  *                 type: string
  *     responses:
  *       201:
  *         description: Favourite category added successfully
  */
-router.post("/category", validateObjectIds(['body']), addFavouriteCategory);
+router.post("/category",AuthMiddleware ,validateObjectIds(['body']), addFavouriteCategory);
 
 /**
  * @swagger
@@ -143,32 +135,23 @@ router.delete("/category/:userId", validateObjectIds(['params','query']), remove
  *           schema:
  *             type: object
  *             required:
- *               - userId
  *               - bookId
  *             properties:
- *               userId:
- *                 type: string
  *               bookId:
  *                 type: string
  *     responses:
  *       201:
  *         description: Favourite book added successfully
  */
-router.post("/book", validateObjectIds(['body']), addFavouriteBook);
+router.post("/book", AuthMiddleware, validateObjectIds(['body']), addFavouriteBook);
 
 /**
  * @swagger
- * /api/favourites/book/{userId}:
+ * /api/favourites/book/:
  *   delete:
  *     summary: Remove a book from user's favourites
  *     tags: [Favourites]
  *     parameters:
- *       - in: path
- *         name: userId
- *         schema:
- *           type: string
- *         required: true
- *         description: user ID
  *       - in: query
  *         name: bookId
  *         schema:
@@ -179,7 +162,7 @@ router.post("/book", validateObjectIds(['body']), addFavouriteBook);
  *       200:
  *         description: Favourite book removed successfully
  */
-router.delete("/book/:userId", validateObjectIds(['params','query']), removeFavouriteBook);
+router.delete("/book/", AuthMiddleware,validateObjectIds(['query']), removeFavouriteBook);
 
 /**
  * @swagger

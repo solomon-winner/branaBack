@@ -5,7 +5,7 @@ export const getWishList =[
     
     async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const userId =  req.user.id;
         const wishList = await wishListService.getWishList(userId);
         return ResponseHelper.success(res, 'Wish list retrieved successfully', wishList, 200);
     } catch (error) {
@@ -17,7 +17,7 @@ export const addWishList = [
     
     async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const  userId =  req.user.id;
         const { bookId } = req.body;
         const wishList = await wishListService.addWishList(userId, bookId);
         return ResponseHelper.success(res, 'Book added to wish list successfully', wishList, 201);
@@ -28,7 +28,7 @@ export const addWishList = [
 
 export const removeWishList = async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const userId =  req.user.id;
         const { bookId } = req.body;
         const removedBook = await wishListService.removeWishList(userId, bookId);
         return ResponseHelper.success(res, 'Book removed from wish list successfully', removedBook, 200);

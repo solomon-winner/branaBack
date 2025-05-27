@@ -53,6 +53,7 @@ const AddBookSchema = {
     img: Joi.string().uri().optional().messages({
       'string.uri': 'Image must be a valid URL',
     }),
+    
     description: Joi.string().custom((value, helpers) => {
       const wordCount = value.trim().split(/\s+/).length;
       if (wordCount > 2000) {

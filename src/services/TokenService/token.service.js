@@ -24,7 +24,7 @@ export const TokenService = {
         },
         process.env.JWT_SECRET,
         {
-          expiresIn: '15m',
+          expiresIn: '60m',
           algorithm: 'HS256',
           header: { typ: 'JWT', kid: 'v1' }
         }

@@ -1,6 +1,7 @@
 import express from "express";
 import {getWishList, addWishList, removeWishList} from "../controllers/wishListController.js";
 import { validateObjectIds } from "../middlewares/validateObjectIds.js";
+import { AuthMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -38,17 +39,10 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/wishlist/{userId}:
+ * /api/wishlist/:
  *  get:
  *   summary: Get wish list for a user
  *   tags: [WishList]
- *   parameters:
- *    - in: path
- *      name: userId
- *      required: true
- *      description: ID of the user
- *      schema:
- *       type: string
  *   responses:
  *    200:
  *     description: Successfully retrieved wish list
@@ -61,21 +55,14 @@ const router = express.Router();
  * 
  */
  
-router.get("/:userId", validateObjectIds(['params']), getWishList);
+router.get("/", AuthMiddleware, getWishList);
 
 /**
  * @swagger
- * /api/wishlist/{userId}:
+ * /api/wishlist/:
  *  post:
  *   summary: Add a new book to the wish list
  *   tags: [WishList]
- *   parameters:
- *   - in: path
- *     name: userId
- *     required: true
- *     description: ID of the user
- *     schema:
- *       type: string
  *   requestBody:
  *     required: true
  *     content:
@@ -92,22 +79,16 @@ router.get("/:userId", validateObjectIds(['params']), getWishList);
  *       content:
  *         application/json:
  *           schema:
+ *             type: object
  *             $ref: '#/components/schemas/WishList'
  */
-router.post("/:userId", validateObjectIds(['params', 'body']),addWishList);
+router.post("/", AuthMiddleware, validateObjectIds(['body']), addWishList);
 /**
  * @swagger
- * /api/wishlist/{userId}:
+ * /api/wishlist/:
  *  delete:
  *   summary: Remove a book from the wish list
  *   tags: [WishList]
- *   parameters:
- *    - in: path
- *      name: userId
- *      required: true
- *      description: ID of the user
- *      schema:
- *       type: string
  *   requestBody:
  *     required: true
  *     content:
@@ -122,7 +103,7 @@ router.post("/:userId", validateObjectIds(['params', 'body']),addWishList);
  *     200:
  *       description: The book was successfully removed from the wish list
  */
-router.delete("/:userId", validateObjectIds(['params', 'body']), removeWishList);
+router.delete("/", AuthMiddleware, validateObjectIds(['body']), removeWishList);
 
 export default router;
 

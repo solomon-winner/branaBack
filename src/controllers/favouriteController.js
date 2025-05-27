@@ -36,7 +36,7 @@ try {
 
 export const getFavouriteBook = async (req, res, next) => {
     try {
-        const { userId } = req.query;
+        const userId = req.user.id;
         const favourite = await FavouriteService.getFavouriteBook(userId);
         return ResponseHelper.success(res, 'Favourite book retrieved successfully', favourite, 200);
     } catch (error) {
@@ -45,7 +45,8 @@ export const getFavouriteBook = async (req, res, next) => {
 }
 export const addFavouriteBook = async (req, res, next) => {
     try {
-        const { userId, bookId } = req.body;
+        const userId = req.user.id;
+        const { bookId } = req.body;
         const favourite = await FavouriteService.addFavouriteBook(userId, bookId);
         return ResponseHelper.success(res, 'Favourite book added successfully', favourite, 201);
     } catch (error) {
@@ -54,7 +55,7 @@ export const addFavouriteBook = async (req, res, next) => {
 }
 export const removeFavouriteBook = async (req, res, next) => {
 try {
-    const { userId } = req.params;
+    const userId = req.user.id;
     const { bookId } = req.query;
     const favourite = await FavouriteService.removeFavouriteBook(userId, bookId);
     return ResponseHelper.success(res, 'Favourite book removed successfully', favourite, 200);
@@ -77,7 +78,8 @@ export const getFavouriteCategory = async (req, res, next) => {
 }
 export const addFavouriteCategory = async (req, res, next) => {
 try {
-    const { userId,categoryId } = req.body;
+    const userId = req.user.id;
+    const { categoryId } = req.body;
     const favourite = await FavouriteService.addFavouriteCategory(userId, categoryId);
     return ResponseHelper.success(res, 'Favourite category added successfully', favourite, 201);
 } catch (error) {
