@@ -9,17 +9,10 @@ const objectId = Joi.string().hex().length(24).required().messages({
 
 const createShelveSchema = {
   body: Joi.object({
-    user: objectId.label('User ID'),
-    book: objectId.label('Book ID'),
     bookCount: Joi.number().integer().min(1).default(1).messages({
       'number.base': 'Book count must be a number',
       'number.integer': 'Book count must be an integer',
       'number.min': 'Book count must be at least 1',
-    }),
-    price: Joi.number().min(0).required().messages({
-      'number.base': 'Price must be a number',
-      'number.min': 'Price must be a non-negative number',
-      'any.required': 'Price is required',
     }),
     to: Joi.string().trim().default('me').messages({
       'string.base': '"to" must be a string',

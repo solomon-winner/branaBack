@@ -97,11 +97,6 @@ router.get("/", AuthMiddleware, getShelves);
  *         schema:
  *           type: string
  *         description: ID of the book
- *       - in: query
- *         name: to
- *         schema:
- *           type: string
- *         description: ID of the user gifted to
  *     requestBody:
  *       required: true
  *       content:
@@ -112,6 +107,10 @@ router.get("/", AuthMiddleware, getShelves);
  *              bookCount:
  *               type: integer
  *               description: Number of books to add to the shelve
+ *              to: 
+ *               type: string
+ *               description: default me
+ *               example: "me"
  *     responses:
  *       201:
  *         description: Book added to shelve

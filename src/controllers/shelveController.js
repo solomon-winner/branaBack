@@ -1,4 +1,4 @@
-import { ShelveService } from "../services/Shelve/shelve .service.js";
+import { ShelveService } from "../services/Shelve/shelve.service.js";
 import ResponseHelper from "../utils/responseHelper.js";
 import { validateCreateShelve } from "../validation/shelve/shelveValidation.js";
 
@@ -7,10 +7,10 @@ export const addShelve = [
     async (req, res, next) => {
     try {
         const id  = req.user.id;
-        const { bookId, to } = req.query;
-        const { bookCount } = req.body;
+        const { bookId } = req.query;
+        const { bookCount, to, isPaied } = req.body;
         
-        const shelve = await ShelveService.addShelve({ user: id, book: bookId, bookCount, to });
+        const shelve = await ShelveService.addShelve({ user: id, book: bookId, bookCount, to,isPaied });
         return ResponseHelper.success(res, 'Book added to your shelve successfully!', shelve, 201);
     } catch (error) {
         next(error);

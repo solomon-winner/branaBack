@@ -5,7 +5,7 @@ import { ShelveForUserDto } from "../../DTOS/shelve/shelveForUser.dto.js";
 export const ShelveService = {
     addShelve: async (shelveData) => {
         try {
-            const book = await Book.findById(shelveData.book).select("title img author price availableBooks").lean();
+            const book = await Book.findById(shelveData.book).select("title img author price availableBooks");
     
             if (!book) {
                 throw new Error('Book not found');
@@ -19,10 +19,16 @@ export const ShelveService = {
                 throw new Error('Not enough books available');
             }
     
-            shelveData.price = book.price;
+            shelveData.price = shelveData.bookCount * book.price;
     
             const shelve = new Shelve(shelveData);
             await shelve.save();
+
+            if(shelveData?.isPaied === true) {
+                 book.availableBooks -= shelveData.bookCount;
+             await book.save();
+
+            } 
             await shelve.populate("book", "title img author price");
             return new ShelveForUserDto(shelve);
         } catch (error) {
