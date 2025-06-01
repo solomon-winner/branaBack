@@ -28,18 +28,18 @@ const purchaseHistorySchema = new mongoose.Schema({
     },
     paymentMethod: {
         type: String,
-        required: true,
+        // required: true,
         enum: ["cash", "card", "mobile", "bank"],
     },
     deliveryAddress: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Address",
-        required: true,
+        // required: true,
     },
     bankAccount: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "BankAccount",
-        required: true,
+        // required: true,
     },
     status: {
         type: String,

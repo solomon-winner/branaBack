@@ -1,6 +1,7 @@
 import express from "express";
 import { addShelve, removeABookFromShelve, removeWholeShelve, PayForShelve, getShelves, payForAllOnce } from "../controllers/shelveController.js";
 import { validateObjectIds } from "../middlewares/validateObjectIds.js";
+import { AuthMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -48,17 +49,10 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/shelve/{userId}:
+ * /api/shelve/:
  *   get:
  *     summary: Get all shelve items for a user
  *     tags: [Shelve]
- *     parameters:
- *        - in: path
- *          name: userId
- *          required: true
- *          schema:
- *           type: string
- *          description: ID of the user
  *     responses:
  *       200:
  *         description: Successfully retrieved shelve items
@@ -89,20 +83,14 @@ const router = express.Router();
  *                   type: string
  *                   example: "Internal server error"
  */
-router.get("/:userId", validateObjectIds(['params']), getShelves);
+router.get("/", AuthMiddleware, getShelves);
 /**
  * @swagger
- * /api/shelve/{id}:
+ * /api/shelve/:
  *   post:
  *     summary: Add a book to the shelve
  *     tags: [Shelve]
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: ID of the user adding the book
  *       - in: query
  *         name: bookId
  *         required: true
@@ -132,7 +120,7 @@ router.get("/:userId", validateObjectIds(['params']), getShelves);
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.post("/:id", validateObjectIds(['params','query']),addShelve);
+router.post("/", AuthMiddleware, validateObjectIds(['query']),addShelve);
 
 /**
  * @swagger
@@ -158,17 +146,10 @@ router.post("/:id", validateObjectIds(['params','query']),addShelve);
 router.post("/pay/:shelveId", validateObjectIds(['params']),PayForShelve);
 /**
  * @swagger
- * /api/shelve/payAllOnce/{userId}:
+ * /api/shelve/payAllOnce/:
  *   post:
  *     summary: Pay for all shelve items at once
  *     tags: [Shelve]
- *     parameters:
- *       - in: path
- *         name: userId
- *         required: true
- *         schema:
- *           type: string
- *         description: ID of the user
  *     responses:
  *       200:
  *         description: All shelve items paid for successfully
@@ -177,20 +158,13 @@ router.post("/pay/:shelveId", validateObjectIds(['params']),PayForShelve);
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.post("/payAllOnce/:userId", validateObjectIds(['params']),payForAllOnce);
+router.post("/payAllOnce/",AuthMiddleware, validateObjectIds(['params']),payForAllOnce);
 /**
  * @swagger
- * /api/shelve/remove/{userId}:
+ * /api/shelve/remove/:
  *   delete:
  *     summary: Remove all shelve items for a user
  *     tags: [Shelve]
- *     parameters:
- *       - in: path
- *         name: userId
- *         required: true
- *         schema:
- *           type: string
- *         description: ID of the user
  *     responses:
  *       200:
  *         description: Entire shelve removed
@@ -199,7 +173,7 @@ router.post("/payAllOnce/:userId", validateObjectIds(['params']),payForAllOnce);
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.delete("/remove/:userId", validateObjectIds(['params']),removeWholeShelve);
+router.delete("/remove/",AuthMiddleware, validateObjectIds(['params']),removeWholeShelve);
 
 /**
  * @swagger

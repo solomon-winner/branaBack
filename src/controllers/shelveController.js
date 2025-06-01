@@ -3,7 +3,7 @@ import ResponseHelper from "../utils/responseHelper.js";
 
 export const addShelve = async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const id  = req.user.id;
         const { bookId, to } = req.query;
         const { bookCount } = req.body;
         
@@ -15,7 +15,7 @@ export const addShelve = async (req, res, next) => {
 }
 export const getShelves = async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const  userId  = req.user.id;
         const shelves = await ShelveService.getShelves(userId);
         return ResponseHelper.success(res, 'Shelves retrieved successfully!', shelves, 200);
     } catch (error) {
@@ -34,7 +34,7 @@ export const removeABookFromShelve = async (req, res, next) => {
 
 export const removeWholeShelve = async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const userId  = req.user.id;
         const shelve = await ShelveService.removeWholeShelve(userId);
         return ResponseHelper.success(res, 'Shelve updated successfully!', shelve, 200);
     } catch (error) {
@@ -54,7 +54,7 @@ export const PayForShelve = async (req, res, next) => {
 
 export const payForAllOnce = async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const userId = req.user.id;
         const shelve = await ShelveService.payForAllOnce(userId);
         return ResponseHelper.success(res, 'Shelve updated successfully!', shelve, 200);
     } catch (error) {

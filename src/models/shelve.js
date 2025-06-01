@@ -24,6 +24,7 @@ const shelveSchema = new mongoose.Schema({
     to: {
         type: String,
         default: "me",
+        
     },
     isPaied: {
         type: Boolean,
