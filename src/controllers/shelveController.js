@@ -16,6 +16,7 @@ export const addShelve = [
         next(error);
     }
 }]
+
 export const getShelves = async (req, res, next) => {
     try {
         const  userId  = req.user.id;
@@ -64,3 +65,18 @@ export const payForAllOnce = async (req, res, next) => {
         next(error);
     }
 }
+
+// export const BuyHere = [ 
+//     validateCreateShelve,
+//     async(req, res, next) => {
+//     try {
+//         const userId = req.user.id;
+//          const { bookId, to } = req.query;
+//         const { bookCount } = req.body;
+
+//         const paidShelveItem = await ShelveService.BuyHere({ user: userId, book: bookId, bookCount, to });
+//         return ResponseHelper.success(res, 'You successfully purchase a book! ThankYou!', 200);
+//     } catch (error) {
+//         next(error);
+//     }
+// }]

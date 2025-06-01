@@ -120,7 +120,7 @@ router.get("/", AuthMiddleware, getShelves);
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.post("/", AuthMiddleware, validateObjectIds(['query']),addShelve);
+router.post("/", AuthMiddleware, validateObjectIds(['query']), addShelve);
 
 /**
  * @swagger
@@ -143,11 +143,11 @@ router.post("/", AuthMiddleware, validateObjectIds(['query']),addShelve);
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.post("/pay/:shelveId", validateObjectIds(['params']),PayForShelve);
+router.put("/pay/:shelveId", validateObjectIds(['params']), PayForShelve);
 /**
  * @swagger
  * /api/shelve/payAllOnce/:
- *   post:
+ *   put:
  *     summary: Pay for all shelve items at once
  *     tags: [Shelve]
  *     responses:
@@ -158,7 +158,7 @@ router.post("/pay/:shelveId", validateObjectIds(['params']),PayForShelve);
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.post("/payAllOnce/",AuthMiddleware, validateObjectIds(['params']),payForAllOnce);
+router.put("/payAllOnce/",AuthMiddleware, payForAllOnce);
 /**
  * @swagger
  * /api/shelve/remove/:
@@ -173,7 +173,7 @@ router.post("/payAllOnce/",AuthMiddleware, validateObjectIds(['params']),payForA
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
-router.delete("/remove/",AuthMiddleware, validateObjectIds(['params']),removeWholeShelve);
+router.delete("/remove/",AuthMiddleware, removeWholeShelve);
 
 /**
  * @swagger
@@ -196,6 +196,7 @@ router.delete("/remove/",AuthMiddleware, validateObjectIds(['params']),removeWho
  *             schema:
  *               $ref: '#/components/schemas/Shelve'
  */
+
 router.delete("/:shelveId", validateObjectIds(['params']), removeABookFromShelve);
 
 export default router;

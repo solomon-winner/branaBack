@@ -44,6 +44,14 @@ export const ShelveService = {
             throw new Error('Error fetching shelves: ' + error.message);
         }
     },
+    // BuyHere: async(shelveData) => {
+    //     try {
+            
+    //     } catch (error) {
+    //     console.error('Error adding shelve:', error);
+    //     throw new Error('Error adding shelve: ' + error.message);         
+    //     }
+    // },
     removeFromShelve: async (shelveId) => {
         try {
             const shelve = await Shelve.findByIdAndDelete(shelveId);
